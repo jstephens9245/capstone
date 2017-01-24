@@ -5,6 +5,8 @@ const app = require('./index');
 const server = require('http').createServer(app);
 const port = process.env.PORT || 3030;
 
+require('ROOT/server/models');
+
 require('./sockets')(server);
 
 server.listen(port, () => {
