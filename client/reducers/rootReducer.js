@@ -1,6 +1,5 @@
 import {CLEAR_STORE} from '../constants';
 import {combineReducers} from 'redux';
-import {socketReducer} from './socketReducer';
 
 export const combinedReducer = combineReducers({dummy: (state = {}) => state});
 
