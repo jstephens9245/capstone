@@ -1,7 +1,5 @@
 /** Settings
  */
-@import 'settings/colors';
-@import 'settings/fonts';
 
 /** Tools
  * Mixins / Functions
@@ -10,7 +8,6 @@
 /** Generic
  * Resets
  */
-@import 'generic/reset';
 
 /** Base
  * Element styles (no classes)
@@ -25,10 +22,8 @@
  * Patterns with a visual design
  * class prefix: `c-`
  */
-@import 'components/Controller';
 
 /** Controls
  * Override / Helper / Utility classes
  * class prefix: `ctrl-`
  */
-@import 'controls/positioning';
