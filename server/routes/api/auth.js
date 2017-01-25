@@ -33,7 +33,6 @@ passport.use(new LocalStrategy({
 	email: 'email',
 	password: 'password'
 }, (email, password, done) => {
-	console.log(`local strategy: ${email} ${password}`);
 	User.findOne({
 		where: {
 			email: email,

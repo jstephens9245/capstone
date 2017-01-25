@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-
+import axios from 'axios';
+import {connect} from 'react-redux';
+import {createUser} from '../actions/user';
 
 
 class Signup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: '',
-			password: ''
+			firstName: '',
+			lastName : '',
+			email    : '',
+			password : '',
 		};
 
 		this.submitForm = this.submitForm.bind(this);
@@ -15,7 +19,8 @@ class Signup extends Component {
 	}
 
 	submitForm(e) {
-		console.log('submit form');
+		e.preventDefault();
+		this.props.createUser(this.state.firstName, this.state.lastName, this.state.email, this.state.password);
 	}
 
 	handleInput(e) {
@@ -28,13 +33,13 @@ class Signup extends Component {
 			<form className="form" onSubmit={(e) => { this.submitForm(e); }}>
 				<div className="form-group">
 					<label className="form-label" >First Name</label>
-					<input type="text" name="first_name" placeholder="First name"
+					<input type="text" name="firstName" placeholder="First name"
 					className="input"
 					onChange={(e) => { this.handleInput(e); }} />
 				</div>
 				<div className="form-group">
 					<label className="form-label" >Last Name</label>
-					<input type="text" name="last_name" placeholder="Last name"
+					<input type="text" name="lastName" placeholder="Last name"
 					className="input"
 					onChange={(e) => { this.handleInput(e); }} />
 				</div>
@@ -45,7 +50,7 @@ class Signup extends Component {
 					onChange={(e) => { this.handleInput(e); }} />
 				</div>
 				<div className="form-group">
-					<label className="form-label" > E-mail </label>
+					<label className="form-label" > Password </label>
 					<input type="password" name="password" placeholder="password"
 					className="input"
 					onChange={(e) => { this.handleInput(e); }} />
@@ -56,3 +61,12 @@ class Signup extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+	createUser: (firstName, lastName, email, password) =>
+	dispatch(createUser(firstName, lastName, email, password))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

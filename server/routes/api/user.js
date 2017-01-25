@@ -3,12 +3,16 @@
 const express = require('express');
 const Router = express.Router;
 const router = new Router();
-const {User} = ('ROOT/server/models');
+const {User} = require('ROOT/server/models');
+const chalk = require('chalk');
 
 
 /* create user */
 router.post('/', (req, res, next) => {
-	User.findOne({email: req.body.email})
+	const { first_name, last_name } = req.body;
+	console.log('FIRSTNAME: ', first_name);
+	User.findOne({
+		where: {email: req.body.email}})
 		.then(user => {
 			if (user) res.send({message: 'email already exists'});
 			else {
@@ -20,7 +24,6 @@ router.post('/', (req, res, next) => {
 				if (err) {
 					return next(err);
 				}
-
 				return res.send(user);
 			});
 		})

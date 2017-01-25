@@ -9,6 +9,7 @@ const passport = require('passport');
 const { User } = require('./models');
 const session = require('express-session');
 
+
 app.use(logger('combined'));
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -16,6 +17,12 @@ app.use(bodyParser.json());
 
 app.use(express.static('dist'));
 app.use(express.static('public'));
+
+app.use(session({
+	secret  									: 'dalek',
+	resave   								: false,
+	saveUninitialized: false,
+}));
 
 /* passport */
 app.use(passport.initialize());
