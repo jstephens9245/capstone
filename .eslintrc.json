@@ -205,8 +205,7 @@
 			"max": 25
 		}],
 		"id-match": 0,
-		"indent": [1, "tab", {
-			"SwitchCase": 1,
+		"indent": [1, 2, {
 			"VariableDeclarator": {
 				"var": 2,
 				"let": 2,
@@ -275,7 +274,7 @@
 		"no-continue": 0,
 		"no-inline-comments": 0,
 		"no-lonely-if": 1,
-		"no-mixed-operators": [1, {
+		"no-mixed-operators": [0, {
 			"allowSamePrecedence": true
 		}],
 		"no-mixed-spaces-and-tabs": 1,
@@ -338,7 +337,7 @@
 		"spaced-comment": 0,
 		"unicode-bom": 0,
 		"wrap-regex": 1,
-		"arrow-body-style": [1, "as-needed"],
+		"arrow-body-style": [0, "as-needed"],
 		"arrow-parens": 0,
 		"arrow-spacing": 1,
 		"constructor-super": 0,
