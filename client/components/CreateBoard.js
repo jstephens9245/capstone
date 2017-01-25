@@ -2,19 +2,23 @@ import React from 'react';
 import {Link} from 'react-router';
 
 const boards = [
-	{ id: 1, name: 'board1'},
-	{ id: 2, name: 'board2'}
-]
+	{
+		id  : 1, name: 'board1'
+	},
+	{
+		id  : 2, name: 'board2'
+	}
+];
 
 const CreateBoard = (props) => {
 	// const boards = props.boards;
 
-  return (
+	return (
 	<div>
 		<h3>Boards</h3>
 		<div className="row">
 			{
-				boards && boards.map(board => (
+				boards && boards.map((board) => (
 					<div className="col-xs-4" key={ board.id }>
 						<Link className="thumbnail" to={`/myboards/${board.id}`}>
 							{/* <Board board={board} /> */}
@@ -27,12 +31,18 @@ const CreateBoard = (props) => {
 					</div>
 				))
 			}
-			<div className="col-xs-4" style={{ textAlign: 'center',
-				backgroundColor: 'grey', paddingBottom: '8%'}}>
-				<a style={{textDecoration: 'none', color: 'black'}}>+</a>
+			<div className="col-xs-4" style={{
+				textAlign      : 'center',
+				backgroundColor: 'grey',
+				paddingBottom  : '8%'
+			}}>
+				<a style={{
+					textDecoration: 'none',
+					color         : 'black'
+				}}>+</a>
 			</div>
 		</div>
 	</div>
-  )
-}
+  );
+};
 export default CreateBoard;
