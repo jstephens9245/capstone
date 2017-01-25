@@ -12,6 +12,6 @@ import Routes from './Routes.jsx';
 import store from './store';
 
 ReactDOM.render(
-	<Provider store={store}><Routes/></Provider>,
-	document.getElementById('root')
+  <Provider store={store}><Routes/></Provider>,
+  document.getElementById('root')
 );

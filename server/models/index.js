@@ -13,5 +13,5 @@ User.hasMany(Note);
 Note.belongsTo(User);
 
 module.exports = {
-	Board, Note, User
+  Board, Note, User
 };

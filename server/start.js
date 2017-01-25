@@ -10,5 +10,5 @@ require('ROOT/server/models');
 require('./sockets')(server);
 
 server.listen(port, () => {
-	console.log(chalk.bgMagenta.cyan.italic(`____ Listening on port ${port}. ____`));
+  console.log(chalk.bgMagenta.cyan.italic(`____ Listening on port ${port}. ____`));
 });

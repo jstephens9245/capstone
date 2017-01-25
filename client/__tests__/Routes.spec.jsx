@@ -12,12 +12,12 @@ const expect = chai.expect;
 jest.unmock('../Routes.jsx');
 
 describe('<Routes />', () => {
-	let wrapper;
-	beforeEach(() => {
-		wrapper = shallow(<Routes />);
-	});
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Routes />);
+  });
 
-	it('should contain', () => {
-		expect(wrapper).to.exist;
-	});
+  it('should contain', () => {
+    expect(wrapper).to.exist;
+  });
 });
