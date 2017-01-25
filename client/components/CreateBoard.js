@@ -12,7 +12,6 @@ const boards = [
 
 const CreateBoard = (props) => {
 	// const boards = props.boards;
-
 	return (
 	<div>
 		<h3>Boards</h3>
