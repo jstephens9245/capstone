@@ -10,9 +10,22 @@ const {User} = require('ROOT/server/models');
 const LocalStrategy = require('passport-local').Strategy;
 
 router.post('/', (req, res, next) => {
-	passport.authenticate('local', {
-		successRedirect: 'http://localhost:3030/login',
-		failureRedirect: '/404'
+	passport.authenticate('local', (err, user, message) => {
+		if (err){
+			return next(err);
+		}
+		if (user) {
+			req.login(user, (loginErr) => {
+				if (loginErr) {
+					return next(loginErr);
+				}
+
+				return res.send(user);
+			});
+		}
+		else {
+			return res.send(message);
+		}
 	})(req, res, next);
 });
 
