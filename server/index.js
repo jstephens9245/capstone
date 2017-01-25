@@ -22,17 +22,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// passport.serializeUser((user, done) => {
-//   /* passport id is saved in the session and is later used to retrieve the whole object via deserializeUser function */
-//   done(null, user.id);
-// });
+passport.serializeUser((user, done) => {
+  /* passport id is saved in the session and is later used
+  to retrieve the whole object via deserializeUser function */
+	done(null, user.id);
+});
 
-// passport.deserializeUser((id, done) => {
-//   User.findById(id)
-//   .then((user) => {
-
-//   })
-// })
+passport.deserializeUser((id, done) => {
+	/* retrieve user object using user id */
+	User.findById(id)
+		.then((user) => {
+			done(null, user);
+		});
+});
 
 
 
