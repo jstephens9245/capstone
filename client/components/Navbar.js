@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 const Navbar = (props) => {
   return (
-		<div>
+    <div>
     <nav className="navbar navbar navbar-static-top" role="navigation">
       <div className="container">
         <div className="navbar-header">
