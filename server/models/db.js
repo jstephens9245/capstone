@@ -24,7 +24,7 @@ const db = module.exports = new Sequelize(url, {
 
 // sync the db, creating it if necessary
 function sync(retries = 0, maxRetries = 5) {
-	return db.sync({force: true})
+	return db.sync({})
 		.then((ok) => console.log(`Synced models to db ${url}`))
 		.catch((fail) => {
       // Don't do this auto-create nonsense in prod, or
