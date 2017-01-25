@@ -8,11 +8,11 @@ export default function(state = initialState, action) {
 	switch (action.type) {
 		case RECEIVE_BOARD:
 			newState.selectedBoard = action.board;
-		
-		case RECEIVE_BOARDS:
-			newState.allBoards = action.boards
-
 			break;
+
+		// case RECEIVE_BOARDS:
+		// 	newState.allBoards = action.boards
+			// break;
 
 		default:
 			return state;
