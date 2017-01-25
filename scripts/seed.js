@@ -14,7 +14,7 @@ const presetUsers = [
   }
 ];
 
-db.didSync
+module.exports = db.didSync
   .then(() => db.sync({force: true}))
   .then(() => seedUsers(userCount))
   .then(users => seedBoards(users, boardsPerUser))
