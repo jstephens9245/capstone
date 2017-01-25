@@ -1,4 +1,4 @@
-import RECEIVE_BOARD from '../constants';
+import {RECEIVE_BOARD} from '../constants';
 
 const initialState = {selectedBoard: {}, allBoards: []};
 
