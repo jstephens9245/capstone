@@ -14,82 +14,82 @@ const extractSass = new ExtractTextPlugin('style.css');
 const publicUrl = '';
 
 module.exports = {
-	devtool: 'source-map',
-	entry  : [
-		paths.indexJs
-	],
-	eslint: {configFile: paths.eslint},
-	module: {
-		loaders: [
-			{
-				exclude: /node_modules/,
-				include: [
-					paths.src
-				],
-				loader: 'babel',
-				test  : /(\.js|\.jsx)$/
-			},
-			{
-				exclude: /node_modules/,
-				include: [
-					paths.src
-				],
+  devtool: 'source-map',
+  entry  : [
+    paths.indexJs
+  ],
+  eslint: {configFile: paths.eslint},
+  module: {
+    loaders: [
+      {
+        exclude: /node_modules/,
+        include: [
+          paths.src
+        ],
+        loader: 'babel',
+        test  : /(\.js|\.jsx)$/
+      },
+      {
+        exclude: /node_modules/,
+        include: [
+          paths.src
+        ],
 
-				// loader : extractSass.extract([ 'css', 'postcss', 'sass' ]),
-				loaders: [ 'style', 'css', 'postcss', 'sass' ],
-				test   : /\.scss$/
-			},
-			{
-				loaders: [ 'style', 'css', 'postcss' ],
-				test   : /\.css$/
-			},
-			{
-				loader: 'json',
-				test  : /\.json$/
-			}
-		],
-		postLoaders: [
+        // loader : extractSass.extract([ 'css', 'postcss', 'sass' ]),
+        loaders: [ 'style', 'css', 'postcss', 'sass' ],
+        test   : /\.scss$/
+      },
+      {
+        loaders: [ 'style', 'css', 'postcss' ],
+        test   : /\.css$/
+      },
+      {
+        loader: 'json',
+        test  : /\.json$/
+      }
+    ],
+    postLoaders: [
 
-		],
-		preLoaders: [
-			{
-				exclude: /node_modules/,
-				loader : 'eslint',
-				query  : {presets: [ 'react', 'latest' ]},
-				test   : /\.jsx$/
-			}
-		]
-	},
-	output: {
-		filename  : 'bundle.js',
-		path      : paths.dist,
-		publicPath: '/'
-	},
-	plugins: [
-		extractSass,
-		new InterpolateHtmlPlugin({PUBLIC_URL: publicUrl}),
-		new HtmlWebpackPlugin({
-			inject  : true,
-			template: paths.appHtml
-		}),
-		new CaseSensitivePathsPlugin(),
-		new WatchNodeModulesPlugin(paths.appNodeModules),
-		new webpack.HotModuleReplacementPlugin({multistep: true})
-	],
-	postcss: () => [
-		autoprefixer({
-			browsers: [
-				'>1%',
-				'last 4 versions',
-				'Firefox ESR',
-				'not ie < 9'
-			]
-		})
-	],
-	resolve: {
-		alias: {
-			basscss    : paths.resolve(paths.nodeModules, 'basscss', 'css', 'basscss.css'),
-			nodeModules: paths.nodeModules
-		}
-	}
+    ],
+    preLoaders: [
+      {
+        exclude: /node_modules/,
+        loader : 'eslint',
+        query  : {presets: [ 'react', 'latest' ]},
+        test   : /\.jsx$/
+      }
+    ]
+  },
+  output: {
+    filename  : 'bundle.js',
+    path      : paths.dist,
+    publicPath: '/'
+  },
+  plugins: [
+    extractSass,
+    new InterpolateHtmlPlugin({PUBLIC_URL: publicUrl}),
+    new HtmlWebpackPlugin({
+      inject  : true,
+      template: paths.appHtml
+    }),
+    new CaseSensitivePathsPlugin(),
+    new WatchNodeModulesPlugin(paths.appNodeModules),
+    new webpack.HotModuleReplacementPlugin({multistep: true})
+  ],
+  postcss: () => [
+    autoprefixer({
+      browsers: [
+        '>1%',
+        'last 4 versions',
+        'Firefox ESR',
+        'not ie < 9'
+      ]
+    })
+  ],
+  resolve: {
+    alias: {
+      basscss    : paths.resolve(paths.nodeModules, 'basscss', 'css', 'basscss.css'),
+      nodeModules: paths.nodeModules
+    }
+  }
 };

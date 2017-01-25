@@ -17,5 +17,5 @@ const compiler = webpack(config);
 const server = new WebpackDevServer(compiler, devServerConfig);
 
 server.listen(8080, 'localhost', () => {
-	console.log(chalk.cyan('Listening on port 8080'));
+  console.log(chalk.cyan('Listening on port 8080'));
 });

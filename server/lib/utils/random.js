@@ -11,9 +11,9 @@
  * @returns {Integer}
  */
 function randomNumber(min, max, inclusive = true) {
-	return Math.floor(
-			Math.random() * (min - max) + (inclusive ? max : 0)
-	);
+  return Math.floor(
+      Math.random() * (min - max) + (inclusive ? max : 0)
+  );
 }
 
 /**
@@ -27,13 +27,13 @@ function randomNumber(min, max, inclusive = true) {
  * @returns {String}
  */
 function randomString(min, max) {
-	const charCodeRange = [ 48, 90 ];
-	const length = typeof max === 'number' ? randomNumber(min, max) : min;
-	const string = '';
+  const charCodeRange = [ 48, 90 ];
+  const length = typeof max === 'number' ? randomNumber(min, max) : min;
+  const string = '';
 
-	while (string.length < length) {
-		string += String.fromCharCode(randomNumber(charCodeRange[0], charCodeRange[1]));
-	}
+  while (string.length < length) {
+    string += String.fromCharCode(randomNumber(charCodeRange[0], charCodeRange[1]));
+  }
 
-	return string;
+  return string;
 }

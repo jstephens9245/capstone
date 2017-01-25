@@ -17,19 +17,19 @@ const appDirectory = fs.realpathSync(process.cwd());
  * @returns {String} Absolute path resolved from the app directory
  */
 function resolveApp(...paths) {
-	return path.resolve(
-		(paths[0].indexOf(appDirectory) === 0 ? '' : appDirectory),
-		...paths
-	);
+  return path.resolve(
+    (paths[0].indexOf(appDirectory) === 0 ? '' : appDirectory),
+    ...paths
+  );
 }
 
 module.exports = {
-	appHtml    : resolveApp('client/index.html'),
-	dist       : resolveApp('dist'),
-	eslint     : resolveApp('client/.eslintrc.json'),
-	indexJs    : resolveApp('client/index.jsx'),
-	nodeModules: resolveApp('node_modules'),
-	src        : resolveApp('client')
+  appHtml    : resolveApp('client/index.html'),
+  dist       : resolveApp('dist'),
+  eslint     : resolveApp('client/.eslintrc.json'),
+  indexJs    : resolveApp('client/index.jsx'),
+  nodeModules: resolveApp('node_modules'),
+  src        : resolveApp('client')
 };
 
 module.exports.resolve = resolveApp;
