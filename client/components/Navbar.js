@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 const Navbar = (props) => {
-  return (
+	return (
 	<div>
 		<nav className="navbar navbar navbar-static-top" role="navigation">
     <div className="container">
@@ -20,7 +20,7 @@ const Navbar = (props) => {
 							</div>
 
         <div id='navbar' className={props.navClass} aria-expanded={props.aria}>
-            <ul className="nav navbar-nav" onClick={() => { props.expandNav()}}>
+            <ul className="nav navbar-nav" onClick={() => { props.expandNav(); }}>
                 <li><Link to="/">Home</Link></li>
 								{ !props.user ? (
 									<li><Link to="/login">Login/SignUp</Link></li>
@@ -34,6 +34,6 @@ const Navbar = (props) => {
     </div>
 		</nav>
 	</div>
-  )
-}
+  );
+};
 export default Navbar;
