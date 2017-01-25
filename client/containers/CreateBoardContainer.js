@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import CreateBoard from '../components/CreateBoard';
 
 const mapStateToProps = (state, ownProps) => {
-	return {
-		user: state.user,
-		// boards: state.boards
-	};
-}
+  return {
+    user: state.user
+
+// boards: state.boards
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {};
-}
+  return {};
+};
 
 const CreateBoardContainer = connect(
   mapStateToProps,
