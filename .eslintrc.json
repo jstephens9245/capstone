@@ -205,8 +205,7 @@
 			"max": 25
 		}],
 		"id-match": 0,
-		"indent": [1, "tab", {
-			"SwitchCase": 1,
+		"indent": [1, 2, {
 			"VariableDeclarator": {
 				"var": 2,
 				"let": 2,
