@@ -1,25 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router';
-
-const boards = [
-  {
-    id  : 1, name: 'board1'
-  },
-  {
-    id  : 2, name: 'board2'
-  }
-];
+import ModalContainer from '../containers/ModalContainer';
 
 const CreateBoard = (props) => {
-// const boards = props.boards;
-
+  const boards = props.boards;
   return (
     <div>
-      <h3>Boards</h3>
+      <div style={{paddingLeft: '8.5%'}}>
+        <h3>Boards</h3>
+      </div>
       <div className="row">
         {
-          boards && boards.map((board) => (
-            <div className="col-xs-4" key={ board.id }>
+          !!boards.length && boards.map((board) => (
+            <div className="col-xs-10 col-md-8 col-lg-4 col-xs-offset-1" key={ board.id }>
               <Link className="thumbnail" to={`/myboards/${board.id}`}>
               {/* <Board board={board} /> */}
               <div className="caption">
@@ -31,18 +24,12 @@ const CreateBoard = (props) => {
           </div>
         ))
       }
-      <div className="col-xs-4" style={{
-        textAlign      : 'center',
-        backgroundColor: 'grey',
-        paddingBottom  : '8%'
-      }}>
-      <a style={{
-        textDecoration: 'none',
-        color         : 'black'
-      }}>+</a>
+          <div className="col-xs-10 col-md-8 col-lg-4 col-xs-offset-1">
+          <ModalContainer createBoard={props.create}/>
+          </div>
+
+      </div>
     </div>
-  </div>
-</div>
   );
 };
 export default CreateBoard;
