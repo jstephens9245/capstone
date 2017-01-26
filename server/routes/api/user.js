@@ -9,8 +9,6 @@ const chalk = require('chalk');
 
 /* create user */
 router.post('/', (req, res, next) => {
-  const { first_name, last_name } = req.body;
-  console.log('FIRSTNAME: ', first_name);
   User.findOne({
     where: {email: req.body.email}})
     .then(user => {
