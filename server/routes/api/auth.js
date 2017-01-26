@@ -55,4 +55,10 @@ router.post('/', (req, res, next) => {
   })(req, res, next);
 });
 
+/* check log in status */
+router.get('/session', (req, res, next) => {
+  req.isAuthenticated() ? res.json(req.user) :
+  res.json({});
+});
+
 module.exports = router;
