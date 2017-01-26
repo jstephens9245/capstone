@@ -1,9 +1,12 @@
-
-
-
-export const RECEIVE_BOARD = 'RECEIVE_BOARD';
-
-export const SET_LOGIN_USER = 'SET_LOGIN_USER';
-
+/* SHARED CONSTANTS */
 export const CLEAR_STORE = 'CLEAR_STORE';
 
+/* BOARD CONSTANTS */
+export const RECEIVE_BOARD = 'RECEIVE_BOARD';
+
+/* NOTE CONSTANTS */
+export const RECEIVE_NOTE = 'RECEIVE_NOTE';
+export const RECEIVE_NOTES = 'RECEIVE_NOTES';
+
+/* USER CONSTANTS */
+export const SET_LOGIN_USER = 'SET_LOGIN_USER';
