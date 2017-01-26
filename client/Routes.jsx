@@ -24,8 +24,9 @@ export default function Routes() {
       <Route path="/" component={Index}>
       <Route path="/signup" component={Signup} />
       <Route path="/myboards" component={CreateBoardContainer} />
-      </Route>
       <Route path='/boards/:boardId' component={BoardContainer} onEnter={onBoardEnter}/>
+      </Route>
+
 
     </Router>
   );
