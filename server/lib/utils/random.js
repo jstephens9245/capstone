@@ -1,5 +1,7 @@
 'use strict';
 
+const rgbtohex = require('rgb-hex');
+
 /**
  * Helper function that returns a random Integer within the provided range.
  *
@@ -23,17 +25,38 @@ function randomNumber(min, max, inclusive = true) {
  * @arg {Integer} min The minimum length of the random string
  * @arg {Integer} max The maximum length of the random string. If this argument
  *                    is excluded the string length will match the `min` argument.
+ * @arg {String} chars A string containing the characters you want to limit the string to.
  *
  * @returns {String}
  */
-function randomString(min, max) {
+function randomString(min, max, chars) {
   const charCodeRange = [ 48, 90 ];
   const length = typeof max === 'number' ? randomNumber(min, max) : min;
-  const string = '';
+  let string = '';
 
   while (string.length < length) {
-    string += String.fromCharCode(randomNumber(charCodeRange[0], charCodeRange[1]));
+    if (chars) {
+      string += chars[randomNumber(0, chars.length)];
+    } else {
+      string += String.fromCharCode(randomNumber(charCodeRange[0], charCodeRange[1]));
+    }
   }
 
   return string;
 }
+
+/**
+ * Helper function that returns a random color in hex format.
+ * @returns {String}
+ */
+function randomColor() {
+  return rgbtohex(
+    randomNumber(0, 255),
+    randomNumber(0, 255),
+    randomNumber(0, 255)
+  );
+}
+
+module.exports = {
+  randomNumber, randomString, randomColor
+};
