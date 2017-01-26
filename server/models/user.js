@@ -8,10 +8,10 @@ const User = db.define('user', {
   first_name: Sequelize.STRING,
   last_name : Sequelize.STRING,
   email     : Sequelize.STRING,
-  password  : Sequelize.TEXT
+  password  : Sequelize.TEXT,
 }, {
   instanceMethods: {
-    hashPassword: () => {
+    hashPassword: function() {
       return new Promise((resolve, reject) => {
         bcrypt.genSalt(4, (err, salt) => {
           if (err) {
@@ -21,13 +21,13 @@ const User = db.define('user', {
             if (hashErr) {
               return reject(err);
             }
-            this.password = hash;
+            this.setDataValue('password', hash);
             resolve();
           });
         });
       });
     },
-    checkPassword: (password) => {
+    checkPassword: function(password) {
       return new Promise((resolve, reject) => {
         bcrypt.compare(password, this.password, (err, matched) => {
           if (err) {
@@ -40,13 +40,13 @@ const User = db.define('user', {
   },
   hooks: {
     beforeCreate: function(user) {
-      user.hashPassword();
+      return user.hashPassword();
     },
     beforeUpdate: function(user) {
       if (!user.changed('password')) {
         return;
       }
-      user.hashPassword();
+      return user.hashPassword();
     }
   }
 });
