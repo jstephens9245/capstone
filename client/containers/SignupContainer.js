@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {createUser, loginUser, checkLoginStatus} from '../actions/user';
+import Signup from '../components/Signup';
+import Login from '../components/Login';
 
 
-class Signup extends Component {
+class SignupContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type     : '',
+      type     : 'signup',
       firstName: '',
       lastName : '',
       email    : '',
@@ -17,6 +19,8 @@ class Signup extends Component {
 
     this.submitForm = this.submitForm.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.changeForm = this.changeForm.bind(this);
+    this.loginForm = this.loginForm.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +38,10 @@ class Signup extends Component {
     this.props.loginUser(this.state.email, this.state.password);
   }
 
+  changeForm(type) {
+    this.setState({type: type});
+  }
+
   handleInput(e) {
     this.setState({[e.target.name]: e.target.value});
   }
@@ -42,37 +50,15 @@ class Signup extends Component {
     return (
       <div>
       <div className="signup-form-container">
-      <form className="form">
-        <div className="form-group">
-          <label className="form-label" >First Name</label>
-          <input type="text" name="firstName" placeholder="First name"
-          className="input"
-          onChange={(e) => { this.handleInput(e); }} />
-        </div>
-        <div className="form-group">
-          <label className="form-label" >Last Name</label>
-          <input type="text" name="lastName" placeholder="Last name"
-          className="input"
-          onChange={(e) => { this.handleInput(e); }} />
-        </div>
-        <div className="form-group">
-          <label className="form-label" > E-mail </label>
-          <input type="email" name="email" placeholder="E-mail"
-          className="input"
-          onChange={(e) => { this.handleInput(e); }} />
-        </div>
-        <div className="form-group">
-          <label className="form-label" > Password </label>
-          <input type="password" name="password" placeholder="password"
-          className="input"
-          onChange={(e) => { this.handleInput(e); }} />
-        </div>
-        {this.state.type ==='signup' ?
-        <button type="submit" onClick={(e) => { this.submitForm(e); }}> Submit </button>
-        :
-        <button type="submit" onClick={(e) => { this.loginForm(e); }}> Login </button>
+        {this.state.type === 'signup' ?
+          <Signup submitForm={this.submitForm}
+                   changeForm={this.changeForm}
+                   handleInput={this.handleInput} />
+                   :
+          <Login loginForm={this.loginForm}
+                handleInput={this.handleInput}
+                changeForm={this.changeForm} />
         }
-      </form>
     </div>
     </div>
     );
@@ -88,4 +74,4 @@ const mapDispatchToProps = (dispatch) => ({
   checkLoginStatus: () => dispatch(checkLoginStatus())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);
