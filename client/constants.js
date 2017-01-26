@@ -1,5 +1,5 @@
 
 
-
 export const RECEIVE_BOARD = 'RECEIVE_BOARD';
+export const RECEIVE_BOARDS = 'RECEIVE_BOARDS';
 export const CLEAR_STORE = 'CLEAR_STORE';

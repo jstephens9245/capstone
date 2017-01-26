@@ -4,8 +4,8 @@ import CreateBoard from '../components/CreateBoard';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user
-// boards: state.boards
+    user  : state.user,
+    boards: state.boardReducer.allBoards
   };
 };
 
