@@ -6,7 +6,7 @@ const Index = (props) => {
   return (
     <div>
       <NavbarContainer />
-      <div className="col-xs-10" >
+      <div className="" >
         {
           props.children && React.cloneElement(props.children, props)
         }
