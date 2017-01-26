@@ -29,7 +29,7 @@ passport.use(new LocalStrategy({
       }
     })
     .then(result => {
-      const [passwordMatched, user] = result;
+      const [ passwordMatched, user ] = result;
       passwordMatched ? done(null, user) : done(null, false, {message: 'password is incorrect'});
     })
     .catch(done);
@@ -49,8 +49,7 @@ router.post('/', (req, res, next) => {
 
         return res.send(user);
       });
-    }
-    else {
+    } else {
       return res.send(message);
     }
   })(req, res, next);
