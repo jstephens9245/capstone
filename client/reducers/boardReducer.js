@@ -1,4 +1,4 @@
-import {RECEIVE_BOARD} from '../constants';
+import {RECEIVE_BOARD, RECEIVE_BOARDS} from '../constants';
 
 const initialState = {selectedBoard: {}, allBoards: []};
 
@@ -9,11 +9,9 @@ export default function(state = initialState, action) {
   case RECEIVE_BOARD:
     newState.selectedBoard = action.board;
     break;
-
-    // case RECEIVE_BOARDS:
-    // 	newState.allBoards = action.boards
-      // break;
-
+  case RECEIVE_BOARDS:
+    newState.allBoards = action.boards;
+    break;
   default:
     return state;
   }

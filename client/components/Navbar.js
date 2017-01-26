@@ -25,7 +25,7 @@ const Navbar = (props) => {
                 <li><Link >Logout</Link></li>
               )
               }
-            <li><Link to="/myboards">My Boards</Link></li>
+              <li><Link to="/myboards">My Boards</Link></li>
           </ul>
         </div>
       </div>
