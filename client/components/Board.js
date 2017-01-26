@@ -1,7 +1,7 @@
 import React from 'react';
 
-
 export default (props) => {
+
   console.log('IN BOARD', props);
   return (
       <div className="boardContainer col-md-1 col-centered">
