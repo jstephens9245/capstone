@@ -18,7 +18,7 @@ module.exports = db.didSync
   .then(() => db.sync({force: true}))
   .then(() => seedUsers(userCount))
   .then(users => seedBoards(users, boardsPerUser))
-  .then(boards => seedNotes(boards, notesPerBoard))
+  .then(([ boards, users ]) => seedNotes(boards, users, notesPerBoard))
   .catch((err) => {
     console.error(err);
   })
@@ -56,7 +56,10 @@ function seedBoards(users, range) {
     }
   });
 
-  return db.Promise.all(boards);
+  return Promise.all([
+    Promise.all(boards),
+    users
+  ]);
 }
 function generateBoard() {
   return {
@@ -66,14 +69,20 @@ function generateBoard() {
 }
 
 /* Not Functions */
-function seedNotes(boards, range) {
+function seedNotes(boards, users, range) {
   const notes = [];
 
   boards.forEach(board => {
     for (let i = 0; i < randomNumber(range[0], range[1]); i++) {
+      const user = users[randomNumber(users.length, false)];
       notes.push(
         Note.create(generateNote())
-          .then(note => note.setBoard(board))
+          .then(note => {
+            return Promise.all([
+              note.setBoard(board),
+              note.setUser(user)
+            ]);
+          })
       );
     }
   });
