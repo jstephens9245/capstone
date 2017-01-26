@@ -54,6 +54,7 @@
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "pg-native": "^1.10.0",
+    "react-modal": "^1.6.5",
     "redux-logger": "^2.7.4",
     "rgb-hex": "^2.1.0",
     "scriptjs": "^2.5.8",
