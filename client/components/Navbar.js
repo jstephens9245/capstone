@@ -20,12 +20,12 @@ const Navbar = (props) => {
             <ul className="nav navbar-nav" onClick={() => { props.expandNav(); }}>
               <li><Link to="/">Home</Link></li>
               { !props.user ? (
-                <li><Link to="/login">Login/SignUp</Link></li>
+                <li><Link to="/signup">Login/SignUp</Link></li>
               ) : (
                 <li><Link >Logout</Link></li>
               )
-            }
-            <li><Link to="/myboards">My Boards</Link></li>
+              }
+              <li><Link to="/myboards">My Boards</Link></li>
           </ul>
         </div>
       </div>
