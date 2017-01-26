@@ -7,6 +7,15 @@ const boards = [
   },
   {
     id  : 2, name: 'board2'
+  },
+  {
+    id  : 3, name: 'board3'
+  },
+  {
+    id  : 4, name: 'board4'
+  },
+  {
+    id  : 5, name: 'board5'
   }
 ];
 
@@ -15,11 +24,14 @@ const CreateBoard = (props) => {
 
   return (
     <div>
-      <h3>Boards</h3>
+      <div style={{paddingLeft: '8.5%'}}>
+        <h3>Boards</h3>
+      </div>
       <div className="row">
+        {/* <div> */}
         {
           boards && boards.map((board) => (
-            <div className="col-xs-4" key={ board.id }>
+            <div className="col-xs-12 col-md-6 col-lg-3 col-xs-offset-1" key={ board.id }>
               <Link className="thumbnail" to={`/myboards/${board.id}`}>
               {/* <Board board={board} /> */}
               <div className="caption">
@@ -31,18 +43,13 @@ const CreateBoard = (props) => {
           </div>
         ))
       }
-      <div className="col-xs-4" style={{
-        textAlign      : 'center',
-        backgroundColor: 'grey',
-        paddingBottom  : '8%'
-      }}>
-      <a style={{
-        textDecoration: 'none',
-        color         : 'black'
-      }}>+</a>
+          <div className="col-xs-12 col-md-6 col-lg-3 col-xs-offset-1">
+          <a className='addBoard thumbnail'>+</a>
+          </div>
+
+        {/* </div> */}
+      </div>
     </div>
-  </div>
-</div>
   );
 };
 export default CreateBoard;
