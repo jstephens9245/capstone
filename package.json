@@ -10,7 +10,8 @@
     "build-dev": "node node_modules/webpack/bin/webpack -d --config ./config/webpack.config.dev.js",
     "build-watch": "node node_modules/webpack/bin/webpack -wd --config ./config/webpack.config.dev.js",
     "test": "node scripts/test.js",
-    "test-watch": "node scripts/test.js --watchAll"
+    "test-watch": "node scripts/test.js --watchAll",
+    "seed": "node scripts/seed.js"
   },
   "author": "",
   "license": "ISC",
@@ -54,6 +55,7 @@
     "pg-hstore": "^2.3.2",
     "pg-native": "^1.10.0",
     "redux-logger": "^2.7.4",
+    "rgb-hex": "^2.1.0",
     "scriptjs": "^2.5.8",
     "sequelize": "^3.30.0",
     "socket.io": "^1.7.2",
