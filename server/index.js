@@ -12,6 +12,7 @@ const session = require('express-session');
 
 app.use(logger('combined'));
 
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
