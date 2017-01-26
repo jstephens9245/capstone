@@ -3,7 +3,7 @@ import store from '../store';
 import {connect} from 'react-redux';
 import Board from '../components/Board.jsx';
 
-const mapStateToProps = (state) => ({board: state.board});
+const mapStateToProps = (state) => ({board: state.boardReducer.selectedBoard});
 
 const mapDispatchToProps = (dispatch) => ({});
 
