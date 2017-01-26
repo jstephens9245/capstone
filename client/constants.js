@@ -6,11 +6,6 @@ export const RECEIVE_BOARD = 'RECEIVE_BOARD';
 export const RECEIVE_BOARDS = 'RECEIVE_BOARDS';
 export const ADD_NEW_BOARD = 'ADD_NEW_BOARD';
 
-
-
-
-
-
 /* NOTE CONSTANTS */
 export const RECEIVE_NOTE = 'RECEIVE_NOTE';
 export const RECEIVE_NOTES = 'RECEIVE_NOTES';
