@@ -46,8 +46,7 @@ describe('Root Router', () => {
         .get('/')
         .query({userId, limit})
         .expect(res => {
-          const filteredResults = res.body.filter(note => note.userId === userId);
-          console.log(filteredResults);
+          const filteredResults = res.body.filter(note => note.user.id === userId);
           expect(res.body.length).to.be.above(0);
           expect(res.body.length).to.equal(filteredResults.length);
         });
@@ -60,7 +59,7 @@ describe('Root Router', () => {
         .get('/')
         .query({boardId, limit})
         .expect(res => {
-          const filteredResults = res.body.filter(note => note.boardId === boardId);
+          const filteredResults = res.body.filter(note => note.board.id === boardId);
           expect(res.body.length).to.be.above(0);
           expect(res.body.length).to.equal(filteredResults.length);
         });
