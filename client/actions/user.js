@@ -11,7 +11,7 @@ export const setLoginUser = (user) => ({
 
 export const createUser = (firstName, lastName, email, password) => dispatch => {
   axios.post('/api/user/', {first_name: firstName, last_name: lastName, email, password })
-    .then(res => console.log(res.data))
+    .then(res => dispatch(setLoginUser(res.data)))
     .catch(err => console.error(err));
 };
 

@@ -8,7 +8,7 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type     : 'login',
+      type     : 'signup',
       firstName: '',
       lastName : '',
       email    : '',
