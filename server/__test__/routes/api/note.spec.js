@@ -65,4 +65,18 @@ describe('Root Router', () => {
         });
     });
   });
+
+  describe('GET /:id', () => {
+    it('should respond with the note that matches the id param', () => {
+      const id = 1;
+      return request(app)
+        .get(`/${id}`)
+        .expect((res) => {
+          expect(res.body.id).to.equal(id);
+        })
+        .expect(200);
+    });
+  });
+
+  // TODO: Write tests for POST, PUT, DELETE
 });
