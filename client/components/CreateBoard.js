@@ -11,7 +11,7 @@ const CreateBoard = (props) => {
       </div>
       <div className="row">
         {
-          boards.length && boards.map((board) => (
+          !!boards.length && boards.map((board) => (
             <div className="col-xs-10 col-md-8 col-lg-4 col-xs-offset-1" key={ board.id }>
               <Link className="thumbnail" to={`/myboards/${board.id}`}>
               {/* <Board board={board} /> */}
