@@ -32,4 +32,16 @@ router.get('/', (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
+router.post('/', (req, res, next) => {
+  const boardInfo = req.body.boardName;
+  Board.create({
+    name: boardInfo
+  })
+    .then((boards) => {
+      res.json(boards);
+    })
+    .catch((err) => console.log(err));
+});
+
+
 module.exports = router;

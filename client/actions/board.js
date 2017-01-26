@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RECEIVE_BOARD, RECEIVE_BOARDS} from '../constants';
+import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD} from '../constants';
 
 
 export const receiveBoard = (board) => {
@@ -14,13 +14,27 @@ export const receiveAllBoards = (boards) => ({
   boards
 });
 
+export const addNewBoard = (board) => ({
+  type: ADD_NEW_BOARD,
+  board
+});
+
 export const getAllBoards = (userId) => {
   return dispatch => {
     axios.get('/api/boards/', {params: {userId}})
       .then((res) => res.data)
       .then((boards) => {
-        console.log(boards);
         dispatch(receiveAllBoards(boards));
+      });
+  };
+};
+
+export const createBoard = (boardName) => {
+  return dispatch => {
+    axios.post('/api/boards/', {boardName})
+      .then((res) => res.data)
+      .then((board) => {
+        dispatch(addNewBoard(board));
       });
   };
 };

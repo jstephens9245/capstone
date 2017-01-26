@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import ModalContainer from '../containers/ModalContainer';
 
 const CreateBoard = (props) => {
   const boards = props.boards;
@@ -10,8 +11,8 @@ const CreateBoard = (props) => {
       </div>
       <div className="row">
         {
-          boards && boards.map((board) => (
-            <div className="col-xs-12 col-md-6 col-lg-3 col-xs-offset-1" key={ board.id }>
+          boards.length && boards.map((board) => (
+            <div className="col-xs-10 col-md-8 col-lg-4 col-xs-offset-1" key={ board.id }>
               <Link className="thumbnail" to={`/myboards/${board.id}`}>
               {/* <Board board={board} /> */}
               <div className="caption">
@@ -23,8 +24,8 @@ const CreateBoard = (props) => {
           </div>
         ))
       }
-          <div className="col-xs-12 col-md-6 col-lg-3 col-xs-offset-1">
-          <a className='addBoard thumbnail'>+</a>
+          <div className="col-xs-10 col-md-8 col-lg-4 col-xs-offset-1">
+          <ModalContainer createBoard={props.create}/>
           </div>
 
       </div>
