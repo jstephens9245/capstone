@@ -19,10 +19,10 @@ const Navbar = (props) => {
           <div id='navbar' className={props.navClass} aria-expanded={props.aria}>
             <ul className="nav navbar-nav" onClick={() => { props.expandNav(); }}>
               <li><Link to="/">Home</Link></li>
-              { !props.user ? (
+              { !Object.keys(props.user).length ? (
                 <li><Link to="/signup">Login/SignUp</Link></li>
               ) : (
-                <li><Link >Logout</Link></li>
+                <li><Link onClick={() => { props.logoutUser(); }}>Logout</Link></li>
               )
               }
               <li><Link to="/myboards">My Boards</Link></li>

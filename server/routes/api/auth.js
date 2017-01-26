@@ -25,7 +25,7 @@ passport.use(new LocalStrategy({
           user
         ]);
       } else {
-        done(null, false, {message: 'Incorrect authentication '});
+        done(null, false, {message: 'Incorrect authentication'});
       }
     })
     .then(result => {
@@ -59,6 +59,12 @@ router.post('/', (req, res, next) => {
 router.get('/session', (req, res, next) => {
   req.isAuthenticated() ? res.json(req.user) :
   res.json({});
+});
+
+/* logout destroy session */
+router.delete('/logout', (req, res, next) => {
+  req.session.destroy();
+  res.json();
 });
 
 module.exports = router;

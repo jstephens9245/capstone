@@ -2,12 +2,16 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Navbar from '../components/Navbar';
 
+import { logoutUser } from '../actions/user';
+
 const mapStateToProps = (state, ownProps) => {
-  return {user: state.user};
+  return {user: state.userReducer.loggedInUser};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {};
+  return {
+    logoutUser: () => dispatch(logoutUser())
+  };
 };
 
 class NB extends Component {
@@ -16,7 +20,6 @@ class NB extends Component {
     this.state = {
       aria       : false,
       toggleClass: 'navbar-collapse collapse',
-      user       : props.user
     };
     this.expandNav = this.expandNav.bind(this);
   }
@@ -41,7 +44,8 @@ class NB extends Component {
         aria={this.state.aria}
         expandNav={this.expandNav}
         navClass={this.state.toggleClass}
-        user={this.state.user}
+        user={this.props.user}
+        logoutUser={this.props.logoutUser}
       />
     );
   }
