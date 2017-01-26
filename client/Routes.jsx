@@ -20,8 +20,9 @@ function onBoardEnter(nextRouterState) {
 }
 
 function onMyBoardEnter(nextRouterState) {
-  const userId = store.getState().user;
-  store.dispatch(getAllBoards(1));
+  const userId = store.getState().userReducer.loggedInUser.id;
+  // console.log(userId);
+  store.dispatch(getAllBoards(userId));
 }
 
 export default function Routes() {
