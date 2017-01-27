@@ -38,15 +38,10 @@ passport.use(new LocalStrategy({
 /* login */
 router.post('/', (req, res, next) => {
   passport.authenticate('local', (err, user, message) => {
-    if (err) {
-      return next(err);
-    }
+    if (err) { return next(err); }
     if (user) {
       req.login(user, (loginErr) => {
-        if (loginErr) {
-          return next(loginErr);
-        }
-
+        if (loginErr) { return next(loginErr); }
         return res.send(user);
       });
     } else {
