@@ -58,7 +58,7 @@ router.post('/', (req, res, next) => {
     .then(([ board ]) => {
       res.json(board);
     })
-    .catch((err) => console.log(err));
+    .catch(next);
 });
 
 
