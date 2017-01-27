@@ -12,3 +12,5 @@ export const RECEIVE_NOTES = 'RECEIVE_NOTES';
 
 /* USER CONSTANTS */
 export const SET_LOGIN_USER = 'SET_LOGIN_USER';
+export const REMOVE_LOGIN_USER = 'REMOVE_LOGIN_USER';
+
