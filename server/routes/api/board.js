@@ -34,23 +34,29 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const boardInfo = req.body.boardName;
-  let board = {};
-  Board.create({
-    name: boardInfo,
-  })
-    .then((rememberBoard) => {
-      board = rememberBoard;
-      return rememberBoard.addUser(req.user);
+  Board
+    .create({
+      name: boardInfo
     })
-    .then(boardPermission => {
-      BoardPermission.findOne({where: {
-        board_id: board.id,
-        user_id : req.user.id
-      }})
-        .then((result) => {
-          console.log(result);
-          res.json(board);
-        });
+    .then(board => {
+      return Promise.all([ board, board.addUser(req.user) ]);
+    })
+    .then(([ board, permission ]) => {
+      return Promise.all([
+        board,
+        BoardPermission.findOne({
+          where: {
+            board_id: board.id,
+            user_id : req.user.id
+          }
+        })
+          .then((p) => {
+            return p.update({permission: 'admin'});
+          })
+      ]);
+    })
+    .then(([ board ]) => {
+      res.json(board);
     })
     .catch(next);
 });
