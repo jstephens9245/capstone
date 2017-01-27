@@ -35,7 +35,7 @@ passport.use(new LocalStrategy({
     .catch(done);
 }));
 
-
+/* login */
 router.post('/', (req, res, next) => {
   passport.authenticate('local', (err, user, message) => {
     if (err) {
@@ -50,21 +50,21 @@ router.post('/', (req, res, next) => {
         return res.send(user);
       });
     } else {
-      return res.send(message);
+      return res.status(401).send(message);
     }
   })(req, res, next);
 });
 
 /* check log in status */
-router.get('/session', (req, res, next) => {
-  req.isAuthenticated() ? res.json(req.user) :
+router.get('/', (req, res, next) => {
+  req.isAuthenticated() ? res.send(req.user) :
   res.json({});
 });
 
 /* logout destroy session */
-router.delete('/logout', (req, res, next) => {
+router.delete('/', (req, res, next) => {
   req.session.destroy();
-  res.json();
+  res.send();
 });
 
 module.exports = router;

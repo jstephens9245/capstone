@@ -33,6 +33,7 @@ export const createUser = (firstName, lastName, email, password) => dispatch => 
 export const loginUser = (email, password) => dispatch => {
   axios.post('/api/auth/', { email: email, password: password })
     .then(res => {
+      console.log('RES DATA', res);
       if (res.data.message) {
         return; // password is incorrect
       } else {
@@ -44,14 +45,14 @@ export const loginUser = (email, password) => dispatch => {
 };
 
 export const logoutUser = () => dispatch => {
-  axios.delete('/api/auth/logout')
+  axios.delete('/api/auth/')
   .then(res => dispatch(removeLoginUser(res.data)))
   .catch(err => console.error(err));
 };
 
 /* check login state by calling server and checking user sessions */
 export const checkLoginStatus = () => dispatch => {
-  axios.get('/api/auth/session/')
+  axios.get('/api/auth/')
   .then(res => dispatch(setLoginUser(res.data)))
   .catch(err => console.error(err));
 };
