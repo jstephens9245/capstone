@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Board, User} = require('ROOT/server/models/');
+const {Board, User, BoardPermission} = require('ROOT/server/models/');
 
 
 router.get('/:boardId', (req, res, next) => {
@@ -34,13 +34,25 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const boardInfo = req.body.boardName;
+  let board = {};
   Board.create({
-    name: boardInfo
+    name: boardInfo,
   })
-    .then((boards) => {
-      res.json(boards);
+    .then((rememberBoard) => {
+      board = rememberBoard;
+      return rememberBoard.addUser(req.user);
     })
-    .catch((err) => console.log(err));
+    .then(boardPermission => {
+      BoardPermission.findOne({where: {
+        board_id: board.id,
+        user_id : req.user.id
+      }})
+        .then((result) => {
+          console.log(result);
+          res.json(board);
+        });
+    })
+    .catch(next);
 });
 
 
