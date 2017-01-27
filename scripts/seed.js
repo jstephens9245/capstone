@@ -1,6 +1,6 @@
 'use strict';
 
-const {db, User, Board, Note} = require('ROOT/server/models');
+const {db, User, Board, Note, BoardPermission} = require('ROOT/server/models');
 const {randomString, randomNumber, randomColor} = require('ROOT/server/lib/utils/random');
 const userCount = 10;
 const boardsPerUser = [ 3, 8 ];
@@ -20,7 +20,7 @@ module.exports = db.didSync
   .then(users => seedBoards(users, boardsPerUser))
   .then(([ boards, users ]) => seedNotes(boards, users, notesPerBoard))
   .catch((err) => {
-    console.error(err);
+    console.warn(err);
   })
   .finally(() => db.close());
 
@@ -49,15 +49,20 @@ function seedBoards(users, range) {
 
   users.forEach(user => {
     for (let i = 0; i < randomNumber(range[0], range[1]); i++) {
+      let board;
       boards.push(
         Board.create(generateBoard())
-          .then(board => board.setUser(user))
+          .then(data => {
+            board = data;
+            return board.addUser(user);
+          })
+          .then(() => board)
       );
     }
   });
 
-  return Promise.all([
-    Promise.all(boards),
+  return db.Promise.all([
+    db.Promise.all(boards),
     users
   ]);
 }
@@ -68,7 +73,7 @@ function generateBoard() {
   };
 }
 
-/* Not Functions */
+/* Note Functions */
 function seedNotes(boards, users, range) {
   const notes = [];
 
