@@ -7,8 +7,12 @@ const db = require('./db');
 const User = db.define('user', {
   first_name: Sequelize.STRING,
   last_name : Sequelize.STRING,
-  email     : Sequelize.STRING,
-  password  : Sequelize.TEXT,
+  email     : {
+    type     : Sequelize.STRING,
+    allowNull: false,
+    unique   : true,
+  },
+  password: Sequelize.TEXT,
 }, {
   instanceMethods: {
     hashPassword: function() {
