@@ -1,5 +1,7 @@
 import axios from 'axios';
-import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD} from '../constants';
+
+
+import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD, RECEIVE_BOARD_NOTES} from '../constants';
 
 
 export const receiveBoard = (board) => {
@@ -29,6 +31,15 @@ export const getAllBoards = (userId) => {
   };
 };
 
+
+export const receiveBoardNotes = (notes) => {
+  return {
+    type: RECEIVE_BOARD_NOTES,
+    notes
+  };
+};
+
+
 export const createBoard = (boardName) => {
   return dispatch => {
     axios.post('/api/boards/', {boardName})
@@ -39,10 +50,22 @@ export const createBoard = (boardName) => {
   };
 };
 
+
 export const getBoard = (boardId) => (dispatch) => {
   axios.get(`/api/boards/${boardId}`)
     .then((res) => res.data)
     .then((board) => {
       dispatch(receiveBoard(board));
     });
+};
+
+
+export const getBoardNotes = (boardId) => (dispatch) => {
+  console.log('IN GBN');
+  axios.get('/api/notes/', {params: {board_id: boardId}})
+    .then(res => res.data)
+    .then(boardNotes => {
+      dispatch(receiveBoardNotes(boardNotes));
+    });
+
 };
