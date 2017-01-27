@@ -42,7 +42,6 @@ router.post('/', (req, res, next) => {
       return Promise.all([ board, board.addUser(req.user) ]);
     })
     .then(([ board, permission ]) => {
-      console.log('>>>>>>', board.id, req.user.id);
       return Promise.all([
         board,
         BoardPermission.findOne({
