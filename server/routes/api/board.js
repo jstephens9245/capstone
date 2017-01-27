@@ -53,7 +53,6 @@ router.post('/', (req, res, next) => {
           .then((p) => {
             return p.update({permission: 'admin'});
           })
-          .then(result => console.log(result))
       ]);
     })
     .then(([ board ]) => {
