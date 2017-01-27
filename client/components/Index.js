@@ -7,10 +7,11 @@ const Index = (props) => {
     <div>
       <NavbarContainer />
       <div >
+
         {
           props.children && React.cloneElement(props.children, props)
         }
-        Welcome For nowww...
+
       </div>
     </div>
 
