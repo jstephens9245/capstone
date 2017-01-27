@@ -29,11 +29,10 @@ export default function Routes() {
   return (
     <Router history={browserHistory}>
       <Route path="/" component={Index}>
-      <Route path="/signup" component={SignupContainer} />
-      <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
+       <Route path='/boards/:boardId' component={BoardContainer} onEnter={onBoardEnter} />
+       <Route path="/signup" component={SignupContainer} />
+       <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
       </Route>
-      <Route path='/boards/:boardId' component={BoardContainer} onEnter={onBoardEnter}/>
-
     </Router>
   );
 }
