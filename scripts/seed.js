@@ -20,7 +20,7 @@ module.exports = db.didSync
   .then(users => seedBoards(users, boardsPerUser))
   .then(([ boards, users ]) => seedNotes(boards, users, notesPerBoard))
   .catch((err) => {
-    console.warn(err);
+    console.error(err);
   })
   .finally(() => db.close());
 
