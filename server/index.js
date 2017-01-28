@@ -33,7 +33,7 @@ app.use(passport.session());
 passport.serializeUser((user, done) => {
   /* passport id is saved in the session and is later used
   to retrieve the whole object via deserializeUser function */
-  done(null, user.id);
+  user ? done(null, user.id) : null;
 });
 
 passport.deserializeUser((id, done) => {
