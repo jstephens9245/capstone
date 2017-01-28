@@ -6,6 +6,14 @@ const {User, db} = require('ROOT/server/models');
 const bodyParser = require('body-parser');
 const app = require('ROOT/server');
 
+const seedUser = {
+  first_name: 'Alvin',
+  last_name : 'Yuen',
+  email     : 'alvin@alvin.com',
+  password  : '12345'
+};
+
+let seedUserId;
 
 describe('Users GET Route:', () => {
   let userNum;
@@ -25,38 +33,44 @@ describe('Users GET Route:', () => {
   });
 });
 
-
 describe('Users POST Route:', () => {
 
   it('should CREATE a user', () => {
-    const user = {
-      first_name: 'Alvin',
-      last_name : 'Yuen',
-      email     : 'alvin@alvin.com',
-      password  : '12345'
-    };
     return request(app)
       .post('/api/user')
-      .send(user)
+      .send(seedUser)
       .expect(200)
       .expect(res => {
         expect(res.body.email)
           .to
           .be
           .equal('alvin@alvin.com');
+        seedUserId = res.body.id;
       });
   });
 
   it('should not allow to CREATE user with the same email', () => {
-    const user = {
-      first_name: 'Alvin',
-      last_name : 'Yuen',
-      email     : 'alvin@alvin.com',
-      password  : '12345'
-    };
     return request(app)
       .post('/api/user')
-      .send(user)
+      .send(seedUser)
       .expect(409);
+  });
+
+});
+
+describe('Users DELETE Route:', () => {
+
+  it('should delete a user', (done) => {
+    return request(app)
+      .delete(`/api/user/${seedUserId}`)
+      .expect(204)
+      .end((err, res) => {
+        User.findById(seedUserId)
+          .then(user => {
+            expect(user).to.be.null;
+            done();
+          });
+      });
+
   });
 });
