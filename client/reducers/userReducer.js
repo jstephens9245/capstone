@@ -1,4 +1,4 @@
-import {SET_LOGIN_USER} from '../constants';
+import {SET_LOGIN_USER, REMOVE_LOGIN_USER} from '../constants';
 
 const initialState = { loggedInUser: {} };
 
@@ -7,6 +7,9 @@ export default function(state = initialState, action) {
   switch (action.type) {
   case SET_LOGIN_USER:
     newState.loggedInUser = action.user;
+    break;
+  case REMOVE_LOGIN_USER:
+    newState.loggedInUser = {};
     break;
   default:
     return state;
