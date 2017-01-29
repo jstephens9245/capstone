@@ -5,15 +5,23 @@ import {RECEIVE_NOTES, SELECT_NOTE} from '../constants';
 export function receiveNote(note) {
   return {
     type   : SELECT_NOTE,
-    payload: {note}
+    payload: note
   };
 }
 
 export function receiveNotes(notes) {
   return {
-    type: RECEIVE_NOTES,
-    notes
+    type   : RECEIVE_NOTES,
+    payload: notes
   };
+}
+
+export function getNote(noteId) {
+  return (dispatch) =>
+  axios.get(`/api/notes/${noteId}`)
+    .then(res => res.data)
+    .then(note => dispatch(receiveNote(note)))
+    .catch(err => console.warn(err));
 }
 
 export function getAllNotes({userId, boardId}) {
@@ -21,13 +29,5 @@ export function getAllNotes({userId, boardId}) {
     axios.get('/api/notes/', {params: {userId, boardId}})
       .then(res => res.data)
       .then(notes => dispatch(receiveNotes(notes)))
-      .catch(err => console.warn(err));
-}
-
-export function getNote(noteId) {
-  return (dispatch) =>
-    axios.get(`/api/notes/${noteId}`)
-      .then(res => res.data)
-      .then(note => dispatch(receiveNote(note)))
       .catch(err => console.warn(err));
 }
