@@ -6,6 +6,7 @@ import {Route, Router, browserHistory} from 'react-router';
 import BoardContainer from './containers/BoardContainer';
 import CreateBoardContainer from './containers/CreateBoardContainer';
 import SignupContainer from './containers/SignupContainer';
+import SocketIOContainer from './containers/SocketIOContainer';
 
 //action-creators
 import {getBoard, getAllBoards} from './actions/board';
@@ -32,6 +33,7 @@ export default function Routes() {
        <Route path='/boards/:boardId' component={BoardContainer} onEnter={onBoardEnter} />
        <Route path="/signup" component={SignupContainer} />
        <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
+       <Route path="/sockets" component={SocketIOContainer} />
       </Route>
     </Router>
   );
