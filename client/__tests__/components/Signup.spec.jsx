@@ -40,8 +40,8 @@ describe('<Signup />', () => {
   });
 
   it('should handle submit when user signups as new user', () => {
-    const signupSubmit = signupWrapper.find('.signup-submit-button');
-    signupSubmit.simulate('click');
+    const signupSubmit = signupWrapper.find('.form');
+    signupSubmit.simulate('submit');
     expect(submitFormSpy.called).to.be.true;
   });
 });

@@ -38,8 +38,8 @@ describe ('<Login />', () => {
   });
 
   it('should handle submit when user logins in as a user', () => {
-    const loginSubmit = loginWrapper.find('.login-submit-button');
-    loginSubmit.simulate('click');
+    const loginSubmit = loginWrapper.find('.form');
+    loginSubmit.simulate('submit');
     expect(loginFormSpy.called).to.be.true;
   });
 });
