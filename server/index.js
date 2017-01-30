@@ -10,7 +10,7 @@ const { User } = require('./models');
 const session = require('express-session');
 
 
-app.use(logger('combined'));
+app.use(logger('dev'));
 
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -20,8 +20,8 @@ app.use(express.static('dist'));
 app.use(express.static('public'));
 
 app.use(session({
-  secret  									: 'dalek',
-  resave   								: false,
+  secret           : 'dalek',
+  resave           : false,
   saveUninitialized: false,
 }));
 
