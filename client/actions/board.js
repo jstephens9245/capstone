@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD, RECEIVE_BOARD_NOTES} from '../constants';
+import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD, RECEIVE_BOARD_NOTES, MOVE_NOTE} from '../constants';
 
 
 export const receiveBoard = (board) => {
@@ -22,6 +22,7 @@ export const addNewBoard = (board) => ({
   board
 });
 
+
 export const getAllBoards = () => {
   return dispatch => {
     axios.get('/api/boards/')
@@ -29,14 +30,6 @@ export const getAllBoards = () => {
       .then((boards) => {
         dispatch(receiveAllBoards(boards.boards, boards.permissions));
       });
-  };
-};
-
-
-export const receiveBoardNotes = (notes) => {
-  return {
-    type: RECEIVE_BOARD_NOTES,
-    notes
   };
 };
 
@@ -58,15 +51,4 @@ export const getBoard = (boardId) => (dispatch) => {
     .then((board) => {
       dispatch(receiveBoard(board));
     });
-};
-
-
-export const getBoardNotes = (boardId) => (dispatch) => {
-  console.log('IN GBN');
-  axios.get('/api/notes/', {params: {board_id: boardId}})
-    .then(res => res.data)
-    .then(boardNotes => {
-      dispatch(receiveBoardNotes(boardNotes));
-    });
-
 };
