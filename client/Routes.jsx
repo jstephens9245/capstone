@@ -16,9 +16,6 @@ import {getNotes} from './actions/noteboard';
 //components
 import Index from './components/Index';
 
-// //socket-io
-import socketClient from 'socket.io-client';
-export const io =  socketClient;
 
 //onEnters
 function onBoardEnter(nextRouterState) {
