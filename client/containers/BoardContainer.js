@@ -10,7 +10,6 @@ import {getBoardNotes} from '../actions/board';
 class BoardContainer extends Component {
 
   componentDidMount() {
-    console.log('THIS BOARD CONTAINER props', this.props);
     const { dispatch, board} = this.props;
 
     const boardId = board.id;
@@ -27,7 +26,7 @@ class BoardContainer extends Component {
 }
 
 
-const mapStateToProps = (state) => ({board: state.boardReducer.selectedBoard, notes: state.boardReducer.selectedBoardNotes});
+const mapStateToProps = (state) => ({board: state.board.selectedBoard});
 
 const mapDispatchToProps = (dispatch) => ({});
 

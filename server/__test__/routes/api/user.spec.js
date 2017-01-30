@@ -1,43 +1,73 @@
-const { expect } = require('chai');
+const {expect} = require('chai');
 const request = require('supertest');
-const express = require('express');
 const {User, db} = require('ROOT/server/models');
-const router = require('ROOT/server/routes/api/user');
+const app = require('ROOT/server');
 
-const bodyParser = require('body-parser');
-const app = express();
-app.use(router);
-app.use(bodyParser.json());
+const seedUser = {
+  first_name: 'Alvin',
+  last_name : 'Yuen',
+  email     : 'alvin@alvin.com',
+  password  : '12345'
+};
 
-describe('Users Route:', () => {
+let seedUserId;
 
+describe('Users GET Route:', () => {
   let userNum;
-
-  it ('should GET all users', () => {
-    User.findAll()
-      .then(users => {
-        userNum = users.length;
-      })
-      .then(() => {
-        return request(app)
-          .get('/')
-          .expect(200)
-          .expect(res => {
-            expect(res.body.length).to.equal(userNum);
+  it('should GET all users', () => {
+    return request(app)
+      .get('/api/user')
+      .expect(200)
+      .expect(res => {
+        User
+          .findAll()
+          .then(users => {
+            expect(res.body.length)
+              .to
+              .equal(users.length);
           });
       });
   });
-
-  // it ('should CREATE a user', () => {
-  //   const user = {
-  //     first_name: 'A',
-  //     last_name : 'Y',
-  //     email     : 'a@a.com',
-  //     password  : 12345 };
-  //   return request(app)
-  //     .post('/')
-  //     .send(user)
-  //     .expect(200);
-  // });
 });
 
+describe('Users POST Route:', () => {
+
+  it('should CREATE a user', () => {
+    return request(app)
+      .post('/api/user')
+      .send(seedUser)
+      .expect(200)
+      .expect(res => {
+        expect(res.body.email)
+          .to
+          .be
+          .equal('alvin@alvin.com');
+        seedUserId = res.body.id;
+      });
+  });
+
+  it('should not allow to CREATE user with the same email', () => {
+    return request(app)
+      .post('/api/user')
+      .send(seedUser)
+      .expect(409);
+  });
+
+});
+
+describe('Users DELETE Route:', () => {
+
+  it('should delete a user', (done) => {
+    return request(app)
+      .delete(`/api/user/${seedUserId}`)
+      .expect(204)
+      .end((err, res) => {
+        User.findById(seedUserId)
+          .then(user => {
+            expect(user).to.be.null;
+            done();
+          });
+      });
+
+  });
+});

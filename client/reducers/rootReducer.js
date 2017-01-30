@@ -1,13 +1,17 @@
 import {CLEAR_STORE} from '../constants';
 import {combineReducers} from 'redux';
-import boardReducer from './boardReducer';
+import board from './boardReducer';
 import noteReducer from './noteReducer';
 import userReducer from './userReducer';
+import socket from './socketioReducer';
+
 
 export const combinedReducer = combineReducers({
-  boardReducer,
+  board,
   noteReducer,
-  userReducer
+  userReducer,
+  socket
+
 });
 
 export default function rootReducer(store, action) {

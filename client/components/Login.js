@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 
 const Login = (props) => {
   return (
-     <form className="form">
+     <form className="form" onSubmit={(e) => { props.loginForm(e); }}>
         <div className="">
           <label className="login-label"> Login with your email address </label>
         </div>
         <div className="form-group">
           <input type="email" name="email" placeholder="E-mail"
           className="signup-input-field"
-          onChange={(e) => { props.handleInput(e); }} />
+          id="login-email-input-field"
+          onChange={(e) => { props.handleInput(e); }}
+          required />
         </div>
         <div className="form-group">
           <input
@@ -17,11 +19,18 @@ const Login = (props) => {
           name="password"
           placeholder="password"
           className="signup-input-field"
-          onChange={(e) => { props.handleInput(e); }} />
+          id="login-password-input-field"
+          onChange={(e) => { props.handleInput(e); }}
+          required />
         </div>
-        <button className="login-submit-button" type="submit" onClick={(e) => { props.loginForm(e); }}> Login </button>
+        <button className="login-submit-button" type="submit">
+        Login
+        </button>
         <div className="signup-link-container" >
-        Don't have an account? <label><a onClick={() => { props.changeForm('signup'); }}> Signup</a> </label>
+          Don't have an account?
+          <label><a className="signup-link"
+          onClick={() => { props.changeForm('signup'); }}> Signup</a>
+          </label>
         </div>
       </form>
       );

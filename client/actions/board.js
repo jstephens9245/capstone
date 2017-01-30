@@ -9,9 +9,10 @@ export const receiveBoard = (board) => {
   };
 };
 
-export const receiveAllBoards = (boards) => ({
+export const receiveAllBoards = (boards, permissions) => ({
   type: RECEIVE_BOARDS,
-  boards
+  boards,
+  permissions
 });
 
 export const addNewBoard = (board) => ({
@@ -19,21 +20,14 @@ export const addNewBoard = (board) => ({
   board
 });
 
-export const getAllBoards = (userId) => {
+
+export const getAllBoards = () => {
   return dispatch => {
-    axios.get('/api/boards/', {params: {userId}})
+    axios.get('/api/boards/')
       .then((res) => res.data)
       .then((boards) => {
-        dispatch(receiveAllBoards(boards));
+        dispatch(receiveAllBoards(boards.boards, boards.permissions));
       });
-  };
-};
-
-
-export const receiveBoardNotes = (notes) => {
-  return {
-    type: RECEIVE_BOARD_NOTES,
-    notes
   };
 };
 
@@ -55,14 +49,4 @@ export const getBoard = (boardId) => (dispatch) => {
     .then((board) => {
       dispatch(receiveBoard(board));
     });
-};
-
-
-export const getBoardNotes = (boardId) => (dispatch) => {
-  axios.get('/api/notes/', {params: {board_id: boardId}})
-    .then(res => res.data)
-    .then(boardNotes => {
-      dispatch(receiveBoardNotes(boardNotes));
-    });
-
 };
