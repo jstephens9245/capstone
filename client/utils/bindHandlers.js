@@ -2,7 +2,6 @@ export default function bindHandlers(ctxt, ...handlers) {
   handlers.forEach((handler) => {
     if (typeof handler === 'string') handler = ctxt[handler];
     const hdlrName = handler.name;
-    console.log(hdlrName);
     try {
       ctxt[hdlrName] = handler.bind(ctxt);
     } catch (e) {
