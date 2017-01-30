@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-
-import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD, RECEIVE_BOARD_NOTES, MOVE_NOTE} from '../constants';
-
+import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD, RECEIVE_BOARD_NOTES} from '../constants';
 
 export const receiveBoard = (board) => {
   return {
