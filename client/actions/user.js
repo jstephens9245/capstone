@@ -14,9 +14,6 @@ export const removeLoginUser = () => ({
   type: REMOVE_LOGIN_USER,
 });
 
-
-
-
 export const createUser = (firstName, lastName, email, password) => dispatch => {
   axios.post('/api/user/', {first_name: firstName, last_name: lastName, email, password })
     .then(res => {
@@ -33,7 +30,6 @@ export const createUser = (firstName, lastName, email, password) => dispatch => 
 export const loginUser = (email, password) => dispatch => {
   axios.post('/api/auth/', { email: email, password: password })
     .then(res => {
-      console.log('RES DATA', res);
       if (res.data.message) {
         return; // password is incorrect
       } else {
@@ -56,6 +52,3 @@ export const checkLoginStatus = () => dispatch => {
   .then(res => dispatch(setLoginUser(res.data)))
   .catch(err => console.error(err));
 };
-
-
-
