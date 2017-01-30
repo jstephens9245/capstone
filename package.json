@@ -48,6 +48,7 @@
     "express": "^4.14.0",
     "express-session": "^1.15.0",
     "morgan": "^1.7.0",
+    "nock": "^9.0.2",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
@@ -59,6 +60,7 @@
     "rgb-hex": "^2.1.0",
     "scriptjs": "^2.5.8",
     "sequelize": "^3.30.0",
+    "sinon-chai": "^2.8.0",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2"
   },
@@ -91,6 +93,7 @@
     "html-webpack-plugin": "^2.24.1",
     "jest": "^18.0.0",
     "json-loader": "^0.5.4",
+    "moxios": "^0.3.0",
     "node-sass": "^4.0.0",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^1.2.1",

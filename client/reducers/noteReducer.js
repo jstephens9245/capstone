@@ -1,4 +1,4 @@
-import {SELECT_NOTE, RECEIVE_NOTES} from '../constants';
+import {RECEIVE_NOTE, RECEIVE_NOTES, SELECT_NOTE} from '../constants';
 
 const initState = {
   all     : [],
@@ -9,6 +9,9 @@ export default function noteReducer(state = initState, action) {
   const nextState = Object.assign({}, state);
 
   switch (action.type) {
+  case RECEIVE_NOTE:
+    nextState.all = [ ...nextState.all, action.payload.note ];
+    break;
   case RECEIVE_NOTES:
     nextState.all = action.payload;
     break;
