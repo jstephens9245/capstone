@@ -8,22 +8,26 @@ import CreateBoardContainer from './containers/CreateBoardContainer';
 import CreateNoteContainer from './containers/CreateNoteContainer';
 import ViewNoteContainer from './containers/ViewNoteContainer';
 import SignupContainer from './containers/SignupContainer';
+import SocketIOContainer from './containers/SocketIOContainer';
 
 //action-creators
 import {getBoard, getAllBoards} from './actions/board';
+// import {getNotes} from './actions/noteboard';
+import {getAllNotes} from './actions/note';
 
 //components
 import Index from './components/Index';
+
 
 //onEnters
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
   store.dispatch(getBoard(boardId));
+  store.dispatch(getAllNotes({boardId}));
 }
 
 function onMyBoardEnter(nextRouterState) {
-  const userId = store.getState().userReducer.loggedInUser.id;
-  store.dispatch(getAllBoards(userId));
+  store.dispatch(getAllBoards());
 }
 
 export default function Routes() {
@@ -37,6 +41,7 @@ export default function Routes() {
          <IndexRoute component={CreateNoteContainer} />
          <Route path=":id" component={ViewNoteContainer} />
        </Route>
+      <Route path="/sockets/:room" component={SocketIOContainer} />
       </Route>
     </Router>
   );

@@ -16,3 +16,14 @@ export const RECEIVE_NOTES = 'RECEIVE_NOTES';
 /* USER CONSTANTS */
 export const SET_LOGIN_USER = 'SET_LOGIN_USER';
 export const REMOVE_LOGIN_USER = 'REMOVE_LOGIN_USER';
+
+/* NOTEBOARD CONSTANTS */
+export const MOVE_NOTE = 'MOVE_NOTE';
+/* ITEM TYPES FOR REACT DND*/
+export const NOTE = 'note';
+
+/* SOCKETS */
+export const EMIT = 'EMIT';
+export const CONNECT = 'CONNECT';
+export const ADD_LISTENER = 'ADD_LISTENER';
+export const REMOVE_LISTENER = 'REMOVE_LISTENER';

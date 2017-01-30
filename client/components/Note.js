@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import bindHandlers from '../utils/bindHandlers';
 import Color from 'color';
 
+
 const initState = {
   focused: false,
   color  : Color.rgb([ 257, 208, 13 ])
 };
+
 
 export default class Note extends Component {
 
@@ -48,15 +50,20 @@ export default class Note extends Component {
   }
 
   render() {
+
+
     const noteStyle = {
       backgroundColor: this.state.color.rgb().string(),
-      color          : this.state.color.rotate(180).rgb().string()
+      color          : this.state.color.rotate(180).rgb().string(),
+
     };
+
+
     return (
       <div
         className={`c-note ${this.state.focused ? 'c-note--focused' : ''}`}
         onClick={this.clickHandler}
-        style={noteStyle}>
+        style={{...noteStyle}}>
         <div className="c-note__inner">
           <div className="c-note__content">{this.props.content}</div>
           { this.props.editable &&
