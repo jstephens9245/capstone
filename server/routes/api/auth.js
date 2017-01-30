@@ -29,8 +29,10 @@ passport.use(new LocalStrategy({
       }
     })
     .then(result => {
-      const [ passwordMatched, user ] = result;
-      passwordMatched ? done(null, user) : done(null, false, {message: 'password is incorrect'});
+      if (result) {
+        const [ passwordMatched, user ] = result;
+        passwordMatched ? done(null, user) : done(null, false, {message: 'password is incorrect'});
+      }
     })
     .catch(done);
 }));
