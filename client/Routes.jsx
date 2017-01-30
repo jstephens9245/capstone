@@ -25,8 +25,7 @@ function onBoardEnter(nextRouterState) {
 }
 
 function onMyBoardEnter(nextRouterState) {
-  const userId = store.getState().userReducer.loggedInUser.id;
-  store.dispatch(getAllBoards(userId));
+  store.dispatch(getAllBoards());
 }
 
 export default function Routes() {

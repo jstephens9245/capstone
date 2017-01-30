@@ -11,9 +11,10 @@ export const receiveBoard = (board) => {
   };
 };
 
-export const receiveAllBoards = (boards) => ({
+export const receiveAllBoards = (boards, permissions) => ({
   type: RECEIVE_BOARDS,
-  boards
+  boards,
+  permissions
 });
 
 export const addNewBoard = (board) => ({
@@ -21,12 +22,12 @@ export const addNewBoard = (board) => ({
   board
 });
 
-export const getAllBoards = (userId) => {
+export const getAllBoards = () => {
   return dispatch => {
-    axios.get('/api/boards/', {params: {userId}})
+    axios.get('/api/boards/')
       .then((res) => res.data)
       .then((boards) => {
-        dispatch(receiveAllBoards(boards));
+        dispatch(receiveAllBoards(boards.boards, boards.permissions));
       });
   };
 };
