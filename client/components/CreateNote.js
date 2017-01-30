@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import isEmpty from 'lodash/isEmpty';
 import bindHandlers from '../utils/bindHandlers';
 import NoteContainer from '../containers/NoteContainer';
+import Color from 'color';
 
 const initState = {
-  content: ''
+  content: '',
+  color  : [ 237, 208, 13 ]
 };
 
 export default class CreateNote extends Component {
@@ -23,7 +25,13 @@ export default class CreateNote extends Component {
     this.setState({content});
   }
 
-  submitHandler() {}
+  submitHandler(e) {
+    e.preventDefault();
+    this.props.createNote({
+      content: this.state.content,
+      color  : Color.rgb(this.state.color).hex().slice(1)
+    }, this.props.board.id);
+  }
 
   componentWillMount() {
     if ((!this.props.board || isEmpty(this.props.board)) && !this.props.location.query.board) {
