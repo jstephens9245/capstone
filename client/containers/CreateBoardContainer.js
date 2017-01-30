@@ -6,7 +6,7 @@ import {createBoard} from '../actions/board';
 const mapStateToProps = (state, ownProps) => {
   return {
     user  : state.user,
-    boards: state.boardReducer.allBoards
+    boards: state.board.allBoards
   };
 };
 
