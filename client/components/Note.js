@@ -4,7 +4,7 @@ import Color from 'color';
 
 const initState = {
   focused: false,
-  color  : Color.rgb([ 0, 208, 13 ])
+  color  : Color.rgb([ 257, 208, 13 ])
 };
 
 export default class Note extends Component {
@@ -14,7 +14,7 @@ export default class Note extends Component {
 
     this.state = initState;
 
-    if (this.props.color && Array.isArray(this.props.color)) {
+    if (this.props.color) {
       this.state.color = Color(`#${this.props.color}`).rgb();
     }
 
@@ -66,7 +66,7 @@ export default class Note extends Component {
               ref={(input) => { this.input = input; }}
               onFocus={this.focusHandler}
               onBlur={this.blurHandler}
-              onChange={this.changeHandler}></input>
+              onChange={this.changeHandler} />
           }
         </div>
       </div>
