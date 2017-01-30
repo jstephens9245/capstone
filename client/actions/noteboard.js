@@ -1,8 +1,20 @@
 import {MOVE_NOTE, RECEIVE_NOTES} from '../constants';
 
-const notesPayload = {
-  noteA: {top: 200, left: 600, title: 'hello'},
-  noteB: {top: 180, left: 20, title: 'goodbye'}
+
+const noteMaker = (num) => {
+  let top = 20;
+  let left = 80;
+  const notesPayload = {};
+
+  for (let i = 0; i < num; i++) {
+    notesPayload[i] = {top: top, left: left, title: ('hello' + i)};
+    top += 10;
+    left += 100;
+  }
+
+
+  return notesPayload;
+
 };
 
 
@@ -27,7 +39,7 @@ export const moveNote = (id, left, top) => {
 
 export const getNotes = () => dispatch => {
   console.log('GET NOTES');
-  dispatch(receiveNotes(notesPayload));
+  dispatch(receiveNotes(noteMaker(12)));
 };
 
 
