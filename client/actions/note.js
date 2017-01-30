@@ -31,3 +31,16 @@ export function getAllNotes({userId, boardId}) {
       .then(notes => dispatch(receiveNotes(notes)))
       .catch(err => console.warn(err));
 }
+
+export function createNote(note, boardId) {
+  return dispatch =>
+    axios.post('/api/notes/', {
+      content: note.content,
+      color  : note.color,
+      boardId: boardId || note.boardId
+    })
+      .then(() => {
+        // TODO: dispatch to sockets
+      })
+      .catch(err => console.warn(err));
+}
