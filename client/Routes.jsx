@@ -9,6 +9,7 @@ import SignupContainer from './containers/SignupContainer';
 
 //action-creators
 import {getBoard, getAllBoards} from './actions/board';
+import {getNotes} from './actions/noteboard';
 
 //components
 import Index from './components/Index';
@@ -17,6 +18,7 @@ import Index from './components/Index';
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
   store.dispatch(getBoard(boardId));
+  store.dispatch(getNotes());
 }
 
 function onMyBoardEnter(nextRouterState) {
