@@ -1,7 +1,7 @@
 'use strict';
 
 const {db, User, Board, Note, BoardPermission} = require('ROOT/server/models');
-const {randomString, randomNumber, randomColor} = require('ROOT/server/lib/utils/random');
+const {randomString, randomNumber, randomColor} = require('ROOT/lib/utils/random');
 const userCount = 10;
 const boardsPerUser = [ 3, 8 ];
 const notesPerBoard = [ 4, 12 ];
@@ -97,6 +97,8 @@ function seedNotes(boards, users, range) {
 function generateNote() {
   return {
     content: randomString(20, 120),
-    color  : randomColor()
+    color  : randomColor(),
+    top    : randomNumber(0, 1000),
+    left   : randomNumber(0, 1000)
   };
 }
