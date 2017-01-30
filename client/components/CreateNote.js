@@ -1,8 +1,29 @@
 import React, {Component} from 'react';
 import isEmpty from 'lodash/isEmpty';
+import bindHandlers from '../utils/bindHandlers';
 import NoteContainer from '../containers/NoteContainer';
 
+const initState = {
+  content: ''
+};
+
 export default class CreateNote extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = initState;
+    bindHandlers(this,
+      this.changeHandler,
+      this.submitHandler
+    );
+  }
+
+  changeHandler(content) {
+    this.setState({content});
+  }
+
+  submitHandler() {}
 
   componentWillMount() {
     if ((!this.props.board || isEmpty(this.props.board)) && !this.props.location.query.board) {
@@ -23,12 +44,19 @@ export default class CreateNote extends Component {
         <hr />
         <div className="row">
           <div className="col-xs-10 col-xs-offset-1">
-            <NoteContainer editable={true} />
+            <NoteContainer
+              editable={true}
+              content={this.state.content}
+              onChange={this.changeHandler} />
           </div>
         </div>
         <hr />
         <div className="row">
-          <button className="btn btn-primary block ml-auto mr-auto">Submit Note</button>
+          <button
+            onClick={this.submitHandler}
+            className="btn btn-primary block ml-auto mr-auto">
+            Submit Note
+          </button>
         </div>
       </div>
     );
