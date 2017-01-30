@@ -1,10 +1,9 @@
 import axios from 'axios';
-import {RECEIVE_NOTES, SELECT_NOTE, MOVE_NOTE} from '../constants';
-
+import {RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
 
 export function receiveNote(note) {
   return {
-    type   : SELECT_NOTE,
+    type   : RECEIVE_NOTE,
     payload: note
   };
 }
@@ -16,6 +15,12 @@ export function receiveNotes(notes) {
   };
 }
 
+export function selectNote(noteId) {
+  return {
+    type   : SELECT_NOTE,
+    payload: {noteId}
+  };
+};
 
 export const moveNote = (id, left, top) => {
   return {
@@ -32,6 +37,13 @@ export function getNote(noteId) {
   axios.get(`/api/notes/${noteId}`)
     .then(res => res.data)
     .then(note => dispatch(receiveNote(note)))
+    .then(note => {
+      return Promise.all([
+        note,
+        dispatch(selectNote(noteId))
+      ]);
+    })
+    .then(([ note ]) => note)
     .catch(err => console.warn(err));
 }
 
