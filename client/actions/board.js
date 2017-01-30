@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-
 import {RECEIVE_BOARD, RECEIVE_BOARDS, ADD_NEW_BOARD, RECEIVE_BOARD_NOTES} from '../constants';
-
 
 export const receiveBoard = (board) => {
   return {
@@ -61,7 +59,6 @@ export const getBoard = (boardId) => (dispatch) => {
 
 
 export const getBoardNotes = (boardId) => (dispatch) => {
-  console.log('IN GBN');
   axios.get('/api/notes/', {params: {board_id: boardId}})
     .then(res => res.data)
     .then(boardNotes => {
