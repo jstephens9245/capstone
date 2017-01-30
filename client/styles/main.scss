@@ -1,5 +1,7 @@
 /** Settings
  */
+@import 'settings/colors';
+@import 'settings/fonts';
 
 /** Tools
  * Mixins / Functions
@@ -8,6 +10,7 @@
 /** Generic
  * Resets
  */
+ @import 'generic/reset';
 
 /** Base
  * Element styles (no classes)
@@ -25,8 +28,12 @@
 @import 'components/navbar';
 @import 'components/myBoards';
 @import 'components/board';
+@import 'components/table';
 @import 'components/signup';
+@import 'components/note';
+
 /** Controls
  * Override / Helper / Utility classes
  * class prefix: `ctrl-`
  */
+@import 'controls/positioning';

@@ -6,8 +6,8 @@ import {createBoard} from '../actions/board';
 const mapStateToProps = (state, ownProps) => {
   return {
     user       : state.userReducer.loggedInUser,
-    boards     : state.boardReducer.allBoards,
-    permissions: state.boardReducer.permissions
+    boards     : state.board.allBoards,
+    permissions: state.board.permissions
   };
 };
 

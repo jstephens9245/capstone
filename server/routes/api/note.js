@@ -30,24 +30,38 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   Note.findById(req.params.id)
-    .then(user => res.send(user))
+    .then(note => res.send(note))
     .catch(next);
 });
 
 router.post('/', (req, res, next) => {
-  Note.create({
-    first_name: req.body.first_name,
-    last_name : req.body.last_name,
-    email     : req.body.email,
-    password  : req.body.password
-  })
-    .then(user => res.send(user))
+  Promise.all([
+    Note.create({
+      content: req.body.content,
+      color  : req.body.color,
+      top    : req.body.top || null,
+      left   : req.body.top || null
+    }),
+    Board.findById(req.body.boardId)
+  ])
+    .then(([ note, board ]) => Promise.all([
+      note,
+      note.setBoard(board),
+      note.setUser(req.user)
+    ]))
+    .then(([ note ]) => res.send(note))
     .catch(next);
 });
 
 router.put('/:id', (req, res, next) => {
-  Note.update({where: {id: req.params.id}})
-    .then(user => res.sendStatus(200))
+  const changes = {};
+  if (req.body.content) changes.content = req.body.content;
+  if (req.body.color) changes.color = req.body.color;
+  if (req.body.top) changes.top = req.body.top;
+  if (req.body.left) changes.left = req.body.left;
+
+  Note.update(changes, {where: {id: req.params.id}})
+    .then(note => res.sendStatus(200))
     .catch(next);
 });
 

@@ -17,27 +17,17 @@ export const removeLoginUser = () => ({
 export const createUser = (firstName, lastName, email, password) => dispatch => {
   axios.post('/api/user/', {first_name: firstName, last_name: lastName, email, password })
     .then(res => {
-      if (res.data.message) {
-        return; //email already exists
-      } else {
-        dispatch(setLoginUser(res.data));
-        browserHistory.push('/');
-      }
-    })
-    .catch(err => console.error(err));
+      dispatch(setLoginUser(res.data));
+      browserHistory.push('/');
+    }).catch(err => console.error(err));
 };
 
 export const loginUser = (email, password) => dispatch => {
   axios.post('/api/auth/', { email: email, password: password })
     .then(res => {
-      if (res.data.message) {
-        return; // password is incorrect
-      } else {
-        dispatch(setLoginUser(res.data));
-        browserHistory.push('/');
-      }
-    })
-    .catch(err => console.error(err));
+      dispatch(setLoginUser(res.data));
+      browserHistory.push('/');
+    }).catch(err => console.error(err));
 };
 
 export const logoutUser = () => dispatch => {
