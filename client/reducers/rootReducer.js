@@ -3,13 +3,12 @@ import {combineReducers} from 'redux';
 import board from './boardReducer';
 import noteReducer from './noteReducer';
 import userReducer from './userReducer';
-import noteBoard from './noteBoardReducer';
+
 
 export const combinedReducer = combineReducers({
   board,
   noteReducer,
-  userReducer,
-  noteBoard
+  userReducer
 });
 
 export default function rootReducer(store, action) {

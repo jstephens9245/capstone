@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RECEIVE_NOTES, SELECT_NOTE} from '../constants';
+import {RECEIVE_NOTES, SELECT_NOTE, MOVE_NOTE} from '../constants';
 
 
 export function receiveNote(note) {
@@ -15,6 +15,17 @@ export function receiveNotes(notes) {
     payload: notes
   };
 }
+
+
+export const moveNote = (id, left, top) => {
+  return {
+    type : MOVE_NOTE,
+    notes: {
+      [id]: {left, top}
+    }
+  };
+
+};
 
 export function getNote(noteId) {
   return (dispatch) =>
