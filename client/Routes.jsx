@@ -6,6 +6,7 @@ import {Route, IndexRoute, Router, browserHistory} from 'react-router';
 import BoardContainer from './containers/BoardContainer';
 import CreateBoardContainer from './containers/CreateBoardContainer';
 import CreateNoteContainer from './containers/CreateNoteContainer';
+import ViewNoteContainer from './containers/ViewNoteContainer';
 import SignupContainer from './containers/SignupContainer';
 import SocketIOContainer from './containers/SocketIOContainer';
 
@@ -38,6 +39,7 @@ export default function Routes() {
        <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
        <Route path="/note">
          <IndexRoute component={CreateNoteContainer} />
+         <Route path=":id" component={ViewNoteContainer} />
        </Route>
       <Route path="/sockets/:room" component={SocketIOContainer} />
       </Route>
