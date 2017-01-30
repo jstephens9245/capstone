@@ -27,7 +27,6 @@ export const getAllBoards = () => {
     axios.get('/api/boards/')
       .then((res) => res.data)
       .then((boards) => {
-        console.log(boards);
         dispatch(receiveAllBoards(boards.boards, boards.permissions));
       });
   };
