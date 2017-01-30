@@ -27,7 +27,7 @@ class BoardContainer extends Component {
 }
 
 
-const mapStateToProps = (state) => ({board: state.boardReducer.selectedBoard, notes: state.boardReducer.selectedBoardNotes});
+const mapStateToProps = (state) => ({board: state.board.selectedBoard, notes: state.board.selectedBoardNotes});
 
 const mapDispatchToProps = (dispatch) => ({});
 
