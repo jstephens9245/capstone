@@ -6,7 +6,7 @@ import Signup from '../components/Signup';
 import Login from '../components/Login';
 
 
-class SignupContainer extends Component {
+export class SignupContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
