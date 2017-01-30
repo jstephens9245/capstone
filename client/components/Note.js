@@ -17,8 +17,10 @@ export default class Note extends Component {
     this.state = initState;
 
     if (this.props.color) {
-      this.state.color = Color(`#${this.props.color}`).rgb();
+      this.state.color = new Color(`#${this.props.color}`).rgb();
+
     }
+
 
     bindHandlers(this,
       this.clickHandler,
@@ -29,7 +31,8 @@ export default class Note extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.color !== this.props.color) {
+    console.log('STATE COLOR', this.state.color);
+    if (nextProps.color) {
       this.setState({color: Color(`#${nextProps.color}`)});
     }
   }
@@ -54,7 +57,7 @@ export default class Note extends Component {
 
     const noteStyle = {
       backgroundColor: this.state.color.rgb().string(),
-      color          : this.state.color.rotate(180).rgb().string(),
+      color          : Color(this.state.color.hex()).rotate(180).rgb().string(),
 
     };
 
@@ -63,7 +66,7 @@ export default class Note extends Component {
       <div
         className={`c-note ${this.state.focused ? 'c-note--focused' : ''}`}
         onClick={this.clickHandler}
-        style={{...noteStyle}}>
+        style={noteStyle}>
         <div className="c-note__inner">
           <div className="c-note__content">{this.props.content}</div>
           { this.props.editable &&
