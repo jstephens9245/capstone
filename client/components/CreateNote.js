@@ -6,7 +6,7 @@ import Color from 'color';
 
 const initState = {
   content: '',
-  color  : [ 237, 208, 13 ]
+  color  : Color.rgb([ 237, 208, 13 ]).hex().slice(1)
 };
 
 export default class CreateNote extends Component {
@@ -29,7 +29,7 @@ export default class CreateNote extends Component {
     e.preventDefault();
     this.props.createNote({
       content: this.state.content,
-      color  : Color.rgb(this.state.color).hex().slice(1)
+      color  : this.state.color
     }, this.props.board.id)
       .then(() => this.setState(initState));
   }
@@ -52,10 +52,11 @@ export default class CreateNote extends Component {
         <h1 className="center">{this.props.board ? this.props.board.name : ''}</h1>
         <hr />
         <div className="row">
-          <div className="col-xs-10 col-xs-offset-1">
+          <div className="col-xs-10 col-xs-offset-1" style={{fontSize: '6vw'}}>
             <NoteContainer
               editable={true}
               content={this.state.content}
+              color={this.state.color}
               onChange={this.changeHandler} />
           </div>
         </div>
