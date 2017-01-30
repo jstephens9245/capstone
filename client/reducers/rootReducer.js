@@ -3,12 +3,15 @@ import {combineReducers} from 'redux';
 import board from './boardReducer';
 import noteReducer from './noteReducer';
 import userReducer from './userReducer';
+import socket from './socketioReducer';
 
 
 export const combinedReducer = combineReducers({
   board,
   noteReducer,
-  userReducer
+  userReducer,
+  socket
+
 });
 
 export default function rootReducer(store, action) {
