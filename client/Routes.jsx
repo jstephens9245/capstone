@@ -11,6 +11,7 @@ import SocketIOContainer from './containers/SocketIOContainer';
 
 //action-creators
 import {getBoard, getAllBoards} from './actions/board';
+import {getNotes} from './actions/noteboard';
 
 //components
 import Index from './components/Index';
@@ -23,6 +24,7 @@ export const io =  socketClient;
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
   store.dispatch(getBoard(boardId));
+  store.dispatch(getNotes());
 }
 
 function onMyBoardEnter(nextRouterState) {
