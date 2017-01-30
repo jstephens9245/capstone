@@ -11,7 +11,8 @@ import SocketIOContainer from './containers/SocketIOContainer';
 
 //action-creators
 import {getBoard, getAllBoards} from './actions/board';
-import {getNotes} from './actions/noteboard';
+// import {getNotes} from './actions/noteboard';
+import {getAllNotes} from './actions/note';
 
 //components
 import Index from './components/Index';
@@ -21,7 +22,7 @@ import Index from './components/Index';
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
   store.dispatch(getBoard(boardId));
-  store.dispatch(getNotes());
+  store.dispatch(getAllNotes({boardId}));
 }
 
 function onMyBoardEnter(nextRouterState) {

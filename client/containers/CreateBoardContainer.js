@@ -5,9 +5,11 @@ import {createBoard} from '../actions/board';
 
 const mapStateToProps = (state, ownProps) => {
   return {
+
     user       : state.userReducer.loggedInUser,
     boards     : state.board.allBoards,
     permissions: state.board.permissions
+
   };
 };
 
