@@ -4,7 +4,7 @@
   padding-top: 100%;
 }
 .c-note--focused {
-  border: 0.25em red dotted;
+  box-shadow: 0.1em 0.1em 1em 0 darken($yellow, 20);
 }
 
 .c-note__inner {
@@ -21,6 +21,8 @@
   display: block;
   font-size: 5.8vw;
   word-wrap: break-word;
+  font-family: $note-body;
+  font-weight: 600;
 }
 
 .c-note__input {
