@@ -38,7 +38,9 @@ router.post('/', (req, res, next) => {
   Promise.all([
     Note.create({
       content: req.body.content,
-      color  : req.body.color
+      color  : req.body.color,
+      top    : req.body.top || null,
+      left   : req.body.top || null
     }),
     Board.findById(req.body.boardId)
   ])
@@ -55,6 +57,8 @@ router.put('/:id', (req, res, next) => {
   const changes = {};
   if (req.body.content) changes.content = req.body.content;
   if (req.body.color) changes.color = req.body.color;
+  if (req.body.top) changes.top = req.body.top;
+  if (req.body.left) changes.left = req.body.left;
 
   Note.update(changes, {where: {id: req.params.id}})
     .then(note => res.sendStatus(200))
