@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
 /* delete user */
 router.delete('/:id', (req, res, next) => {
   User.destroy({ where: { id: req.params.id }})
-    .then(() => res.send())
+    .then(() => res.sendStatus(204))
     .catch(next);
 });
 

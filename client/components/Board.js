@@ -1,11 +1,15 @@
 import React from 'react';
+import NoteBoard from './NoteBoard';
+import NoteBoardContainer from '../containers/NoteBoardContainer';
 
 
 export default (props) => {
 
-  const table = [];
 
-  const notes = [ {id: 1, img: '/assets/postit.jpeg'}, {id: 2, img: '/assets/postit.jpeg'}, {id: 3, img: '/assets/postit.jpeg'}, {id: 1, img: '/assets/postit.jpeg'} ];
+  const notes = [ {id: 1, img: '/assets/postit.jpeg'},
+  {id: 2, img: '/assets/postit.jpeg'},
+  {id: 3, img: '/assets/postit.jpeg'},
+  {id: 4, img: '/assets/postit.jpeg'} ];
   // console.log(notes);
 
 
@@ -18,17 +22,7 @@ export default (props) => {
       </h2>
       <div>
         <div className="screen col-xs-12">
-          {
-            notes.map((note) => {
-              return (
-                <div>
-                  <div className="note">
-                    <img src={note.img} />
-                  </div>
-                </div>
-              );
-            })
-          }
+          <NoteBoardContainer/>
         </div>
       </div>
   </div>
