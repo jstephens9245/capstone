@@ -3,7 +3,7 @@ import {DropTarget} from 'react-dnd';
 import {connect} from 'react-redux';
 import {NOTE} from '../constants';
 import {compose} from 'redux';
-import Note from '../components/Note';
+import Note from '../components/TestNote';
 import NoteBoard from '../components/NoteBoard';
 import {moveNote} from '../actions/noteboard';
 import store from '../store';
