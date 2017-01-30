@@ -10,7 +10,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CreateNote);
 
 function mapStateToProps(state) {
   return {
-    board: state.boardReducer.selectedBoard
+    board: state.board.selectedBoard
   };
 }
 
