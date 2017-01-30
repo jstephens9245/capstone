@@ -62,6 +62,7 @@ export default class Note extends Component {
           <div className="c-note__content">{this.props.content}</div>
           { this.props.editable &&
             <input type="text"
+              value={this.props.content}
               className="c-note__input"
               ref={(input) => { this.input = input; }}
               onFocus={this.focusHandler}

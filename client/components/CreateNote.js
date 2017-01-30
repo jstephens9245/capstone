@@ -30,7 +30,8 @@ export default class CreateNote extends Component {
     this.props.createNote({
       content: this.state.content,
       color  : Color.rgb(this.state.color).hex().slice(1)
-    }, this.props.board.id);
+    }, this.props.board.id)
+      .then(() => this.setState(initState));
   }
 
   componentWillMount() {
