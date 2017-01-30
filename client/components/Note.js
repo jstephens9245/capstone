@@ -14,12 +14,23 @@ export default class Note extends Component {
 
     this.state = initState;
 
+    if (this.props.color && Array.isArray(this.props.color)) {
+      this.state.color = Color.rgb(this.props.color);
+    }
+
     bindHandlers(this,
       this.clickHandler,
       this.focusHandler,
       this.blurHandler,
       this.changeHandler
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (Array.isArray(nextProps.color)
+      && nextProps.color.toString() !== this.props.color.toString()) {
+      this.setState({color: Color.rgb(nextProps.color)});
+    }
   }
 
   clickHandler(e) {

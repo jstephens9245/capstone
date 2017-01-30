@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import CreateNote from '../components/CreateNote';
 
 import {getBoard} from '../actions/board';
+import {createNote} from '../actions/note';
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNote);
 
@@ -15,6 +16,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getBoard: bindActionCreators(getBoard, dispatch)
+    createNote: bindActionCreators(createNote, dispatch),
+    getBoard  : bindActionCreators(getBoard, dispatch)
   };
 }
