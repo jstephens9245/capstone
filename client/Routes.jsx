@@ -14,6 +14,10 @@ import {getBoard, getAllBoards} from './actions/board';
 //components
 import Index from './components/Index';
 
+// //socket-io
+import socketClient from 'socket.io-client';
+export const io =  socketClient;
+
 //onEnters
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
@@ -33,7 +37,7 @@ export default function Routes() {
        <Route path='/boards/:boardId' component={BoardContainer} onEnter={onBoardEnter} />
        <Route path="/signup" component={SignupContainer} />
        <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
-       <Route path="/sockets" component={SocketIOContainer} />
+      <Route path="/sockets/:room" component={SocketIOContainer} />
       </Route>
     </Router>
   );

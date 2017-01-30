@@ -26,6 +26,7 @@ const Navbar = (props) => {
               )
               }
               <li><Link to="/myboards">My Boards</Link></li>
+              <li><Link to="/sockets/111"> Socket Test </Link></li>
           </ul>
         </div>
       </div>
