@@ -16,6 +16,7 @@ const styles = {
 
 const noteSource = {
   beginDrag(props) {
+    console.log('NS', props);
     const { id, left, top } = props;
     return { id, left, top };
   },
@@ -33,14 +34,14 @@ class NoteWrapper extends Component {
   // shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
-
-    const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children } = this.props;
+    // console.log('NOTEWRAPPER PROPS', this.props);
+    const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children, note} = this.props;
     if (isDragging && hideSourceOnDrag) {
       return null;
     }
     return connectDragSource(
       <div style={{ ...styles, left, top }}>
-        <Note color={[ 1, 70, 230 ]}/>
+        <Note color={note.color}/>
       </div>
     );
   }
