@@ -1,16 +1,8 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
-const {Board, User, BoardPermission} = require('ROOT/server/models/');
-
-
-router.get('/:boardId', (req, res, next) => {
-  const boardId = req.params.boardId;
-  return Board.findById(boardId)
-    .then((board) => {
-      res.json(board);
-    })
-    .catch((err) => console.log(err));
-});
+const {Board, User, BoardPermission, Note} = require('ROOT/server/models/');
 
 
 router.get('/', (req, res, next) => {
@@ -29,12 +21,23 @@ router.get('/', (req, res, next) => {
     };
   }
 
+
   Promise.all([
     Board.findAll(boardQuery),
     BoardPermission.findAll(boardPermissionQuery)
   ])
     .then(([ boards, permissions ]) => {
       res.json({boards, permissions});
+    })
+    .catch((err) => console.log(err));
+});
+
+
+router.get('/:boardId', (req, res, next) => {
+  const boardId = req.params.boardId;
+  return Board.findById(boardId)
+    .then((board) => {
+      res.json(board);
     })
     .catch((err) => console.log(err));
 });
@@ -66,6 +69,36 @@ router.post('/', (req, res, next) => {
       res.json(board);
     })
     .catch(next);
+});
+
+
+router.put('/:id', (req, res, next) => {
+  const changes = {};
+  if (req.body.name) changes.name = req.body.name;
+  if (req.body.url) changes.url = req.body.url;
+
+  Board.update(changes, {
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(board => res.sendStatus(200))
+    .catch(next);
+});
+
+router.delete('/:id', (req, res, next) => {
+  Board.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(() => res.sendStatus(200))
+    .catch(next);
+});
+
+router.use((req, res, next, err) => {
+  console.log('Error in server/routes/api/board.js');
+  next(err);
 });
 
 
