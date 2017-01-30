@@ -14,20 +14,27 @@ router.get('/:boardId', (req, res, next) => {
 
 
 router.get('/', (req, res, next) => {
-  const userId = req.query.userId;
-  let searchQuery = {};
-  if (userId) {
-    searchQuery = {
+  let boardQuery = {};
+  let boardPermissionQuery = {};
+
+  if (req.user) {
+    boardQuery = {
       include: [ {
         model: User,
-        where: { id: Number(userId)},
+        where: { id: req.user.id},
       } ]
+    };
+    boardPermissionQuery = {
+      where: { user_id: req.user.id}
     };
   }
 
-  Board.findAll(searchQuery)
-    .then((boards) => {
-      res.json(boards);
+  Promise.all([
+    Board.findAll(boardQuery),
+    BoardPermission.findAll(boardPermissionQuery)
+  ])
+    .then(([ boards, permissions ]) => {
+      res.json({boards, permissions});
     })
     .catch((err) => console.log(err));
 });

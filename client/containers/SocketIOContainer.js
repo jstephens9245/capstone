@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { io } from '../Routes.jsx';
+
+import { socketConnect, socketEmit, addSocketListener, removeSocketListener } from '../actions/socketio';
 
 
 class SocketIOContainer extends Component {
@@ -16,43 +17,36 @@ class SocketIOContainer extends Component {
     this.connect = this.connect.bind(this);
     this.disconnect = this.disconnect.bind(this);
     this.joined = this.joined.bind(this);
-    this.emit = this.emit.bind(this);
   }
 
   componentDidMount() {
-    /* declare listeners for initial component mount */
-    this.socket = io('http://localhost:3030/board');
-    this.socket.on('connect', this.connect);
-    this.socket.on('disconnect', this.disconnect);
-    this.emit('join', {room: this.props.params.room, name: this.props.loggedInUser.first_name });
-    this.socket.on('joined', this.joined);
+
+    this.props.socketConnect('board');
+    this.props.addSocketListener('connect', this.connect);
+    this.props.addSocketListener('disconnect', this.disconnect);
+    this.props.addSocketListener('joined', this.joined);
+    this.props.socketEmit('join', { room: this.props.params.room, name: this.props.loggedInUser.first_name});
   }
 
   componentWillUnmount() {
-    /* remove listeners when leaving page */
-    this.socket.emit('leave', this.props.params.room);
-    this.socket.removeListener('connect', this.connect);
-    this.socket.removeListener('joined', this.joined);
-    this.socket.removeListener('disconnect', this.disconnect);
+    this.props.socketEmit('leave', this.props.params.room);
+    this.props.removeSocketListener('connect', this.connect);
+    this.props.removeSocketListener('joined', this.joined);
+    this.props.removeSocketListener('disconnect', this.disconnect);
   }
 
   connect() {
-    this.setState({ status: 'connected', id: this.socket.id});
+    this.setState({ status: 'connected', id: this.props.socket.id});
   }
 
   disconnect() {
-    this.setState({ status: 'disconnected', id: this.socket.id});
+    this.setState({ status: 'disconnected', id: this.props.socket.id});
   }
 
   joined({participants, totalParticipants}) {
     this.setState({ participants });
     this.setState({ totalParticipants});
   }
-
-  emit(eventName, payload) {
-    this.socket.emit(eventName, payload);
-  }
-
 
   render() {
     return (
@@ -70,10 +64,15 @@ class SocketIOContainer extends Component {
 
 
 const mapStateToProps = (state) => ({
-  loggedInUser: state.userReducer.loggedInUser
+  loggedInUser: state.userReducer.loggedInUser,
+  socket      : state.socket
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  socketConnect       : (namespace) => { dispatch(socketConnect(namespace)); },
+  addSocketListener   : (eventName, method) => { dispatch(addSocketListener(eventName, method)); },
+  removeSocketListener: (eventName, method) => { dispatch(removeSocketListener(eventName, method)); },
+  socketEmit          : (eventName, payload) => { dispatch(socketEmit(eventName, payload)); },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocketIOContainer);

@@ -17,9 +17,6 @@ import {getAllNotes} from './actions/note';
 //components
 import Index from './components/Index';
 
-// //socket-io
-import socketClient from 'socket.io-client';
-export const io =  socketClient;
 
 //onEnters
 function onBoardEnter(nextRouterState) {
@@ -29,8 +26,7 @@ function onBoardEnter(nextRouterState) {
 }
 
 function onMyBoardEnter(nextRouterState) {
-  const userId = store.getState().userReducer.loggedInUser.id;
-  store.dispatch(getAllBoards(userId));
+  store.dispatch(getAllBoards());
 }
 
 export default function Routes() {
