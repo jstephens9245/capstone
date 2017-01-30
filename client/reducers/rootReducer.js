@@ -4,12 +4,14 @@ import board from './boardReducer';
 import noteReducer from './noteReducer';
 import userReducer from './userReducer';
 import noteBoard from './noteBoardReducer';
+import socket from './socketioReducer';
 
 export const combinedReducer = combineReducers({
   board,
   noteReducer,
   userReducer,
-  noteBoard
+  noteBoard,
+  socket
 });
 
 export default function rootReducer(store, action) {
