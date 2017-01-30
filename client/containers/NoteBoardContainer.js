@@ -7,7 +7,7 @@ import Note from '../components/TestNote';
 import NoteBoard from '../components/NoteBoard';
 import {moveNote} from '../actions/noteboard';
 import store from '../store';
-import flow from 'lodash.flow';
+import flow from 'lodash/flow';
 
 
 const styles = {

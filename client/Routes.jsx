@@ -1,10 +1,11 @@
 import React from 'react';
 import store from './store';
-import {Route, Router, browserHistory} from 'react-router';
+import {Route, IndexRoute, Router, browserHistory} from 'react-router';
 
 //containers
 import BoardContainer from './containers/BoardContainer';
 import CreateBoardContainer from './containers/CreateBoardContainer';
+import CreateNoteContainer from './containers/CreateNoteContainer';
 import SignupContainer from './containers/SignupContainer';
 
 //action-creators
@@ -23,7 +24,6 @@ function onBoardEnter(nextRouterState) {
 
 function onMyBoardEnter(nextRouterState) {
   const userId = store.getState().userReducer.loggedInUser.id;
-  // console.log(userId);
   store.dispatch(getAllBoards(userId));
 }
 
@@ -34,6 +34,9 @@ export default function Routes() {
        <Route path='/boards/:boardId' component={BoardContainer} onEnter={onBoardEnter} />
        <Route path="/signup" component={SignupContainer} />
        <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
+       <Route path="/note">
+         <IndexRoute component={CreateNoteContainer} />
+       </Route>
       </Route>
     </Router>
   );
