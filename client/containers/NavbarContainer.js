@@ -3,14 +3,20 @@ import {connect} from 'react-redux';
 import Navbar from '../components/Navbar';
 
 import { logoutUser } from '../actions/user';
+import { toggleClick } from '../actions/navbar';
 
 const mapStateToProps = (state, ownProps) => {
-  return {user: state.userReducer.loggedInUser};
+  return {
+    user         : state.userReducer.loggedInUser,
+    sidebarToggle: state.nav.sidebarToggle,
+
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    logoutUser: () => dispatch(logoutUser())
+    logoutUser   : () => dispatch(logoutUser()),
+    toggleSidebar: (field) => dispatch(toggleClick(field))
   };
 };
 
@@ -19,7 +25,7 @@ class NB extends Component {
     super(props);
     this.state = {
       aria       : false,
-      toggleClass: 'navbar-collapse collapse',
+      toggleClass: 'navClass navbar-collapse collapse',
     };
     this.expandNav = this.expandNav.bind(this);
   }
@@ -27,10 +33,10 @@ class NB extends Component {
   expandNav() {
     let newToggleClassValue = '';
 
-    if (this.state.toggleClass === 'navbar-collapse collapse') {
-      newToggleClassValue = 'navbar-collapse collapse in';
+    if (this.state.toggleClass === 'navClass navbar-collapse collapse') {
+      newToggleClassValue = 'navClass navbar-collapse collapse in navToggle';
     } else {
-      newToggleClassValue = 'navbar-collapse collapse';
+      newToggleClassValue = 'navClass navbar-collapse collapse';
     }
     this.setState({
       aria       : !this.state.aria,
@@ -46,6 +52,7 @@ class NB extends Component {
         navClass={this.state.toggleClass}
         user={this.props.user}
         logoutUser={this.props.logoutUser}
+        toggleSidebar={this.props.toggleSidebar}
       />
     );
   }

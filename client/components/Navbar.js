@@ -5,17 +5,20 @@ const Navbar = (props) => {
   return (
     <div>
     <nav className="navbar navbar navbar-static-top" role="navigation">
-      <div className="container">
-        <div className="navbar-header">
+      <div className="container-fluid">
+        <div className="navbar-header" id='navHeader' >
           <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-              aria-expanded={props.aria} aria-controls="navbar" onClick={() => { props.expandNav(); }}>
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
-            <a className='navbar-brand' href='/'>Notion</a>
-          </div>
+            aria-expanded={props.aria} aria-controls="navbar" onClick={() => { props.expandNav(); }}>
+            <span className="sr-only">Toggle navigation</span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+            <span className="icon-bar"></span>
+          </button>
+            <a className='navbar-brand' style={{float: 'right'}} href='/'>Notion</a>
+            <button className="ion-gear-b navbarGearIcon" style={{fontSize: '2em', marginTop: '10px', paddingLeft: '10px'}} type='button' onClick={() => { props.toggleSidebar('sidebarToggle'); }}></button>
+        </div>
+
+
           <div id='navbar' className={props.navClass} aria-expanded={props.aria}>
             <ul className="nav navbar-nav" onClick={() => { props.expandNav(); }}>
               <li><Link to="/">Home</Link></li>
