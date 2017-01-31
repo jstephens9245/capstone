@@ -30,7 +30,9 @@ const collect = (connect, monitor) => ({
 class NoteWrapper extends Component {
 
 
-  shouldComponentUpdate(nextProps, nextState) { shouldPureComponentUpdate(nextProps, nextState); }
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
 
   render() {
     console.log('NOTEWRAPPER PROPS', this.props);
