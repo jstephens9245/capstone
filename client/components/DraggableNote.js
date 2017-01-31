@@ -16,7 +16,9 @@ const noteSource = {
 function getStyles(props) {
   console.log('GET STYLES PROPS', props);
   const { left, top, isDragging } = props;
+  console.log('BEFORE TRANSFORM TOP LEFT', top, left);
   const transform = `translate3d(${left}px, ${top}px, 0)`;
+  console.log('TRANSFORM GET STYLES', transform);
 
   return {
     position       : 'absolute',
@@ -30,7 +32,7 @@ function getStyles(props) {
 }
 
 const collect = (connector, monitor) => {
-  console.log('collect');
+  console.log('collect', monitor.getItem());
   return {
     connectDragSource : connector.dragSource(),
     connectDragPreview: connector.dragPreview(),
@@ -42,7 +44,7 @@ class DraggableNote extends PureComponent {
 
 
   // shouldComponentUpdate = shouldPureComponentUpdate
-  shouldComponentUpdate(nextProps, nextState) {}
+  shouldComponentUpdate(nextProps, nextState) { return true; }
 
   componentDidMount() {
     console.log('did mount');
@@ -57,7 +59,7 @@ class DraggableNote extends PureComponent {
 
 
   render() {
-    // console.log('DRAGGABLE NOTE PROPS', this.props);
+    console.log('DRAGGABLE NOTE PROPS', this.props);
     const { connectDragSource, note} = this.props;
 
     return connectDragSource(

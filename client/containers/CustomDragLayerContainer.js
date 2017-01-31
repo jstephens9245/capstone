@@ -20,6 +20,7 @@ class CustomDragLayerContainer extends Component {
 
   render() {
     const { snapToGridAfterDrop, snapToGridWhileDragging } = this.state;
+    console.log('CDLC', this.state);
 
     return (
       <div>
@@ -55,6 +56,7 @@ class CustomDragLayerContainer extends Component {
   handleSnapToGridAfterDropChange() {
     this.setState({
       snapToGridAfterDrop: !this.state.snapToGridAfterDrop,
+
     });
   }
 
@@ -66,4 +68,4 @@ class CustomDragLayerContainer extends Component {
 }
 
 
-export default DragDropContext(HTML5Backend)(CustomDragLayerContainer);
+export default CustomDragLayerContainer;

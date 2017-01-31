@@ -21,5 +21,4 @@ const Index = (props) => {
   );
 };
 
-export default Index;
-// DragDropContext(HTML5Backend)(Index);
+export default DragDropContext(HTML5Backend)(Index);

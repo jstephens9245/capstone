@@ -4,15 +4,13 @@ import {NOTE} from '../constants';
 import NoteDragPreview from './NoteDragPreview';
 import snapToGrid from './snapToGrid';
 
-const layerStyles = {
-  position     : 'fixed',
-  pointerEvents: 'none',
-  zIndex       : 100,
-  left         : 0,
-  top          : 0,
-  width        : '100%',
-  height       : '100%',
-};
+// const layerStyles = {
+//   position     : 'fixed',
+//   pointerEvents: 'none',
+//   zIndex       : 100,
+//   width        : '100%',
+//   height       : '100%',
+// };
 
 function getItemStyles(props) {
   console.log('GET ITEM STYLES PROPS', props);
@@ -44,7 +42,7 @@ function getItemStyles(props) {
 const collect = (monitor) => {
   console.log('MONITOR', monitor.getItem());
   return {
-    item         : monitor.getItem(),
+    note         : monitor.getItem(),
     itemType     : monitor.getItemType(),
     initialOffset: monitor.getInitialSourceClientOffset(),
     currentOffset: monitor.getSourceClientOffset(),
@@ -74,11 +72,9 @@ class CustomDragLayer extends Component {
     }
 
     return (
-      <div style={layerStyles}>
         <div style={getItemStyles(this.props)}>
           {this.renderItem(itemType, item)}
         </div>
-      </div>
     );
   }
 }
