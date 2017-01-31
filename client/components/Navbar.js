@@ -15,7 +15,9 @@ const Navbar = (props) => {
             <span className="icon-bar"></span>
           </button>
             <a className='navbar-brand' style={{float: 'right'}} href='/'>Notion</a>
-            <button className="ion-gear-b navbarGearIcon" style={{fontSize: '2em', marginTop: '10px', paddingLeft: '10px'}} type='button' onClick={() => { props.toggleSidebar('sidebarToggle'); }}></button>
+            {/* <div id="page-content-wrapper"> */}
+              <button className="ion-gear-b navbarGearIcon" style={{fontSize: '2em', marginTop: '10px', paddingLeft: '10px'}} type='button' onClick={() => { props.toggleSidebar('sidebarToggle'); }}></button>
+            {/* </div> */}
         </div>
 
 
