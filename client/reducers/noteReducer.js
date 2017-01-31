@@ -22,9 +22,7 @@ export default function noteReducer(state = initState, action) {
     break;
 
   case MOVE_NOTE:
-    const keys = Object.keys(action.notes);
     nextState.all = nextState.all.map((note, i) => {
-
       const keyId =  note.id;
       if (action.notes[keyId]) {
         return Object.assign({}, note, {left: action.notes[keyId].left, top: action.notes[keyId].top });
