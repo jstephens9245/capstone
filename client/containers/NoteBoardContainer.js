@@ -5,6 +5,8 @@ import {NOTE} from '../constants';
 import {compose} from 'redux';
 import NoteWrapper from '../components/NoteWrapper';
 import DraggableNote from '../components/DraggableNote';
+import shouldPureComponentUpdate from '../components/shouldPureComponentUpdate';
+
 import {moveNote} from '../actions/note';
 import store from '../store';
 import flow from 'lodash/flow';
@@ -45,9 +47,9 @@ class NoteBoardContainer extends Component {
 
 
   renderNote(note) {
-    console.log('RENDER NOTE', note);
+    // console.log('RENDER NOTE', note.left);
     return (
-       <DraggableNote key={note.id} id={note.id} {...note} />
+       <DraggableNote key={note.id} id={note.id} note={note} />
     );
   }
 
@@ -56,11 +58,11 @@ class NoteBoardContainer extends Component {
 
     const {movedNote, notes, connectDropTarget} = this.props;
 
-    console.log('NOTES IN CONTAINER', this.props.notes);
+    // console.log('NOTES IN CONTAINER', this.props.notes);
     return connectDropTarget(
       <div style={styles}>
         {notes.map((note) => {
-          console.log('NOTE IN CONT', note);
+          // console.log('NOTE IN CONT', this.renderNote(note));
           this.renderNote(note);
 
         })}

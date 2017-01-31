@@ -31,6 +31,7 @@ function shallowEqual(objA, objB) {
 
 
 export default function shouldPureComponentUpdate(nextProps, nextState) {
+  console.log('SPCU');
   return !shallowEqual(this.props, nextProps) ||
-         !shallowEqual(this.state, nextState);
+         !shallowEqual(this.getState, nextState);
 }
