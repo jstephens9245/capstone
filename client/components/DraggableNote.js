@@ -7,12 +7,14 @@ import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 
 const noteSource = {
   beginDrag(props) {
+    console.log('beginProps', props);
     const { id, left, top } = props;
     return { id, left, top };
   },
 };
 
 function getStyles(props) {
+  console.log('GET STYLES PROPS', props);
   const { left, top, isDragging } = props;
   const transform = `translate3d(${left}px, ${top}px, 0)`;
 
@@ -27,16 +29,24 @@ function getStyles(props) {
   };
 }
 
-const collect = (connector, monitor) => ({
-  connectDragSource : connector.dragSource(),
-  connectDragPreview: connector.dragPreview(),
-  isDragging        : monitor.isDragging()
-});
+const collect = (connector, monitor) => {
+  console.log('collect');
+  return {
+    connectDragSource : connector.dragSource(),
+    connectDragPreview: connector.dragPreview(),
+    isDragging        : monitor.isDragging()
+  };
+};
 
 class DraggableNote extends Component {
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('SCU');
+    return shouldPureComponentUpdate(nextProps, nextState);
+  }
 
   componentDidMount() {
+    console.log('did mount');
     // Use empty image as a drag preview so browsers don't draw it
     // and we can draw whatever we want on the custom drag layer instead.
     this.props.connectDragPreview(getEmptyImage(), {
@@ -46,12 +56,10 @@ class DraggableNote extends Component {
     });
   }
 
-  // shouldComponentUpdate = shouldPureComponentUpdate;
-
 
   render() {
-    console.log('DRAGGABLE NOTE PROPS', this.props);
-    const { title, connectDragSource, note} = this.props;
+    // console.log('DRAGGABLE NOTE PROPS', this.props);
+    const { connectDragSource, note} = this.props;
 
     return connectDragSource(
       <div style={getStyles(this.props)}>

@@ -5,7 +5,7 @@ import NoteBoardContainer from './NoteBoardContainer';
 import CustomDragLayer from '../components/CustomDragLayer';
 
 
-export default class CustomDragLayerContainer extends Component {
+class CustomDragLayerContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -64,3 +64,6 @@ export default class CustomDragLayerContainer extends Component {
     });
   }
 }
+
+
+export default DragDropContext(HTML5Backend)(CustomDragLayerContainer);

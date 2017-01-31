@@ -30,20 +30,20 @@ const collect = (connect, monitor) => ({
 class NoteWrapper extends Component {
 
 
-  // shouldComponentUpdate = shouldPureComponentUpdate;
+  shouldComponentUpdate(nextProps, nextState) { shouldPureComponentUpdate(nextProps, nextState); }
 
   render() {
     console.log('NOTEWRAPPER PROPS', this.props);
-    const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children, note} = this.props;
-    if (isDragging && hideSourceOnDrag) {
-      return null;
-    }
-    return connectDragSource(
-      <div style={{ ...styles, left, top }}>
+    const { note, yellow} = this.props;
+    const backgroundColor = yellow ? 'yellow' : 'white';
+
+
+    return (
+      <div style={{ ...styles, backgroundColor }}>
         <Note color={note.color}/>
       </div>
     );
   }
 }
 
-export default DragSource(NOTE, noteSource, collect)(NoteWrapper);
+export default NoteWrapper;

@@ -15,6 +15,7 @@ const layerStyles = {
 };
 
 function getItemStyles(props) {
+  console.log('GET ITEM STYLES PROPS', props);
   const { initialOffset, currentOffset } = props;
   if (!initialOffset || !currentOffset) {
     return {
@@ -40,21 +41,25 @@ function getItemStyles(props) {
 }
 
 
-const collect = monitor => ({
-  item         : monitor.getItem(),
-  itemType     : monitor.getItemType(),
-  initialOffset: monitor.getInitialSourceClientOffset(),
-  currentOffset: monitor.getSourceClientOffset(),
-  isDragging   : monitor.isDragging(),
-});
+const collect = (monitor) => {
+  console.log('MONITOR', monitor.getItem());
+  return {
+    item         : monitor.getItem(),
+    itemType     : monitor.getItemType(),
+    initialOffset: monitor.getInitialSourceClientOffset(),
+    currentOffset: monitor.getSourceClientOffset(),
+    isDragging   : monitor.isDragging(),
+  };
+};
 
 class CustomDragLayer extends Component {
 
 
   renderItem(type, item) {
+    console.log('RENDER ITEM', item);
     switch (type) {
     case NOTE:
-      return (<NoteDragPreview />);
+      return (<NoteDragPreview note={item} />);
     default:
       return null;
     }
