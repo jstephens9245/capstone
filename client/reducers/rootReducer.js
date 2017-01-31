@@ -4,12 +4,14 @@ import board from './boardReducer';
 import noteReducer from './noteReducer';
 import userReducer from './userReducer';
 import noteBoard from './noteBoardReducer';
+import navbarReducer from './navbarReducer';
 
 export const combinedReducer = combineReducers({
   board,
   noteReducer,
   userReducer,
-  noteBoard
+  noteBoard,
+  nav: navbarReducer
 });
 
 export default function rootReducer(store, action) {
