@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import {NOTE} from '../constants';
-import Note from './Note';
+import NoteWrapper from './NoteWrapper';
 import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 
 const noteSource = {
   beginDrag(props) {
-    const { id, title, left, top } = props;
-    return { id, title, left, top };
+    const { id, left, top } = props;
+    return { id, left, top };
   },
 };
 
@@ -27,6 +27,11 @@ function getStyles(props) {
   };
 }
 
+const collect = (connector, monitor) => ({
+  connectDragSource : connector.dragSource(),
+  connectDragPreview: connector.dragPreview(),
+  isDragging        : monitor.isDragging()
+});
 
 class DraggableNote extends Component {
 
@@ -45,19 +50,15 @@ class DraggableNote extends Component {
 
 
   render() {
-    console.log('DRAGGABLE NOTE PROPS');
-    const { title, connectDragSource } = this.props;
+    console.log('DRAGGABLE NOTE PROPS', this.props);
+    const { title, connectDragSource, note} = this.props;
 
     return connectDragSource(
       <div style={getStyles(this.props)}>
-        <Note title={title} />
+        <NoteWrapper note={note} />
       </div>
     );
   }
 }
 
-export default DragSource(NOTE, noteSource, (connect, monitor) => ({
-  connectDragSource : connect.dragSource(),
-  connectDragPreview: connect.dragPreview(),
-  isDragging        : monitor.isDragging(),
-}))(DraggableNote);
+export default DragSource(NOTE, noteSource, collect)(DraggableNote);
