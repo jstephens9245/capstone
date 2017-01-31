@@ -7,7 +7,7 @@ import BoardContainer from './containers/BoardContainer';
 import CreateBoardContainer from './containers/CreateBoardContainer';
 import CreateNoteContainer from './containers/CreateNoteContainer';
 import SignupContainer from './containers/SignupContainer';
-import SocketIOContainer from './containers/SocketIOContainer';
+import ParticipantsContainer from './containers/ParticipantsContainer';
 
 //action-creators
 import {getBoard, getAllBoards} from './actions/board';
@@ -38,7 +38,7 @@ export default function Routes() {
        <Route path="/note">
          <IndexRoute component={CreateNoteContainer} />
        </Route>
-      <Route path="/sockets/:room" component={SocketIOContainer} />
+      <Route path="/participants/:room" component={ParticipantsContainer} />
       </Route>
     </Router>
   );
