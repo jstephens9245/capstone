@@ -31,7 +31,6 @@ export default class Note extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('STATE COLOR', this.state.color);
     if (nextProps.color) {
       this.setState({color: Color(`#${nextProps.color}`)});
     }

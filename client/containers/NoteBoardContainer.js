@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {NOTE} from '../constants';
 import {compose} from 'redux';
 import NoteWrapper from '../components/NoteWrapper';
+import DraggableNote from '../components/DraggableNote';
 import {moveNote} from '../actions/note';
 import store from '../store';
 import flow from 'lodash/flow';
@@ -43,25 +44,25 @@ const collect = (connector, monitor) => {
 class NoteBoardContainer extends Component {
 
 
+  renderNote(note) {
+    console.log('RENDER NOTE', note);
+    return (
+       <DraggableNote key={note.id} id={note.id} {...note} />
+    );
+  }
+
+
   render() {
 
     const {movedNote, notes, connectDropTarget} = this.props;
+
+    console.log('NOTES IN CONTAINER', this.props.notes);
     return connectDropTarget(
       <div style={styles}>
         {notes.map((note) => {
-          const { left, top } = note;
+          console.log('NOTE IN CONT', note);
+          this.renderNote(note);
 
-          return (
-            <NoteWrapper
-              key={note.id}
-              id={note.id}
-              left={left}
-              top={top}
-              note={note}
-            >
-
-            </NoteWrapper>
-          );
         })}
       </div>
     );

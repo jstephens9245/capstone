@@ -32,7 +32,6 @@ export default function noteReducer(state = initState, action) {
         return note;
       }
     });
-    console.log('sadfasdfsadfd', nextState.all);
     break;
 
 

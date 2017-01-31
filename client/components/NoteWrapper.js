@@ -5,7 +5,7 @@ import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 import Note from './Note';
 
 const styles = {
-  border  : '1px dashed gray',
+
   padding : '0.5rem 1rem',
   cursor  : 'move',
   height  : 100,
@@ -16,7 +16,6 @@ const styles = {
 
 const noteSource = {
   beginDrag(props) {
-    console.log('NS', props);
     const { id, left, top } = props;
     return { id, left, top };
   },
@@ -34,7 +33,7 @@ class NoteWrapper extends Component {
   // shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
-    // console.log('NOTEWRAPPER PROPS', this.props);
+    console.log('NOTEWRAPPER PROPS', this.props);
     const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children, note} = this.props;
     if (isDragging && hideSourceOnDrag) {
       return null;
