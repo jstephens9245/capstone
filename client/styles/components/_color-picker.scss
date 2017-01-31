@@ -1,0 +1,20 @@
+.c-color-picker {
+  @extend .o-aspect-ratio;
+  @extend .o-aspect-ratio--sq;
+}
+
+.c-color-picker__wrapper {}
+.c-color-picker__wrapper--modal {
+  width: 80%;
+  margin: 0 auto;
+  .c-color-picker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.c-color-picker__inner {
+  @extend .o-aspect-ratio__inner;
+}
