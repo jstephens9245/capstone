@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component, PureComponent} from 'react';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import {NOTE} from '../constants';
@@ -38,15 +38,11 @@ const collect = (connector, monitor) => {
   };
 };
 
-class DraggableNote extends Component {
+class DraggableNote extends PureComponent {
 
 
   // shouldComponentUpdate = shouldPureComponentUpdate
-  shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('SCU', this.props);
-  //   return shouldPureComponentUpdate(nextProps, nextState);
-    return shallowCompare(this.props);
-  }
+  shouldComponentUpdate(nextProps, nextState) {}
 
   componentDidMount() {
     console.log('did mount');
