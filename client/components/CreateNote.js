@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import isEmpty from 'lodash/isEmpty';
 import bindHandlers from '../utils/bindHandlers';
 import NoteContainer from '../containers/NoteContainer';
+import ColorPicker from './ColorPicker';
 import Color from 'color';
 
 const initState = {
-  content: '',
-  color  : Color.rgb([ 237, 208, 13 ]).hex().slice(1)
+  content           : '',
+  color             : Color.rgb([ 237, 208, 13 ]).hex(),
+  displayColorPicker: false
 };
 
 export default class CreateNote extends Component {
@@ -17,7 +19,9 @@ export default class CreateNote extends Component {
     this.state = initState;
     bindHandlers(this,
       this.changeHandler,
-      this.submitHandler
+      this.submitHandler,
+      this.updateColor,
+      this.toggleColorPicker
     );
   }
 
@@ -34,6 +38,19 @@ export default class CreateNote extends Component {
       .then(() => this.setState(initState));
   }
 
+  toggleColorPicker() {
+    this.setState((prevState) => {
+      return Object.assign(
+        {},
+        prevState,
+        {displayColorPicker: !prevState.displayColorPicker});
+    });
+  }
+
+  updateColor(hex) {
+    this.setState({color: hex});
+  }
+
   componentWillMount() {
     if ((!this.props.board || isEmpty(this.props.board)) && !this.props.location.query.board) {
       // If no board is selected and no board ID is provided
@@ -47,19 +64,36 @@ export default class CreateNote extends Component {
   }
 
   render() {
+    console.log(this.state.color, typeof this.state.color);
     return (
       <div className="container">
         <h1 className="center">{this.props.board ? this.props.board.name : ''}</h1>
         <hr />
-        <div className="row">
-          <div className="col-xs-10 col-xs-offset-1" style={{fontSize: '6vw'}}>
-            <NoteContainer
-              editable={true}
-              content={this.state.content}
-              color={this.state.color}
-              onChange={this.changeHandler} />
+          <div className="row">
+            <div className="col-xs-10 col-xs-offset-1" style={{fontSize: '6vw'}}>
+              <NoteContainer
+                editable={true}
+                content={this.state.content}
+                color={this.state.color}
+                onChange={this.changeHandler} />
+            </div>
+            { this.state.displayColorPicker &&
+              <div className="c-color-picker__wrapper c-color-picker__wrapper--modal">
+                <ColorPicker
+                  width={500}
+                  color={this.state.color}
+                  updateColor={this.updateColor} />
+              </div>
+            }
           </div>
-        </div>
+          <hr />
+          <div className="row">
+              <button
+                onClick={this.toggleColorPicker}
+                className="btn btn-primary block">
+                Change Color
+              </button>
+          </div>
         <hr />
         <div className="row">
           <button
