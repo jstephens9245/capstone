@@ -46,12 +46,14 @@ const collect = (connector, monitor) => {
 class NoteBoardContainer extends Component {
 
 
-  renderNote(note) {
-    // console.log('RENDER NOTE', note.left);
-    return (
-       <DraggableNote key={note.id} id={note.id} note={note} />
-    );
-  }
+  // renderNote(note) {
+  //   // console.log('RENDER NOTE', note.left);
+  //   (
+  //     <div>
+  //      <DraggableNote key={note.id} id={note.id} note={note} />
+  //      </div>
+  //   );
+  // }
 
 
   render() {
@@ -61,11 +63,15 @@ class NoteBoardContainer extends Component {
     // console.log('NOTES IN CONTAINER', this.props.notes);
     return connectDropTarget(
       <div style={styles}>
-        {notes.map((note) => {
+        {notes.map((note) => (
           // console.log('NOTE IN CONT', this.renderNote(note));
-          this.renderNote(note);
+          // this.renderNote(note)
+          <div key={note.id}>
+          <DraggableNote key={note.id} id={note.id} note={note} />;
+          </div>
+        )
+      )}
 
-        })}
       </div>
     );
   }
