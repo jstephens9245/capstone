@@ -46,19 +46,20 @@ class NoteBoardContainer extends Component {
   render() {
 
     const {movedNote, notes, connectDropTarget} = this.props;
-
     return connectDropTarget(
       <div style={styles}>
-        {Object.keys(notes).map((key) => {
-          const { left, top, title } = notes[key];
+        {notes.map((note) => {
+          const { left, top } = note;
+
           return (
             <NoteWrapper
-              key={key}
-              id={key}
+              key={note.id}
+              id={note.id}
               left={left}
               top={top}
+              note={note}
             >
-              {title}
+
             </NoteWrapper>
           );
         })}

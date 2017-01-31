@@ -71,7 +71,7 @@ router.delete('/:id', (req, res, next) => {
     .catch(next);
 });
 
-router.use((req, res, next, err) => {
+router.use((err, req, res, next) => {
   console.log('Error in server/routes/api/note.js');
   next(err);
 });

@@ -12,13 +12,14 @@ export default class Note extends Component {
 
   constructor(props) {
     super(props);
-
+    
     this.state = Object.assign({},
       initState,
       {
         color: this.props.color ? this.props.color.replace(/^#*/, '#') : initState.color
       }
     );
+
 
     bindHandlers(this,
       this.clickHandler,
@@ -62,7 +63,7 @@ export default class Note extends Component {
       <div
         className={`c-note ${this.state.focused ? 'c-note--focused' : ''}`}
         onClick={this.clickHandler}
-        style={{...noteStyle}}>
+        style={noteStyle}>
         <div className="c-note__inner">
           <div className="c-note__content">{this.props.content}</div>
           { this.props.editable &&

@@ -1,37 +1,31 @@
 import socketClient from 'socket.io-client';
 const io =  socketClient;
-import isEmpty from 'lodash/isEmpty'
+import isEmpty from 'lodash/isEmpty';
+
 
 import {CONNECT, EMIT, ADD_LISTENER, REMOVE_LISTENER } from '../constants';
 
 const initialState = {
+  events: [],
 };
 
-export default function(socket = initialState, action) {
-  let newSocket = Object.assign(socket);
+export default function(state = initialState, action) {
+  const newState = Object.assign({}, state);
   switch (action.type) {
-  case CONNECT:
-    newSocket = io(`http://localhost:3030/${action.namespace}`);
-    break;
-  case EMIT:
-    if (!isEmpty(newSocket)) {
-      newSocket.emit(action.eventName, action.payload);
-    }
-    break;
+
   case ADD_LISTENER:
-    if (!isEmpty(newSocket)) {
-      newSocket.on(action.eventName, action.method);
-    }
+    newState.events = [ ...newState.events, action.eventName ];
     break;
+
   case REMOVE_LISTENER:
-    if (!isEmpty(newSocket)) {
-      newSocket.removeListener(action.eventName, action.method);
-    }
+    newState.events = [];
     break;
+
   default:
-    return socket;
+    return state;
   }
-  return newSocket;
+
+  return newState;
 }
 
 
