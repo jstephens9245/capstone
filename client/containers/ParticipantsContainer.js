@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { socketConnect, socketEmit, addSocketListener, removeSocketListener } from '../actions/socketio';
-
 
 class ParticipantsContainer extends Component {
 
@@ -19,6 +19,9 @@ class ParticipantsContainer extends Component {
   }
 
   componentWillMount() {
+    if (!Object.keys(this.props.loggedInUser).length) {
+      browserHistory.push('/signup');
+    }
     this.props.socketConnect('board');
     this.props.addSocketListener('connect', this.connect);
     this.props.addSocketListener('disconnect', this.disconnect);
@@ -51,7 +54,7 @@ class ParticipantsContainer extends Component {
       <div className="participants-container">
           <div className="participant-number-container">
             <span className="participant-number">
-              <i className="glyphicon glyphicon-globe"></i>{this.state.totalParticipants} Online
+              <i className="glyphicon glyphicon-globe"></i>{this.state.totalParticipants} Users Online
             </span>
           </div>
           <div className="participant-list-container">
@@ -86,6 +89,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ParticipantsContainer);
+
 
 
 
