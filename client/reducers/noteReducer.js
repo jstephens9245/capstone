@@ -1,8 +1,9 @@
-import {RECEIVE_NOTE, RECEIVE_NOTES, SELECT_NOTE} from '../constants';
+import {RECEIVE_NOTE, RECEIVE_NOTES, SELECT_NOTE, MOVE_NOTE } from '../constants';
 
 const initState = {
   all     : [],
-  selected: null
+  selected: null,
+
 };
 
 export default function noteReducer(state = initState, action) {
@@ -10,15 +11,30 @@ export default function noteReducer(state = initState, action) {
 
   switch (action.type) {
   case RECEIVE_NOTE:
-    nextState.all = [ ...nextState.all, action.payload.note ];
+    nextState.all = [ ...nextState.all, action.payload ];
     break;
   case RECEIVE_NOTES:
     nextState.all = action.payload;
     break;
 
   case SELECT_NOTE:
-    nextState.selected = nextState.all.find(note => note.id === action.payload.id);
+    nextState.selected = nextState.all.find(note => note.id == action.payload.noteId);
     break;
+
+  case MOVE_NOTE:
+    const keys = Object.keys(action.notes);
+    nextState.all = nextState.all.map((note, i) => {
+
+      const keyId =  note.id;
+      if (action.notes[keyId]) {
+        return Object.assign({}, note, {left: action.notes[keyId].left, top: action.notes[keyId].top });
+      } else {
+        return note;
+      }
+    });
+    console.log('sadfasdfsadfd', nextState.all);
+    break;
+
 
   default:
     return state;

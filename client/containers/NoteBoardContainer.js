@@ -3,9 +3,8 @@ import {DropTarget} from 'react-dnd';
 import {connect} from 'react-redux';
 import {NOTE} from '../constants';
 import {compose} from 'redux';
-import Note from '../components/TestNote';
-import NoteBoard from '../components/NoteBoard';
-import {moveNote} from '../actions/noteboard';
+import NoteWrapper from '../components/NoteWrapper';
+import {moveNote} from '../actions/note';
 import store from '../store';
 import flow from 'lodash/flow';
 
@@ -46,22 +45,22 @@ class NoteBoardContainer extends Component {
 
   render() {
 
-
-    const {notes, connectDropTarget} = this.props;
-
+    const {movedNote, notes, connectDropTarget} = this.props;
     return connectDropTarget(
       <div style={styles}>
-        {Object.keys(notes).map((key) => {
-          const { left, top, title } = notes[key];
+        {notes.map((note) => {
+          const { left, top } = note;
+
           return (
-            <Note
-              key={key}
-              id={key}
+            <NoteWrapper
+              key={note.id}
+              id={note.id}
               left={left}
               top={top}
+              note={note}
             >
-              {title}
-            </Note>
+
+            </NoteWrapper>
           );
         })}
       </div>
@@ -73,7 +72,7 @@ class NoteBoardContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    notes: state.noteBoard.notes
+    notes: state.noteReducer.all,
   };
 };
 

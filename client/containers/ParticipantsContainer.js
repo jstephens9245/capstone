@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { socketConnect, socketEmit, addSocketListener, removeSocketListener } from '../actions/socketio';
 
-
-class SocketIOContainer extends Component {
+class ParticipantsContainer extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      status           : 'disconnected',
-      id               : '',
       totalParticipants: 0,
       participants     : [],
     };
+
     this.connect = this.connect.bind(this);
     this.disconnect = this.disconnect.bind(this);
     this.joined = this.joined.bind(this);
   }
 
-  componentDidMount() {
-
+  componentWillMount() {
+    if (!Object.keys(this.props.loggedInUser).length) {
+      browserHistory.push('/signup');
+    }
     this.props.socketConnect('board');
     this.props.addSocketListener('connect', this.connect);
     this.props.addSocketListener('disconnect', this.disconnect);
@@ -36,11 +37,11 @@ class SocketIOContainer extends Component {
   }
 
   connect() {
-    this.setState({ status: 'connected', id: this.props.socket.id});
+    this.setState({ status: 'connected'});
   }
 
   disconnect() {
-    this.setState({ status: 'disconnected', id: this.props.socket.id});
+    this.setState({ status: 'disconnected'});
   }
 
   joined({participants, totalParticipants}) {
@@ -50,18 +51,30 @@ class SocketIOContainer extends Component {
 
   render() {
     return (
-      <div>
-        <div> status: {this.state.status} </div>
-        <div> socket id: {this.state.id} </div>
-        <div> total participants: {this.state.totalParticipants} </div>
-        <div> name of participants : {this.state.participants.map(participant => {
-          return <span key={participant.id}> {participant.name} </span>;
-        })} </div>
+      <div className="participants-container">
+          <div className="participant-number-container">
+            <span className="participant-number">
+              <i className="glyphicon glyphicon-globe"></i>{this.state.totalParticipants} Users Online
+            </span>
+          </div>
+          <div className="participant-list-container">
+            <ul className="participant-list">
+              {this.state.participants.map(participant => {
+                return <li className="participant-item" key={participant.id}>
+                          <div className="participant">
+                          <i className="glyphicon glyphicon-user"></i>
+                            {participant.name}
+                          </div>
+                        </li>;
+              })}
+            </ul>
+          </div>
       </div>
     );
   }
-}
 
+
+}
 
 const mapStateToProps = (state) => ({
   loggedInUser: state.userReducer.loggedInUser,
@@ -75,6 +88,12 @@ const mapDispatchToProps = (dispatch) => ({
   socketEmit          : (eventName, payload) => { dispatch(socketEmit(eventName, payload)); },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SocketIOContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ParticipantsContainer);
+
+
+
+
+
+
 
 
