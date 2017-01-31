@@ -1,13 +1,10 @@
 import sh from 'shorthash';
+import { randomString } from 'ROOT/lib/utilities/random';
 
 // 6 letter alpha numeric room name generator
 export const genRoomName = () => {
-  let text = '';
   const range = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for (let i = 0; i < 6; i++) {
-    text += range.charAt(Math.floor(Math.random() * range.length));
-  }
-  return text;
+  return randomString(6, 6, range);
 };
 
 // returns unique hash from any given str
