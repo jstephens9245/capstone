@@ -6,25 +6,24 @@ import {Route, IndexRoute, Router, browserHistory} from 'react-router';
 import BoardContainer from './containers/BoardContainer';
 import CreateBoardContainer from './containers/CreateBoardContainer';
 import CreateNoteContainer from './containers/CreateNoteContainer';
+import ViewNoteContainer from './containers/ViewNoteContainer';
 import SignupContainer from './containers/SignupContainer';
-import SocketIOContainer from './containers/SocketIOContainer';
+import ParticipantsContainer from './containers/ParticipantsContainer';
 
 //action-creators
 import {getBoard, getAllBoards} from './actions/board';
-import {getNotes} from './actions/noteboard';
+// import {getNotes} from './actions/noteboard';
+import {getAllNotes} from './actions/note';
 
 //components
 import Index from './components/Index';
 
-// //socket-io
-import socketClient from 'socket.io-client';
-export const io =  socketClient;
 
 //onEnters
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
   store.dispatch(getBoard(boardId));
-  store.dispatch(getNotes());
+  store.dispatch(getAllNotes({boardId}));
 }
 
 function onMyBoardEnter(nextRouterState) {
@@ -40,8 +39,9 @@ export default function Routes() {
        <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
        <Route path="/note">
          <IndexRoute component={CreateNoteContainer} />
+         <Route path=":id" component={ViewNoteContainer} />
        </Route>
-      <Route path="/sockets/:room" component={SocketIOContainer} />
+      <Route path="/participants/:room" component={ParticipantsContainer} />
       </Route>
     </Router>
   );
