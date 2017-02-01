@@ -18,6 +18,8 @@ module.exports = function sockets(server) {
   });
 
 
+
+
   /************************** main board meeting namespace ***************************/
 
   io.of('board').on('connection', (socket) => {
@@ -36,6 +38,11 @@ module.exports = function sockets(server) {
       console.log(red(`[Board Meeting]: ${Object.keys(connections).length} sockets remaining`));
     });
 
+    socket.on('*', (eventName, payload) => {
+      console.log('EVENTNAME', eventName);
+      console.log('PAYLOAD', payload);
+    });
+
     /**
      * Handles users when they join a particular meeting board room
      *
@@ -51,6 +58,7 @@ module.exports = function sockets(server) {
       console.log(blue(`[Board Meeting] - Room<${room}> - No. of Partcipants: ${getTotalParticipantsInRoom(room)}`));
       /* broadcast to all room participants including sender */
       io.of('board').in(room).emit('joined', { participants: boardMeeting[room], totalParticipants: getTotalParticipantsInRoom(room)});
+      console.log(`BROADCAST TOTAL PARTICIPANTS FOR ${room}, ${getTotalParticipantsInRoom(room)}`);
     });
 
      /**
@@ -66,6 +74,7 @@ module.exports = function sockets(server) {
       socket.disconnect();
       io.of('board').in(room).emit('joined', { participants: boardMeeting[room], totalParticipants: getTotalParticipantsInRoom(room)});
     });
+
 
   });
 

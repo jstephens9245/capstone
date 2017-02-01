@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 
 import { socketConnect, socketEmit, addSocketListener, clearSocketListeners } from '../actions/socketio';
 
-class ParticipantsContainer extends Component {
+export class ParticipantsContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -20,7 +20,6 @@ class ParticipantsContainer extends Component {
 
   componentWillMount() {
     if (!Object.keys(this.props.loggedInUser).length) {
-      console.log('hitting this will mount');
       browserHistory.push('/signup');
     }
     this.props.socketConnect('board');
@@ -44,6 +43,7 @@ class ParticipantsContainer extends Component {
   }
 
   joined({participants, totalParticipants}) {
+    console.log('JOINED RESPONSE');
     this.setState({ participants });
     this.setState({ totalParticipants});
   }

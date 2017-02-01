@@ -35,8 +35,7 @@ describe('<Signup />', () => {
     const signupInput = signupWrapper.find('#signup-firstname-input-field');
     signupInput.simulate('change', {target: {value: firstNameInput}});
     expect(handleInputSpy.called).to.be.true;
-    // expect(handleInputSpy.calledWith('Alvin')).to.be.true;
-    // not working ?
+    expect(handleInputSpy.args[0][0].target.value).to.equal('Alvin');
   });
 
   it('should handle submit when user signups as new user', () => {

@@ -6,12 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 
 let socket = {};
 
-// export const emit = (eventName, payload) => ({
-//   type: EMIT,
-//   eventName,
-//   payload
-// });
-
 export const addListener = (eventName) => ({
   type: ADD_LISTENER,
   eventName
