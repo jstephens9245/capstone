@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import ModalContainer from '../containers/ModalContainer';
-import NoteBoardContainer from '../containers/NoteBoardContainer';
+import UserBoardsContainer from '../containers/UserBoardsContainer';
 
 const CreateBoard = (props) => {
   const boards = props.boards;
@@ -38,7 +38,7 @@ const CreateBoard = (props) => {
               return (
               <div className="col-xs-10 col-md-8 col-lg-4 col-xs-offset-1" key={ board.id }>
                   <Link className="thumbnail" to={`/boards/${board.id}`}>
-                  <NoteBoardContainer board={board} />
+                  <UserBoardsContainer board={board} />
                   <div className="caption">
                     <h5>
                       <span>{ board.name }</span>

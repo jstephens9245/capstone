@@ -19,6 +19,8 @@ export const REMOVE_LOGIN_USER = 'REMOVE_LOGIN_USER';
 
 /* NOTEBOARD CONSTANTS */
 export const MOVE_NOTE = 'MOVE_NOTE';
+export const RECEIVE_MYBOARDS_NOTES = 'RECEIVE_MYBOARDS_NOTES';
+
 /* ITEM TYPES FOR REACT DND*/
 export const NOTE = 'note';
 
