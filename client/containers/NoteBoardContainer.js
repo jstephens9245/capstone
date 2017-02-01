@@ -55,7 +55,7 @@ class NoteBoardContainer extends Component {
   }
 
   render() {
-
+    console.log('NOTEBOARD CONTAINER', this.props);
     const {movedNote, notes, connectDropTarget} = this.props;
 
     return connectDropTarget(
