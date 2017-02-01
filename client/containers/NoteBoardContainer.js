@@ -65,7 +65,7 @@ class NoteBoardContainer extends Component {
       <div style={styles}>
         {notes.map((note) => (
           <div key={note.id}>
-          <DraggableNote key={note.id} id={note.id} note={note} />;
+          <DraggableNote key={note.id} id={note.id} note={note} />
           </div>
         )
       )}
