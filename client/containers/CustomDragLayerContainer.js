@@ -20,7 +20,7 @@ class CustomDragLayerContainer extends Component {
 
   render() {
     const { snapToGridAfterDrop, snapToGridWhileDragging } = this.state;
-    console.log('CUSTOM DL CONTAINER', this.props);
+
 
     return (
       <div>

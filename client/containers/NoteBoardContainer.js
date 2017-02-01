@@ -48,20 +48,22 @@
   class NoteBoardContainer extends Component {
 
     renderNote(item, key) {
+
       return (
         <DraggableNote key={key} id={key} {...item} />
       );
     }
 
     render() {
-      console.log('NOTEBOARD CONTAINER', this.props);
       const {movedNote, notes, connectDropTarget} = this.props;
+
 
       return connectDropTarget(
       <div style={styles}>
-        {Object.keys(notes).map(key => (
-        this.renderNote(notes[key], key)
-        )
+        {notes.map(note => {
+          return this.renderNote(note, note.id);
+
+        }
       )}
 
       </div>
@@ -70,8 +72,8 @@
 }
 
   const mapStateToProps = (state, ownProps) => {
-    console.log('STATE', state, 'OWNPROPS', ownProps);
-    return {};
+
+    return {notes: state.noteReducer.all};
 
   };
 

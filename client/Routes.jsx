@@ -23,7 +23,7 @@ import Index from './components/Index';
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
   store.dispatch(getBoard(boardId));
-  // store.dispatch(getAllNotes({boardId}));
+  store.dispatch(getAllNotes({boardId}));
 }
 
 function onMyBoardEnter(nextRouterState) {
