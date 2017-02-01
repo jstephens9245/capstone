@@ -5,7 +5,6 @@
   import {compose} from 'redux';
   import NoteWrapper from '../components/NoteWrapper';
   import DraggableNote from '../components/DraggableNote';
-  import shouldPureComponentUpdate from '../components/shouldPureComponentUpdate';
   import snapToGrid from '../components/snapToGrid';
   import {moveNote} from '../actions/note';
   import store from '../store';
