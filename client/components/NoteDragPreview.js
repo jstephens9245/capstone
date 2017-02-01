@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 import NoteWrapper from './NoteWrapper';
 
 
