@@ -1,86 +1,87 @@
-import React, { Component } from 'react';
-import {DropTarget} from 'react-dnd';
-import {connect} from 'react-redux';
-import {NOTE} from '../constants';
-import {compose} from 'redux';
-import NoteWrapper from '../components/NoteWrapper';
-import {moveNote} from '../actions/note';
-import store from '../store';
-import flow from 'lodash/flow';
+  import React, { Component } from 'react';
+  import {DropTarget} from 'react-dnd';
+  import {connect} from 'react-redux';
+  import {NOTE} from '../constants';
+  import {compose} from 'redux';
+  import NoteWrapper from '../components/NoteWrapper';
+  import DraggableNote from '../components/DraggableNote';
+  import shouldPureComponentUpdate from '../components/shouldPureComponentUpdate';
+  import snapToGrid from '../components/snapToGrid';
+  import {moveNote} from '../actions/note';
+  import store from '../store';
+  import flow from 'lodash/flow';
 
 
-const styles = {
-  width   : 1000,
-  height  : 1000,
-  position: 'relative'
-};
-
-const noteTarget = {
-  drop(props, monitor, component) {
-
-    const delta = monitor.getDifferenceFromInitialOffset();
-    const item = monitor.getItem();
-
-    const left = Math.round(item.left + delta.x);
-    const top = Math.round(item.top + delta.y);
-
-
-    props.moveNote(item.id, left, top);
-
-
-  },
-};
-
-const collect = (connector, monitor) => {
-
-  return {
-    connectDropTarget: connector.dropTarget(),
-    isOver           : monitor.isOver()
+  const styles = {
+    height  : 1000,
+    width   : 1000,
+    position: 'relative'
   };
-};
+
+  const noteTarget = {
+    drop(props, monitor, component) {
+      const delta = monitor.getDifferenceFromInitialOffset();
+      const item = monitor.getItem();
+
+      let left = Math.round(item.left + delta.x);
+      let top = Math.round(item.top + delta.y);
+      if (props.snapToGrid) {
+        [ left, top ] = snapToGrid(left, top);
+      }
 
 
-class NoteBoardContainer extends Component {
+      props.moveNote(item.id, left, top);
 
 
-  render() {
+    },
+  };
 
-    const {movedNote, notes, connectDropTarget} = this.props;
-    return connectDropTarget(
+  const collect = (connector, monitor) => {
+
+    return {
+      connectDropTarget: connector.dropTarget(),
+      isOver           : monitor.isOver()
+    };
+  };
+
+
+  class NoteBoardContainer extends Component {
+
+    renderNote(item, key) {
+
+      return (
+        <DraggableNote key={key} id={key} {...item} />
+      );
+    }
+
+    render() {
+      const {movedNote, notes, connectDropTarget} = this.props;
+
+
+      return connectDropTarget(
       <div style={styles}>
-        {notes.map((note) => {
-          const { left, top } = note;
+        {notes.map(note => {
+          return this.renderNote(note, note.id);
 
-          return (
-            <NoteWrapper
-              key={note.id}
-              id={note.id}
-              left={left}
-              top={top}
-              note={note}
-            >
+        }
+      )}
 
-            </NoteWrapper>
-          );
-        })}
       </div>
     );
-  }
-
+    }
 }
 
+  const mapStateToProps = (state, ownProps) => {
 
-const mapStateToProps = (state) => {
-  return {
-    notes: state.noteReducer.all,
+    return {notes: state.noteReducer.all};
+
   };
-};
 
-const mapDispatchToProps = (dispatch) => ({
-  moveNote: (id, left, top) =>
+  const mapDispatchToProps = (dispatch) => ({
+    moveNote: (id, left, top) =>
   dispatch(moveNote(id, left, top))
-});
+  });
 
-export default flow(DropTarget(NOTE, noteTarget, collect
+  export default flow(DropTarget(NOTE, noteTarget, collect
 ), connect(mapStateToProps, mapDispatchToProps))(NoteBoardContainer)
 ;
