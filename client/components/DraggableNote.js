@@ -1,4 +1,4 @@
-import React, { Component, PureComponent} from 'react';
+import React, {PureComponent} from 'react';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import {NOTE} from '../constants';
