@@ -20,7 +20,7 @@ class UserBoardsContainer extends Component {
 
     return (
       <div style={{
-        width   : 200,
+        // width   : 400,
         height  : 200,
         position: 'relative'}}>
         { boardIdNotes.length ? (
@@ -30,9 +30,11 @@ class UserBoardsContainer extends Component {
                 <NoteWrapper
                   key={note.id}
                   id={note.id}
-                  left={left / 10}
-                  top={top / 10}
+                  left={left / 5}
+                  top={top / 5}
                   note={note}
+                  height={40}
+                  width={40}
                 />
               );
             })

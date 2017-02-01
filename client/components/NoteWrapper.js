@@ -4,14 +4,14 @@ import {NOTE} from '../constants';
 import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 import Note from './Note';
 
-const styles = {
-  border  : '1px dashed gray',
-  padding : '0.5rem 1rem',
-  cursor  : 'move',
-  height  : 100,
-  width   : 100,
-  position: 'absolute'
-};
+// const styles = {
+//   border  : '1px dashed gray',
+//   padding : '0.5rem 1rem',
+//   cursor  : 'move',
+//   height  : this.props.height || 100,
+//   width   : 100,
+//   position: 'absolute'
+// };
 
 
 const noteSource = {
@@ -40,7 +40,13 @@ class NoteWrapper extends Component {
       return null;
     }
     return connectDragSource(
-      <div style={{ ...styles, left, top }}>
+      <div style={{
+        border  : '1px dashed gray',
+        padding : '0.5rem 1rem',
+        cursor  : 'move',
+        height  : this.props.height || 100,
+        width   : this.props.width || 100,
+        position: 'absolute', left, top }}>
         <Note color={note.color}/>
       </div>
     );
