@@ -1,6 +1,7 @@
 'use strict';
 
 const socketio = require('socket.io');
+
 const {green, blue, red} = require('../lib/utils/chalk');
 
 /* active connections */
@@ -25,6 +26,15 @@ module.exports = function sockets(server) {
     connections[socket.id] = socket.id;
     console.log(green(`[Board Meeting]: ${Object.keys(connections).length} clients connected`));
 
+    /* configure to to call wildcard event listener */
+    const onevent = socket.onevent;
+    socket.onevent = function(packet) {
+      const args = packet.data || [];
+      onevent.call (this, packet);
+      packet.data = [ '*' ].concat(args);
+      onevent.call(this, packet);
+    };
+
     socket.once('disconnect', () => {
       /* delete from active connections */
       delete connections[socket.id];
@@ -34,6 +44,14 @@ module.exports = function sockets(server) {
       socket.disconnect();
       console.log(red(`[Board Meeting]: client ${socket.id} disconnected`));
       console.log(red(`[Board Meeting]: ${Object.keys(connections).length} sockets remaining`));
+    });
+
+    /* wild card socket listener other than join room and leave room */
+    socket.on('*', (eventName, payload) => {
+      if (eventName !== 'join' && eventName !== 'leave') {
+        /* broadcast to all clients in board namespace */
+        io.of('board').emit(eventName, payload);
+      }
     });
 
     /**
