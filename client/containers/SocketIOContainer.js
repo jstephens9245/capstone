@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import { socketConnect, socketEmit, addSocketListener, removeSocketListener } from '../actions/socketio';
+import { socketConnect, socketEmit, addSocketListener, clearSocketListeners } from '../actions/socketio';
 
 
 class SocketIOContainer extends Component {
@@ -30,9 +30,7 @@ class SocketIOContainer extends Component {
 
   componentWillUnmount() {
     this.props.socketEmit('leave', this.props.params.room);
-    this.props.removeSocketListener('connect', this.connect);
-    this.props.removeSocketListener('joined', this.joined);
-    this.props.removeSocketListener('disconnect', this.disconnect);
+    this.props.clearSocketListeners();
   }
 
   connect() {
@@ -71,7 +69,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   socketConnect       : (namespace) => { dispatch(socketConnect(namespace)); },
   addSocketListener   : (eventName, method) => { dispatch(addSocketListener(eventName, method)); },
-  removeSocketListener: (eventName, method) => { dispatch(removeSocketListener(eventName, method)); },
+  clearSocketListeners: (eventName, method) => { dispatch(clearSocketListeners()); },
   socketEmit          : (eventName, payload) => { dispatch(socketEmit(eventName, payload)); },
 });
 
