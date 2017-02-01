@@ -1,5 +1,6 @@
 .navbar {
   border-bottom: 1px solid black;
+  margin-bottom: 0;
 }
 .navbar a {
   color: black;
@@ -11,3 +12,20 @@
 .navbar-toggle {
   border-color: black
 }
+
+.navClass {
+  top: -100%;
+  transition: all 0.5s ease;
+}
+
+.navToggle {
+  top: 0;
+}
+
+@media screen
+  and (min-device-width: 768px) {
+
+    .navbarGearIcon {
+      display: none;
+    }
+  }

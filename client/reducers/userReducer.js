@@ -1,6 +1,8 @@
 import {SET_LOGIN_USER, REMOVE_LOGIN_USER} from '../constants';
 
-const initialState = { loggedInUser: {} };
+const initialState = {
+  loggedInUser: {}
+};
 
 export default function(state = initialState, action) {
   const newState = Object.assign({}, state);
