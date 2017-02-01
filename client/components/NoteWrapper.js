@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { DragSource } from 'react-dnd';
 import {NOTE} from '../constants';
 import shouldPureComponentUpdate from './shouldPureComponentUpdate';
@@ -6,7 +6,7 @@ import Note from './Note';
 
 const styles = {
 
-  padding : '0.5rem 1rem',
+
   cursor  : 'move',
   height  : 100,
   width   : 100,
@@ -27,7 +27,7 @@ const collect = (connect, monitor) => ({
   isDragging       : monitor.isDragging()
 });
 
-class NoteWrapper extends Component {
+class NoteWrapper extends PureComponent {
 
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -37,11 +37,9 @@ class NoteWrapper extends Component {
   render() {
     const { note, yellow} = this.props;
     const backgroundColor = yellow ? 'yellow' : 'white';
-    console.log('NOTEWRAPPER PROPS', this.props);
 
-    //removed color={note.color }
     return (
-      <div style={{ ...styles }}>
+      <div style={{ ...styles, backgroundColor }}>
         <Note />
       </div>
     );

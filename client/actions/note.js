@@ -20,7 +20,7 @@ export function selectNote(noteId) {
     type   : SELECT_NOTE,
     payload: {noteId}
   };
-};
+}
 
 export const moveNote = (id, left, top) => {
   return {
@@ -50,7 +50,11 @@ export function getNote(noteId) {
 export function getAllNotes({userId, boardId}) {
   return dispatch =>
     axios.get('/api/notes/', {params: {userId, boardId}})
-      .then(res => res.data)
+      .then(res => {
+        const keys = Object.keys(res.data);
+        console.log('OB KEYS', keys);
+        return res.data;
+      })
       .then(notes => dispatch(receiveNotes(notes)))
       .catch(err => console.warn(err));
 }
