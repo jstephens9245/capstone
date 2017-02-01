@@ -67,28 +67,29 @@
 
     }
 
-    boardUpdate() {
-      this.props.socketEmit('updateBoard', {
 
-      });
-    }
+    componentWillReceiveProps({board, user, note, room}) {
+      console.log('CWRP', this.props, 'BOARD', board, 'NOTE', note);
 
-    componentWillReceiveProps({board, user, note}) {
-      console.log('CWRP', this.props, 'BOARD', board);
       if (!this.props.board || isEmpty(this.props.board)) {
         return;
       } else {
-
         this.props.socketEmit('join', {
 
           room: genShortHash(board.id),
           name: user.first_name + user.last_name
         });
+      }
 
+      if (!note) {
+        return;
+      } else if (note.room === room) {
         this.props.socketEmit('updateBoard', {
           note: note
         });
+
       }
+
     }
 
     componentWillUnmount() {
