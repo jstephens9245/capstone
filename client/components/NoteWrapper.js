@@ -35,7 +35,6 @@ class NoteWrapper extends Component {
 
   render() {
     const { note, yellow} = this.props;
-    // const backgroundColor = yellow ? 'yellow' : 'white';
     let color;
     if (note) {
       color = this.props.note.color;
