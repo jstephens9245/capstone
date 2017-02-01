@@ -37,6 +37,7 @@ export default class NoteDragPreview extends Component {
 
     const { tickTock } = this.state;
 
+
     return (
       <div style={styles}>
         <NoteWrapper yellow={tickTock} />

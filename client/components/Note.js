@@ -30,7 +30,7 @@ export default class Note extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    if (nextProps.color !== this.state.color) {
+    if (nextProps.color && nextProps.color !== this.state.color) {
       this.setState({color: nextProps.color.replace(/^#*/, '#')});
 
     }

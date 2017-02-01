@@ -3,6 +3,7 @@ import { DragLayer } from 'react-dnd';
 import {NOTE} from '../constants';
 import NoteDragPreview from './NoteDragPreview';
 import snapToGrid from './snapToGrid';
+import NoteWrapper from './NoteWrapper';
 
 const layerStyles = {
   position     : 'fixed',
@@ -54,6 +55,7 @@ class CustomDragLayer extends Component {
 
 
   renderItem(type, item) {
+
     switch (type) {
     case NOTE:
       return (<NoteDragPreview note={item} />);
@@ -64,6 +66,7 @@ class CustomDragLayer extends Component {
 
   render() {
     const { item, itemType, isDragging } = this.props;
+    console.log('CUSTOM DRAG LAYER', this.props);
 
     if (!isDragging) {
       return null;
