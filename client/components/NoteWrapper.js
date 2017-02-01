@@ -1,12 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { DragSource } from 'react-dnd';
 import {NOTE} from '../constants';
-import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 import Note from './Note';
 
 const styles = {
-  border  : '1px dashed gray',
-  padding : '0.5rem 1rem',
+
+
   cursor  : 'move',
   height  : 100,
   width   : 100,
@@ -16,7 +15,6 @@ const styles = {
 
 const noteSource = {
   beginDrag(props) {
-    console.log('NS', props);
     const { id, left, top } = props;
     return { id, left, top };
   },
@@ -31,20 +29,24 @@ const collect = (connect, monitor) => ({
 class NoteWrapper extends Component {
 
 
-  // shouldComponentUpdate = shouldPureComponentUpdate;
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
 
   render() {
-    // console.log('NOTEWRAPPER PROPS', this.props);
-    const { hideSourceOnDrag, left, top, connectDragSource, isDragging, children, note} = this.props;
-    if (isDragging && hideSourceOnDrag) {
-      return null;
+    const { note, yellow} = this.props;
+    let color;
+    if (note) {
+      color = this.props.note.color;
     }
-    return connectDragSource(
-      <div style={{ ...styles, left, top }}>
-        <Note color={note.color}/>
+
+
+    return (
+      <div style={{ ...styles }}>
+        <Note color={color} />
       </div>
     );
   }
 }
 
-export default DragSource(NOTE, noteSource, collect)(NoteWrapper);
+export default NoteWrapper;

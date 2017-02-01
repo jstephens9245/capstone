@@ -1,17 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, {PureComponent} from 'react';
 import { DragSource } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import {NOTE} from '../constants';
-import Note from './Note';
+import NoteWrapper from './NoteWrapper';
 import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 
 const noteSource = {
   beginDrag(props) {
-    const { id, title, left, top } = props;
-    return { id, title, left, top };
+    const { id, left, top } = props;
+    return { id, left, top };
   },
 };
 
+//ok
 function getStyles(props) {
   const { left, top, isDragging } = props;
   const transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -27,9 +28,15 @@ function getStyles(props) {
   };
 }
 
+const collect = (connector, monitor) => {
+  return {
+    connectDragSource : connector.dragSource(),
+    connectDragPreview: connector.dragPreview(),
+    isDragging        : monitor.isDragging()
+  };
+};
 
-class DraggableNote extends Component {
-
+class DraggableNote extends PureComponent {
 
   componentDidMount() {
     // Use empty image as a drag preview so browsers don't draw it
@@ -41,23 +48,18 @@ class DraggableNote extends Component {
     });
   }
 
-  // shouldComponentUpdate = shouldPureComponentUpdate;
-
 
   render() {
-    console.log('DRAGGABLE NOTE PROPS');
-    const { title, connectDragSource } = this.props;
+    const { connectDragSource} = this.props;
+
 
     return connectDragSource(
       <div style={getStyles(this.props)}>
-        <Note title={title} />
+        <NoteWrapper note={this.props} />
       </div>
     );
   }
 }
 
-export default DragSource(NOTE, noteSource, (connect, monitor) => ({
-  connectDragSource : connect.dragSource(),
-  connectDragPreview: connect.dragPreview(),
-  isDragging        : monitor.isDragging(),
-}))(DraggableNote);
+
+export default DragSource(NOTE, noteSource, collect)(DraggableNote);
