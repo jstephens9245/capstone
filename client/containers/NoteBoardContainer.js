@@ -58,13 +58,17 @@
     constructor(props) {
       super(props);
       console.log('PROPS NBC', props);
+      this.boardUpdate = this.boardUpdate.bind(this);
     }
 
     componentWillMount() {
       this.props.socketConnect('board');
-      this.props.addSocketListener('note');
+      this.props.addSocketListener('note', this.boardUpdate);
 
+    }
 
+    boardUpdate(note) {
+      console.log(note);
     }
 
 
@@ -93,6 +97,7 @@
     }
 
     componentWillUnmount() {
+      console.log('UNMOUNTED');
       this.props.clearSocketListeners();
       this.props.socketDisconnect();
     }
