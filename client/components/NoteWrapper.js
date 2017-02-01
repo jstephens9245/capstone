@@ -29,9 +29,9 @@ const collect = (connect, monitor) => ({
 class NoteWrapper extends Component {
 
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return true;
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }
 
   render() {
     const { note, yellow} = this.props;
@@ -41,7 +41,6 @@ class NoteWrapper extends Component {
       color = this.props.note.color;
     }
 
-    console.log('NOTE WRAPPER', this.props);
 
     return (
       <div style={{ ...styles }}>
