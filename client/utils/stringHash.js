@@ -1,5 +1,5 @@
 import sh from 'shorthash';
-import { randomString } from 'ROOT/lib/utilities/random';
+import { randomString } from 'ROOT/lib/utils/random';
 
 // 6 letter alpha numeric room name generator
 export const genRoomName = () => {
