@@ -17,7 +17,7 @@ export default class Note extends Component {
     this.state = initState;
 
     if (this.props.color) {
-      this.state.color = new Color(`#${this.props.color}`).rgb();
+      this.state.color = this.setState({color: (new Color(`#${this.props.color}`).rgb())});
 
     }
 

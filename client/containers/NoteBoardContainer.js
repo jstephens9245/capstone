@@ -6,26 +6,28 @@ import {compose} from 'redux';
 import NoteWrapper from '../components/NoteWrapper';
 import DraggableNote from '../components/DraggableNote';
 import shouldPureComponentUpdate from '../components/shouldPureComponentUpdate';
-
+import snapToGrid from '../components/snapToGrid';
 import {moveNote} from '../actions/note';
 import store from '../store';
 import flow from 'lodash/flow';
 
 
 const styles = {
-  width   : 1000,
   height  : 1000,
+  width   : 1000,
   position: 'relative'
 };
 
 const noteTarget = {
   drop(props, monitor, component) {
-
     const delta = monitor.getDifferenceFromInitialOffset();
     const item = monitor.getItem();
 
-    const left = Math.round(item.left + delta.x);
-    const top = Math.round(item.top + delta.y);
+    let left = Math.round(item.left + delta.x);
+    let top = Math.round(item.top + delta.y);
+    if (props.snapToGrid) {
+      [ left, top ] = snapToGrid(left, top);
+    }
 
 
     props.moveNote(item.id, left, top);
@@ -46,17 +48,20 @@ const collect = (connector, monitor) => {
 class NoteBoardContainer extends Component {
 
 
+  renderNote(item, key) {
+    return (
+        <DraggableNote key={key} id={key} {...item} />
+    );
+  }
+
   render() {
 
-    console.log('NBC', this.props);
     const {movedNote, notes, connectDropTarget} = this.props;
 
     return connectDropTarget(
       <div style={styles}>
-        {notes.map((note) => (
-          <div key={note.id}>
-          <DraggableNote key={note.id} id={note.id} note={note} />
-          </div>
+        {Object.keys(notes).map(key => (
+        this.renderNote(notes[key], key)
         )
       )}
 
@@ -68,10 +73,8 @@ class NoteBoardContainer extends Component {
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('OWN PROPS', ownProps);
   return {
-    notes   : state.noteReducer.all,
-    location: {}
+    notes: state.noteReducer.all,
   };
 };
 
