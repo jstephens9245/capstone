@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import bindHandlers from '../utils/bindHandlers';
 import NoteContainer from '../containers/NoteContainer';
 import Color from 'color';
+import {genShortHash} from '../utils/stringHash';
 
 const initState = {
   content: '',
@@ -21,6 +22,20 @@ export default class CreateNote extends Component {
     );
   }
 
+  componentWillMount() {
+    this.props.socketConnect('board');
+
+    if ((!this.props.board || isEmpty(this.props.board)) && !this.props.location.query.board) {
+      // If no board is selected and no board ID is provided
+      // redirect to myBoards page
+      this.props.router.push('/myboards');
+    } else if (!this.props.board || isEmpty(this.props.board)) {
+      // if no board is selected but a board ID is provided
+      // select board by ID
+      this.props.getBoard(this.props.location.query.board);
+    }
+  }
+
   changeHandler(content) {
     this.setState({content});
   }
@@ -34,16 +49,19 @@ export default class CreateNote extends Component {
       .then(() => this.setState(initState));
   }
 
-  componentWillMount() {
-    if ((!this.props.board || isEmpty(this.props.board)) && !this.props.location.query.board) {
-      // If no board is selected and no board ID is provided
-      // redirect to myBoards page
-      this.props.router.push('/myboards');
-    } else if (!this.props.board || isEmpty(this.props.board)) {
-      // if no board is selected but a board ID is provided
-      // select board by ID
-      this.props.getBoard(this.props.location.query.board);
+  componentWillReceiveProps({board, user}) {
+    console.log('RECEIVING PROPS');
+    if (!isEmpty(board) && !isEmpty(user)) {
+      this.props.socketEmit('join', {
+        room: genShortHash(this.props.board.id),
+        name: user.first_name + user.last_name
+      });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearSocketListeners();
+    this.props.socketDisconnect();
   }
 
   render() {

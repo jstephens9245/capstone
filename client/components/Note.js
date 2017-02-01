@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import bindHandlers from '../utils/bindHandlers';
 import Color from 'color';
 
-
 const initState = {
   focused: false,
   color  : Color.rgb([ 257, 208, 13 ])
 };
-
 
 export default class Note extends Component {
 
@@ -18,9 +16,7 @@ export default class Note extends Component {
 
     if (this.props.color) {
       this.state.color = new Color(`#${this.props.color}`).rgb();
-
     }
-
 
     bindHandlers(this,
       this.clickHandler,
