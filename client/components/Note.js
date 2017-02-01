@@ -5,21 +5,20 @@ import Color from 'color';
 
 const initState = {
   focused: false,
-  color  : Color.rgb([ 257, 208, 13 ])
+  color  : Color.rgb([ 257, 208, 13 ]).hex()
 };
-
 
 export default class Note extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = initState;
-
-    if (this.props.color) {
-      this.state.color = new Color(`#${this.props.color}`).rgb();
-
-    }
+    
+    this.state = Object.assign({},
+      initState,
+      {
+        color: this.props.color ? this.props.color.replace(/^#*/, '#') : initState.color
+      }
+    );
 
 
     bindHandlers(this,
@@ -31,9 +30,8 @@ export default class Note extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('STATE COLOR', this.state.color);
-    if (nextProps.color) {
-      this.setState({color: Color(`#${nextProps.color}`)});
+    if (nextProps.color !== this.state.color) {
+      this.setState({color: nextProps.color.replace(/^#*/, '#')});
     }
   }
 
@@ -56,9 +54,8 @@ export default class Note extends Component {
 
 
     const noteStyle = {
-      backgroundColor: this.state.color.rgb().string(),
-      color          : Color(this.state.color.hex()).rotate(180).rgb().string(),
-
+      backgroundColor: this.state.color,
+      color          : Color(this.state.color).rgb().rotate(180).hex(),
     };
 
 
