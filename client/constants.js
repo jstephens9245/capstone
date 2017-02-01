@@ -1,6 +1,6 @@
 /* SHARED CONSTANTS */
 export const CLEAR_STORE = 'CLEAR_STORE';
-
+export const TOGGLE_CLICK = 'TOGGLE_CLICK';
 /* BOARD CONSTANTS */
 
 export const RECEIVE_BOARD = 'RECEIVE_BOARD';
