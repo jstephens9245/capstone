@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import bindHandlers from '../utils/bindHandlers';
 import Color from 'color';
 
-
 const initState = {
   focused: false,
   color  : Color.rgb([ 257, 208, 13 ]).hex()
