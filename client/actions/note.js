@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
+import {socketEmit} from './socketio';
 
 export function receiveNote(note) {
   return {
@@ -50,7 +51,9 @@ export function getNote(noteId) {
 export function getAllNotes({userId, boardId}) {
   return dispatch =>
     axios.get('/api/notes/', {params: {userId, boardId}})
-      .then(res => res.data)
+      .then(res => {
+        return res.data;
+      })
       .then(notes => dispatch(receiveNotes(notes)))
       .catch(err => console.warn(err));
 }
@@ -62,8 +65,8 @@ export function createNote(note, boardId) {
       color  : note.color,
       boardId: boardId || note.boardId
     })
-      .then(() => {
-        // TODO: dispatch to sockets
+      .then(({data}) => {
+        dispatch(socketEmit('note', data));
       })
       .catch(err => console.warn(err));
 }

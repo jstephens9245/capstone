@@ -1,53 +1,48 @@
+
 import { CONNECT, ADD_LISTENER, REMOVE_LISTENER, EMIT } from '../constants';
+import socketClient from 'socket.io-client';
+const io =  socketClient;
+import isEmpty from 'lodash/isEmpty';
 
+let socket = {};
 
-export const initiateNameSpaceConnection = (namespace) => ({
-  type: CONNECT,
-  namespace
-});
-
-export const emit = (eventName, payload) => ({
-  type: EMIT,
-  eventName,
-  payload
-});
-
-export const addListener = (eventName, method) => ({
+export const addListener = (eventName) => ({
   type: ADD_LISTENER,
-  eventName,
-  method,
+  eventName
 });
 
-export const removeListener = (eventName, method) => ({
-  type: REMOVE_LISTENER,
-  eventName,
-  method
+export const clearAllListeners = () => ({
+  type: REMOVE_LISTENER
 });
-
 
 
 export const socketConnect = (namespace) => dispatch => {
-  dispatch(initiateNameSpaceConnection(namespace));
-
+  socket = io(`http://localhost:3030/${namespace}`);
 };
 
 export const socketEmit = (eventName, payload) => dispatch => {
-  dispatch(emit(eventName, payload));
+  if (!isEmpty(socket)) {
+    socket.emit(eventName, payload);
+  }
 };
 
 export const addSocketListener = (eventName, method) => dispatch => {
-  dispatch(addListener(eventName, method));
+  if (!isEmpty(socket)) {
+    socket.on(eventName, method);
+    dispatch(addListener(eventName));
+  }
 };
 
-export const removeSocketListener = (eventName, method) => dispatch => {
-  dispatch(removeListener(eventName, method));
+export const clearSocketListeners = () => (dispatch, getState) => {
+  if (!isEmpty(socket)) {
+    const events =  getState().socket.events;
+    events.forEach(e => {
+      socket.removeListener(e);
+    });
+  }
+  dispatch(clearAllListeners());
 };
 
-
-
-
-
-
-
-
-
+export const socketDisconnect = () => (dispatch) => {
+  socket.disconnect();
+};
