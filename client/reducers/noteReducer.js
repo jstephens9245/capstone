@@ -22,12 +22,6 @@ export default function noteReducer(state = initState, action) {
     break;
 
   case MOVE_NOTE:
-
-    // const keys = Object.keys(action.notes);
-    // keys.forEach(key => {
-    //   console.log('note reducer action', key, nextState.notes[key], action.notes[key].id);
-    //   nextState.notes[key] = Object.assign({}, action.notes[key]);
-    // console.log('NOTESRed', action.notes);
     nextState.all = nextState.all.map((note) => {
       const keyId =  note.id;
       if (action.notes[keyId]) {

@@ -10,6 +10,7 @@ class BoardContainer extends Component {
 
 
   render() {
+    console.log('BOARD CONTAINER', this.props);
     return (
       <div className="col-xs-12" key={ this.props.board.id }>
         <h2 className="text-center">
@@ -26,7 +27,7 @@ class BoardContainer extends Component {
 }
 
 
-const mapStateToProps = (state) => ({board: state.board.selectedBoard});
+const mapStateToProps = (state) => ({board: state.board.selectedBoard, notes: state.noteReducer.all});
 
 const mapDispatchToProps = (dispatch) => ({});
 
