@@ -8,15 +8,16 @@ import shouldPureComponentUpdate from './shouldPureComponentUpdate';
 const noteSource = {
   beginDrag(props) {
     console.log('beginProps', props);
-    const { id, left, top } = props;
+    const { id, left, top } = props.note;
     return { id, left, top };
   },
 };
 
+//ok
 function getStyles(props) {
   console.log('GET STYLES PROPS', props);
-  const { left, top, isDragging } = props;
-  console.log('BEFORE TRANSFORM TOP LEFT', top, left);
+  const { left, top, isDragging } = props.note;
+  console.log('BEFORE TRANSFORM TOP LEFT', left, top);
   const transform = `translate3d(${left}px, ${top}px, 0)`;
   console.log('TRANSFORM GET STYLES', transform);
 
@@ -32,7 +33,7 @@ function getStyles(props) {
 }
 
 const collect = (connector, monitor) => {
-  console.log('collect', monitor.getItem());
+  console.log('collect in DRAGGABLE NOTE');
   return {
     connectDragSource : connector.dragSource(),
     connectDragPreview: connector.dragPreview(),
@@ -42,10 +43,9 @@ const collect = (connector, monitor) => {
 
 class DraggableNote extends PureComponent {
 
-
-  // shouldComponentUpdate = shouldPureComponentUpdate
+  //ok
   shouldComponentUpdate(nextProps, nextState) { return true; }
-
+  //ok
   componentDidMount() {
     console.log('did mount');
     // Use empty image as a drag preview so browsers don't draw it
@@ -59,15 +59,17 @@ class DraggableNote extends PureComponent {
 
 
   render() {
-    console.log('DRAGGABLE NOTE PROPS', this.props);
     const { connectDragSource, note} = this.props;
+    console.log('DRAGGABLE NOTE PROPS', note);
+
 
     return connectDragSource(
       <div style={getStyles(this.props)}>
-        <NoteWrapper note={note} />
+        <NoteWrapper note={this.props.note} />
       </div>
     );
   }
 }
+
 
 export default DragSource(NOTE, noteSource, collect)(DraggableNote);

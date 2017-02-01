@@ -35,14 +35,14 @@ class NoteWrapper extends Component {
   }
 
   render() {
-    console.log('NOTEWRAPPER PROPS', this.props);
     const { note, yellow} = this.props;
     const backgroundColor = yellow ? 'yellow' : 'white';
+    console.log('NOTEWRAPPER PROPS', this.props);
 
-
+    //removed color={note.color}
     return (
-      <div style={{ ...styles, backgroundColor }}>
-        <Note color={note.color}/>
+      <div style={{ ...styles }}>
+        <Note />
       </div>
     );
   }
