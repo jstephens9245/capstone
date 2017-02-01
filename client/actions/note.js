@@ -52,7 +52,6 @@ export function getAllNotes({userId, boardId}) {
     axios.get('/api/notes/', {params: {userId, boardId}})
       .then(res => {
         const keys = Object.keys(res.data);
-        console.log('OB KEYS', keys);
         return res.data;
       })
       .then(notes => dispatch(receiveNotes(notes)))
