@@ -20,7 +20,7 @@ export function selectNote(noteId) {
     type   : SELECT_NOTE,
     payload: {noteId}
   };
-};
+}
 
 export const moveNote = (id, left, top) => {
   return {
