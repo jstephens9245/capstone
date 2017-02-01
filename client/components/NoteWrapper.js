@@ -41,6 +41,8 @@ class NoteWrapper extends Component {
       color = this.props.note.color;
     }
 
+    console.log('NOTE WRAPPER', this.props);
+
     return (
       <div style={{ ...styles }}>
         <Note color={color} />

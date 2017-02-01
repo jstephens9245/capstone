@@ -36,7 +36,7 @@ export default class NoteDragPreview extends Component {
   render() {
 
     const { tickTock } = this.state;
-
+    console.log('NOTE DRAG PREVIEW', this.props);
 
     return (
       <div style={styles}>
