@@ -5,18 +5,29 @@ import CreateNote from '../components/CreateNote';
 
 import {getBoard} from '../actions/board';
 import {createNote} from '../actions/note';
+import {
+  socketConnect,
+  socketEmit,
+  clearSocketListeners,
+  socketDisconnect
+} from '../actions/socketio';
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNote);
 
 function mapStateToProps(state) {
   return {
-    board: state.board.selectedBoard
+    board: state.board.selectedBoard,
+    user : state.userReducer.loggedInUser
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    createNote: bindActionCreators(createNote, dispatch),
-    getBoard  : bindActionCreators(getBoard, dispatch)
-  };
+  return bindActionCreators({
+    createNote,
+    getBoard,
+    socketConnect,
+    socketEmit,
+    clearSocketListeners,
+    socketDisconnect
+  }, dispatch);
 }

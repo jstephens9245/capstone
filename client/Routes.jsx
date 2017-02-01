@@ -14,12 +14,17 @@ import ParticipantsContainer from './containers/ParticipantsContainer';
 import {getBoard, getAllBoards} from './actions/board';
 // import {getNotes} from './actions/noteboard';
 import {getAllNotes} from './actions/note';
+import {checkLoginStatus} from './actions/user';
 
 //components
 import Index from './components/Index';
 
 
 //onEnters
+function indexEnter() {
+  store.dispatch(checkLoginStatus());
+}
+
 function onBoardEnter(nextRouterState) {
   const boardId = nextRouterState.params.boardId;
   store.dispatch(getBoard(boardId));
@@ -33,7 +38,7 @@ function onMyBoardEnter(nextRouterState) {
 export default function Routes() {
   return (
     <Router history={browserHistory}>
-      <Route path="/" component={Index}>
+      <Route path="/" component={Index} onEnter={indexEnter}>
        <Route path='/boards/:boardId' component={BoardContainer} onEnter={onBoardEnter} />
        <Route path="/signup" component={SignupContainer} />
        <Route path="/myboards" component={CreateBoardContainer} onEnter={onMyBoardEnter} />
