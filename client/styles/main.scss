@@ -20,6 +20,7 @@
  * Reusable layout patterns
  * class prefix: `o-`
  */
+ @import 'objects/aspect-ratio';
 
 /** Components
  * Patterns with a visual design
@@ -32,6 +33,7 @@
 @import 'components/signup';
 @import 'components/note';
 @import 'components/sidebar';
+@import 'components/color-picker';
 @import 'components/participants';
 
 /** Controls
