@@ -46,16 +46,6 @@ const collect = (connector, monitor) => {
 class NoteBoardContainer extends Component {
 
 
-  // renderNote(note) {
-  //   // console.log('RENDER NOTE', note.left);
-  //   (
-  //     <div>
-  //      <DraggableNote key={note.id} id={note.id} note={note} />
-  //      </div>
-  //   );
-  // }
-
-
   render() {
 
     console.log('NBC', this.props);
