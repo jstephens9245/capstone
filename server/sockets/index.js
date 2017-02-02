@@ -48,6 +48,7 @@ module.exports = function sockets(server) {
 
     /* wild card socket listener other than join room and leave room */
     socket.on('*', (eventName, payload) => {
+      console.log('SOCKET ON WILDCARD', eventName, payload);
       if (eventName !== 'join' && eventName !== 'leave') {
         /* broadcast to all clients in board namespace */
         io.of('board').emit(eventName, payload);
@@ -90,7 +91,6 @@ module.exports = function sockets(server) {
   /************************** main board meeting namespace END **************************/
 
 
-
   /********************************* util function **************************************/
 
   function addParticipant(id, name, room) {
@@ -125,10 +125,3 @@ module.exports = function sockets(server) {
 
   return io;
 };
-
-
-
-
-
-
-

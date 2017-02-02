@@ -31,6 +31,9 @@ export default function noteReducer(state = initState, action) {
       }
     });
 
+  // case ADD_NOTES_TO_BOARD:
+
+
     break;
 
 
