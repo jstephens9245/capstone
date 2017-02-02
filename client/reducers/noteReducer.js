@@ -1,8 +1,9 @@
 import {SET_NOTE_COORDS, ADD_NOTE_TO_BOARD, RECEIVE_NOTE, RECEIVE_NOTES, SELECT_NOTE, MOVE_NOTE } from '../constants';
 
 const initState = {
-  all     : [],
-  selected: null,
+  all                  : [],
+  selected             : null,
+  allBoardSpecificNotes: {}
 
 };
 
@@ -13,6 +14,7 @@ export default function noteReducer(state = initState, action) {
   case RECEIVE_NOTE:
     nextState.all = [ ...nextState.all, action.payload ];
     break;
+
   case RECEIVE_NOTES:
     nextState.all = action.payload;
     break;
