@@ -51,7 +51,6 @@ module.exports = function sockets(server) {
 
     /* wild card socket listener other than join room and leave room */
     socket.on('*', (eventName, payload) => {
-      console.log('SOCKET ON WILDCARD', eventName, payload);
       if (eventName !== 'join' && eventName !== 'leave') {
         /* broadcast to all clients in board namespace */
         io.of('board').emit(eventName, payload);
@@ -73,7 +72,6 @@ module.exports = function sockets(server) {
       console.log(blue(`[Board Meeting] - Room<${room}> - No. of Partcipants: ${getTotalParticipantsInRoom(room)}`));
       /* broadcast to all room participants including sender */
       io.of('board').in(room).emit('joined', { participants: boardMeeting[room], totalParticipants: getTotalParticipantsInRoom(room)});
-      console.log(`BROADCAST TOTAL PARTICIPANTS FOR ${room}, ${getTotalParticipantsInRoom(room)}`);
     });
 
      /**
