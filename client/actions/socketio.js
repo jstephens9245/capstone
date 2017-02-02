@@ -19,7 +19,7 @@ export const clearAllListeners = () => ({
 
 
 export const socketConnect = (namespace) => dispatch => {
-  socket = io(`http://localhost:3030/${namespace}`);
+  socket = io(`http://172.28.116.94:3030/${namespace}`);
 };
 
 export const socketEmit = (eventName, payload) => dispatch => {
