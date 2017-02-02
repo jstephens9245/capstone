@@ -17,7 +17,9 @@ export const clearAllListeners = () => ({
   type: REMOVE_LISTENER
 });
 
+
 //need to change to ip address where board resides
+
 export const socketConnect = (namespace) => dispatch => {
   socket = io(`http://172.28.116.94:3030/${namespace}`);
 };
