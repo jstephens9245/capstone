@@ -16,9 +16,7 @@ export default function(state = initialState, action) {
     newState.allBoards = action.boards;
     newState.permissions = action.permissions;
     break;
-  case RECEIVE_BOARD_NOTES:
-    newState.selectedBoardNotes = action.notes;
-    break;
+
   case ADD_NEW_BOARD:
     newState.allBoards = [ ...newState.allBoards, action.board ];
     break;

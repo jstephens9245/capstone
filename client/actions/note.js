@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
+import {ADD_NOTES_TO_BOARD, RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
+import {socketEmit} from './socketio';
 
 export function receiveNote(note) {
   return {
@@ -20,7 +21,7 @@ export function selectNote(noteId) {
     type   : SELECT_NOTE,
     payload: {noteId}
   };
-};
+}
 
 export const moveNote = (id, left, top) => {
   return {
@@ -29,8 +30,17 @@ export const moveNote = (id, left, top) => {
       [id]: {left, top}
     }
   };
-
 };
+
+export const addNotesToBoard = (id) => {
+  return {
+    type    : ADD_NOTES_TO_BOARD,
+    newNotes: {
+      [id]: {left: 1000, top: 1000}
+    }
+  };
+};
+
 
 export function getNote(noteId) {
   return (dispatch) =>
@@ -50,7 +60,9 @@ export function getNote(noteId) {
 export function getAllNotes({userId, boardId}) {
   return dispatch =>
     axios.get('/api/notes/', {params: {userId, boardId}})
-      .then(res => res.data)
+      .then(res => {
+        return res.data;
+      })
       .then(notes => dispatch(receiveNotes(notes)))
       .catch(err => console.warn(err));
 }
@@ -62,8 +74,8 @@ export function createNote(note, boardId) {
       color  : note.color,
       boardId: boardId || note.boardId
     })
-      .then(() => {
-        // TODO: dispatch to sockets
+      .then(({data}) => {
+        dispatch(socketEmit('note', data));
       })
       .catch(err => console.warn(err));
 }

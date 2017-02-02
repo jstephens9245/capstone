@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import store from '../store';
 import {connect} from 'react-redux';
-import Board from '../components/Board';
 import io from 'socket.io-client';
-import {getBoardNotes} from '../actions/board';
+import CustomDragLayerContainer from './CustomDragLayerContainer';
 
-// const socket = io('', { path: '/api/board/1' });
 
 class BoardContainer extends Component {
 
@@ -14,13 +12,21 @@ class BoardContainer extends Component {
 
     const boardId = board.id;
 
-    // dispatch(getBoardNotes(boardId));
 
   }
 
   render() {
     return (
-      <Board {...this.props} />
+      <div className="col-xs-12" key={ this.props.board.id }>
+        <h2 className="text-center">
+          <span>{ this.props.board.name }</span>
+        </h2>
+          <div>
+            <div className="screen col-xs-12">
+              <CustomDragLayerContainer {...this.props}/>
+            </div>
+          </div>
+      </div>
     );
   }
 }
