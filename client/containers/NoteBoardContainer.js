@@ -7,7 +7,7 @@
   import NoteWrapper from '../components/NoteWrapper';
   import DraggableNote from '../components/DraggableNote';
   import snapToGrid from '../components/snapToGrid';
-  import {moveNote, addNoteToBoard} from '../actions/note';
+  import {moveNote, addNoteToBoard, noteMover} from '../actions/note';
   import {setLoginUser} from '../actions/user';
   import {
     socketConnect,
@@ -46,7 +46,7 @@
         [ left, top ] = snapToGrid(left, top);
       }
 
-      props.moveNote(item.id, left, top);
+      props.noteMover(item.id, left, top);
 
 
     },
@@ -65,6 +65,7 @@
     constructor(props) {
       super(props);
       this.boardUpdate = this.boardUpdate.bind(this);
+      this.participantMoveNote = this.participantMoveNote.bind(this);
     }
 
     componentWillMount() {
@@ -72,7 +73,7 @@
 
 
       this.props.addSocketListener('note', this.boardUpdate);
-
+      this.props.addSocketListener('moveNote', this.participantMoveNote);
     }
 
     boardUpdate(note) {
@@ -81,6 +82,26 @@
       if (note.board_id === this.props.board.id) {
         store.dispatch(addNoteToBoard(note));
       }
+    }
+
+    participantMoveNote(data) {
+      console.log('PARTIC MOVE NOTE', data);
+      const key = Object.keys(data);
+      let left;
+      let top;
+      const coordObj = data[key];
+      for (const coords in coordObj) {
+        if (coords === 'left') {
+
+          console.log(coords);
+          left = coordObj[coords];
+        } else {
+          top = coordObj[coords];
+        }
+      }
+      console.log('KEY', Number(key[0]), left, top);
+
+      store.dispatch(moveNote(Number(key[0]), left, top));
     }
 
 
@@ -96,14 +117,6 @@
         });
       }
 
-      if (!note) {
-        return;
-      } else if (note.room === room) {
-        this.props.socketEmit('updateBoard', {
-          note: note
-        });
-
-      }
 
     }
 
@@ -145,7 +158,7 @@
   };
 
   const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({moveNote, socketConnect, socketEmit, clearSocketListeners, socketDisconnect, addSocketListener, addNoteToBoard}, dispatch);
+    return bindActionCreators({noteMover, socketConnect, socketEmit, clearSocketListeners, socketDisconnect, addSocketListener, addNoteToBoard}, dispatch);
   };
 
   export default flow(DropTarget(NOTE, noteTarget, collect
