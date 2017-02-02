@@ -20,13 +20,13 @@ class CustomDragLayerContainer extends Component {
 
   render() {
     const { snapToGridAfterDrop, snapToGridWhileDragging } = this.state;
-
+    const {board} = this.props;
 
     return (
       <div>
 
 
-        <NoteBoardContainer snapToGrid={snapToGridAfterDrop} />
+        <NoteBoardContainer snapToGrid={snapToGridAfterDrop} board={board}/>
         <CustomDragLayer snapToGrid={snapToGridWhileDragging} />
         <div>
         <p>

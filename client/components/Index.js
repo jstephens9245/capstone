@@ -1,5 +1,5 @@
 import React from 'react';
-import HTML5Backend from 'react-dnd-html5-backend';
+import {default as TouchBackend} from 'react-dnd-touch-backend';
 import { DragDropContext } from 'react-dnd';
 import SidebarContainer from '../containers/SidebarContainer';
 
@@ -10,8 +10,8 @@ const Index = (props) => {
   return (
     <div>
       <NavbarContainer />
-      {/* <SidebarContainer /> */}
-      <div>
+      <div >
+        {/*<SidebarContainer />*/}
         {
           props.children && React.cloneElement(props.children, props)
         }
@@ -21,4 +21,4 @@ const Index = (props) => {
   );
 };
 
-export default DragDropContext(HTML5Backend)(Index);
+export default DragDropContext(TouchBackend({enableMouseEvents: true}))(Index);
