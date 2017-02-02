@@ -74,7 +74,6 @@
     }
 
     boardUpdate(note) {
-      console.log('IN BOARD UPTDATE', note);
       store.dispatch(addNoteToBoard(note));
 
     }
