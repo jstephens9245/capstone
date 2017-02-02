@@ -43,7 +43,7 @@ function getItemStyles(props) {
 
 const collect = (monitor) => {
   return {
-    item         : monitor.getItem(), /* fixed bug*/
+    item         : monitor.getItem(),
     itemType     : monitor.getItemType(),
     initialOffset: monitor.getInitialSourceClientOffset(),
     currentOffset: monitor.getSourceClientOffset(),
