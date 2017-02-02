@@ -1,15 +1,9 @@
 import React from 'react';
 import chai, { expect } from 'chai';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { spy } from 'sinon';
 
-import { socketEmit, socketConnect, addSocketListener, clearSocketListeners } from '../../actions/socketio';
-import store from '../../store';
-
-// import { ParticipantsContainer } from '../../containers/ParticipantsContainer';
-
-// jest.mock('../../containers/ParticipantsContainer');
 import { ParticipantsContainer } from '../../containers/ParticipantsContainer';
 
 chai.use(chaiEnzyme());
@@ -18,35 +12,37 @@ const user = {id: 1, first_name: 'Alvin', last_name: 'Yuen'};
 const params = {room: 'ABCD'};
 
 describe ('<ParticipantsContainer /> ', () => {
+
   let participantsContainerWrapper;
-  let socketEmitSpy, socketConnectSpy, addSocketListenerSpy, clearSocketListenerSpy;
+  let socketEmit, socketConnect, addSocketListener, clearSocketListener;
+
   beforeEach(() => {
-    socketEmitSpy = spy();
-    socketConnectSpy = spy();
-    addSocketListenerSpy = spy();
-    const addSocketListener = (eventName, addSocketListenerSpy) => {};
-    clearSocketListenerSpy = spy();
+    socketEmit = spy();
+    socketConnect = spy();
+    addSocketListener = spy();
+    clearSocketListener = spy();
+    const props = {
+      socketEmit,
+      socketConnect,
+      addSocketListener,
+      clearSocketListener,
+      params
+    };
 
     participantsContainerWrapper = shallow(<ParticipantsContainer loggedInUser={user}
-    socketEmit={socketEmitSpy}
-    socketConnect={socketConnectSpy}
-    addSocketListener={addSocketListener}
-    clearSocketListeners={clearSocketListenerSpy}
-    params={params} />);
+    {...props} />);
+
   });
 
-  it('<ParticipantContainer /> should exist', () => {
-    console.log('TESTING SPY', addSocketListener);
-    addSocketListenerSpy.withArgs({name: 'Alvin'}, 1);
-    // expect(addSocketListenerSpy.called).to.be.true;
-    // participantsContainerWrapper.setState({ totalParticipants: 1});
-    // expect(participantsContainerWrapper).to.have.state('totalParticipants', 1);
-    // expect(participantsContainerWrapper.find('.participant')).to.not.exist;
+  it('<ParticipantContainer /> socket listeners to have been called', () => {
+    expect(addSocketListener.called).to.be.true;
+    expect(socketEmit.calledOnce).to.be.true;
+    expect(socketConnect.calledOnce).to.be.true;
   });
 
-  // it('<ParticipantsContainer /> should have exactly 2 users', () => {
-  //   participantsContainerWrapper.setState({ participants: [ 'Alvin', 'Hal' ]});
-  //   participantsContainerWrapper.setState({ totalParticipants: 2 });
-  //   expect(participantsContainerWrapper).to.have.exactly(2).descendants('participant');
-  // });
+  it('<ParticipantsContainer /> should show participants according to state', () => {
+    participantsContainerWrapper.setState({ participants: [ {id: 1, name: 'Alvin'}, {id: 2, name: 'Hal'} ]});
+    participantsContainerWrapper.setState({ totalParticipants: 2 });
+    expect(participantsContainerWrapper).to.have.exactly(2).descendants('.participant-item');
+  });
 });

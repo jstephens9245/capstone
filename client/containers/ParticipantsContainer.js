@@ -4,6 +4,8 @@ import { browserHistory } from 'react-router';
 
 import { socketConnect, socketEmit, addSocketListener, clearSocketListeners } from '../actions/socketio';
 
+import Participants from '../components/Participants';
+
 export class ParticipantsContainer extends Component {
 
   constructor(props) {
@@ -43,7 +45,6 @@ export class ParticipantsContainer extends Component {
   }
 
   joined({participants, totalParticipants}) {
-    console.log('JOINED RESPONSE');
     this.setState({ participants });
     this.setState({ totalParticipants});
   }
