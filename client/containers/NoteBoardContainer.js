@@ -69,14 +69,18 @@
 
     componentWillMount() {
       this.props.socketConnect('board');
+
+
       this.props.addSocketListener('note', this.boardUpdate);
 
     }
 
     boardUpdate(note) {
       console.log('RECEIVED NOTE', note);
-      store.dispatch(addNoteToBoard(note));
-
+      console.log('BOARD ID', this.props.board.id);
+      if (note.board_id === this.props.board.id) {
+        store.dispatch(addNoteToBoard(note));
+      }
     }
 
 
