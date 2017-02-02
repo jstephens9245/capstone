@@ -39,6 +39,10 @@ export const logoutUser = () => dispatch => {
 /* check login state by calling server and checking user sessions */
 export const checkLoginStatus = () => dispatch => {
   axios.get('/api/auth/')
+  .then(res => {
+    console.log('status', res);
+    return res;
+  })
   .then(res => dispatch(setLoginUser(res.data)))
   .catch(err => console.error(err));
 };
