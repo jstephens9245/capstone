@@ -21,7 +21,6 @@
   import isEmpty from 'lodash/isEmpty';
   import {genShortHash} from '../utils/stringHash';
 
-
   const styles = {
     height  : 1000,
     width   : 1000,
@@ -85,22 +84,17 @@
     }
 
     participantMoveNote(data) {
-      console.log('PARTIC MOVE NOTE', data);
       const key = Object.keys(data);
       let left;
       let top;
       const coordObj = data[key];
       for (const coords in coordObj) {
         if (coords === 'left') {
-
-          console.log(coords);
           left = coordObj[coords];
         } else {
           top = coordObj[coords];
         }
       }
-      console.log('KEY', Number(key[0]), left, top);
-
       store.dispatch(moveNote(Number(key[0]), left, top));
     }
 
