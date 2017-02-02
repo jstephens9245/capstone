@@ -15,9 +15,8 @@ const Index = (props) => {
         {
           props.children && React.cloneElement(props.children, props)
         }
-
-      </div>
     </div>
+  </div>
 
   );
 };
