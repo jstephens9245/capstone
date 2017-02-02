@@ -5,6 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { spy } from 'sinon';
 
 import { ParticipantsContainer } from '../../containers/ParticipantsContainer';
+import Participants from '../../components/Participants';
 
 chai.use(chaiEnzyme());
 
@@ -43,6 +44,14 @@ describe ('<ParticipantsContainer /> ', () => {
   it('<ParticipantsContainer /> should show participants according to state', () => {
     participantsContainerWrapper.setState({ participants: [ {id: 1, name: 'Alvin'}, {id: 2, name: 'Hal'} ]});
     participantsContainerWrapper.setState({ totalParticipants: 2 });
-    expect(participantsContainerWrapper).to.have.exactly(2).descendants('.participant-item');
+    expect(participantsContainerWrapper.find(Participants).prop('participants')).to.exist;
+    expect(participantsContainerWrapper.find(Participants).prop('participants'))
+      .to.deep.equal([
+        {id: 1, name: 'Alvin'},
+        {id: 2, name: 'Hal'}
+      ]);
+    expect(participantsContainerWrapper.find(Participants).prop('totalParticipants')).to.exist;
+    expect(participantsContainerWrapper.find(Participants).prop('totalParticipants'))
+      .to.equal(2);
   });
 });

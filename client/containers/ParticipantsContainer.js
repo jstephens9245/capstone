@@ -51,25 +51,10 @@ export class ParticipantsContainer extends Component {
 
   render() {
     return (
-      <div className="participants-container">
-          <div className="participant-number-container">
-            <span className="participant-number">
-              <i className="glyphicon glyphicon-globe"></i>{this.state.totalParticipants} Users Online
-            </span>
-          </div>
-          <div className="participant-list-container">
-            <ul className="participant-list">
-              {this.state.participants.map(participant => {
-                return <li className="participant-item" key={participant.id}>
-                          <div className="participant">
-                          <i className="glyphicon glyphicon-user"></i>
-                            {participant.name}
-                          </div>
-                        </li>;
-              })}
-            </ul>
-          </div>
-      </div>
+      <Participants
+        className="participants-wrapper"
+        totalParticipants={this.state.totalParticipants}
+        participants={this.state.participants} />
     );
   }
 
