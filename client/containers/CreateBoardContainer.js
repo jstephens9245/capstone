@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import CreateBoard from '../components/CreateBoard';
 import {createBoard} from '../actions/board';
+import {getAllNotes} from '../actions/note';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -17,6 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     create: (boardName) => {
       dispatch(createBoard(boardName));
+    },
+    onBoardEnter: function() {
+      dispatch(getAllNotes({}));
     }
   };
 };
@@ -29,6 +33,11 @@ class CB extends Component {
     };
 
     this.filterChange = this.filterChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.onBoardEnter();
+
   }
 
   filterChange(filterValue) {
