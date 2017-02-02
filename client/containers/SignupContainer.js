@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {createUser, loginUser, checkLoginStatus} from '../actions/user';
 import Signup from '../components/Signup';
 import Login from '../components/Login';
-
+import isEmpty from 'lodash/isEmpty';
 
 export class SignupContainer extends Component {
   constructor(props) {
@@ -25,6 +25,12 @@ export class SignupContainer extends Component {
 
   componentDidMount() {
     this.props.checkLoginStatus();
+  }
+
+  componentWillReceiveProps(props, nextProps) {
+    if (!isEmpty(props.loggedInUser)) {
+      this.props.router.push('/');
+    }
   }
 
   submitForm(e) {
@@ -63,7 +69,9 @@ export class SignupContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  loggedInUser: state.userReducer.loggedInUser
+});
 
 const mapDispatchToProps = (dispatch) => ({
   createUser: (firstName, lastName, email, password) =>

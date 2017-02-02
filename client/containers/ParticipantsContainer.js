@@ -4,7 +4,9 @@ import { browserHistory } from 'react-router';
 
 import { socketConnect, socketEmit, addSocketListener, clearSocketListeners } from '../actions/socketio';
 
-class ParticipantsContainer extends Component {
+import Participants from '../components/Participants';
+
+export class ParticipantsContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -20,7 +22,6 @@ class ParticipantsContainer extends Component {
 
   componentWillMount() {
     if (!Object.keys(this.props.loggedInUser).length) {
-      console.log('hitting this will mount');
       browserHistory.push('/signup');
     }
     this.props.socketConnect('board');
@@ -50,25 +51,10 @@ class ParticipantsContainer extends Component {
 
   render() {
     return (
-      <div className="participants-container">
-          <div className="participant-number-container">
-            <span className="participant-number">
-              <i className="glyphicon glyphicon-globe"></i>{this.state.totalParticipants} Users Online
-            </span>
-          </div>
-          <div className="participant-list-container">
-            <ul className="participant-list">
-              {this.state.participants.map(participant => {
-                return <li className="participant-item" key={participant.id}>
-                          <div className="participant">
-                          <i className="glyphicon glyphicon-user"></i>
-                            {participant.name}
-                          </div>
-                        </li>;
-              })}
-            </ul>
-          </div>
-      </div>
+      <Participants
+        className="participants-wrapper"
+        totalParticipants={this.state.totalParticipants}
+        participants={this.state.participants} />
     );
   }
 
