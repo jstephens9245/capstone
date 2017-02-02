@@ -63,6 +63,20 @@ export function getNote(noteId) {
     .catch(err => console.warn(err));
 }
 
+export const noteMover = (id, left, top) => {
+  const data = {[id]: {left, top}};
+
+  return dispatch => {
+
+    dispatch(moveNote(id, left, top));
+
+
+    dispatch(socketEmit('moveNote', data));
+
+  };
+};
+
+
 export function getAllNotes({userId, boardId}) {
   return dispatch =>
     axios.get('/api/notes/', {params: {userId, boardId}})
