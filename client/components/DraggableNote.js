@@ -50,7 +50,6 @@ class DraggableNote extends PureComponent {
 
   render() {
     const { connectDragSource} = this.props;
-    console.log('DN', this.props);
 
 
     return connectDragSource(

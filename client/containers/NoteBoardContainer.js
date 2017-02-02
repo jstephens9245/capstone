@@ -7,7 +7,7 @@
   import NoteWrapper from '../components/NoteWrapper';
   import DraggableNote from '../components/DraggableNote';
   import snapToGrid from '../components/snapToGrid';
-  import {moveNote} from '../actions/note';
+  import {moveNote, addNoteToBoard} from '../actions/note';
   import {setLoginUser} from '../actions/user';
   import {
     socketConnect,
@@ -26,6 +26,13 @@
     height  : 1000,
     width   : 1000,
     position: 'relative'
+  };
+
+  const queStyles = {
+    height  : 100,
+    width   : 1000,
+    color   : '#FD543D',
+    position: 'relative',
   };
 
   const noteTarget = {
@@ -57,7 +64,6 @@
   class NoteBoardContainer extends Component {
     constructor(props) {
       super(props);
-      console.log('PROPS NBC', props);
       this.boardUpdate = this.boardUpdate.bind(this);
     }
 
@@ -68,12 +74,13 @@
     }
 
     boardUpdate(note) {
-      console.log(note);
+      console.log('RECEIVED NOTE', note);
+      store.dispatch(addNoteToBoard(note));
+
     }
 
 
     componentWillReceiveProps({board, user, note, room}) {
-      console.log('CWRP', this.props, 'BOARD', board, 'NOTE', note);
 
       if (!this.props.board || isEmpty(this.props.board)) {
         return;
@@ -112,15 +119,16 @@
 
     render() {
       const {movedNote, notes, connectDropTarget} = this.props;
-      console.log('NoteBoardContainer', this.props);
 
       return connectDropTarget(
+
       <div style={styles}>
+        <div style={queStyles}>
         {notes.map(note => {
           return this.renderNote(note, note.id);
         }
       )}
-
+        </div>
       </div>
     );
     }
@@ -133,7 +141,7 @@
   };
 
   const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({moveNote, socketConnect, socketEmit, clearSocketListeners, socketDisconnect, addSocketListener}, dispatch);
+    return bindActionCreators({moveNote, socketConnect, socketEmit, clearSocketListeners, socketDisconnect, addSocketListener, addNoteToBoard}, dispatch);
   };
 
   export default flow(DropTarget(NOTE, noteTarget, collect

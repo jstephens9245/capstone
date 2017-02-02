@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
     .then(([ boards, permissions ]) => {
       res.json({boards, permissions});
     })
-    .catch((err) => console.log(err));
+    .catch(next);
 });
 
 
@@ -39,7 +39,7 @@ router.get('/:boardId', (req, res, next) => {
     .then((board) => {
       res.json(board);
     })
-    .catch((err) => console.log(err));
+    .catch(next);
 });
 
 router.post('/', (req, res, next) => {
@@ -49,7 +49,7 @@ router.post('/', (req, res, next) => {
       name: boardInfo
     })
     .then(board => {
-      return Promise.all([ board, board.addUser(req.user) ]);
+      return Promise.all([ board, board.addUser(req.user.id) ]);
     })
     .then(([ board, permission ]) => {
       return Promise.all([
@@ -65,7 +65,7 @@ router.post('/', (req, res, next) => {
           })
       ]);
     })
-    .then(([ board ]) => {
+    .then(([ board, permissions ]) => {
       res.json(board);
     })
     .catch(next);
@@ -79,25 +79,25 @@ router.put('/:id', (req, res, next) => {
 
   Board.update(changes, {
     where: {
-      id: req.params.id
+      id: Number(req.params.id)
     }
   })
-    .then(board => res.sendStatus(200))
+    .then(board => res.json(board))
     .catch(next);
 });
 
 router.delete('/:id', (req, res, next) => {
   Board.destroy({
     where: {
-      id: req.params.id
+      id: Number(req.params.id)
     }
   })
-    .then(() => res.sendStatus(200))
+    .then((result) => res.json(result))
     .catch(next);
 });
 
-router.use((req, res, next, err) => {
-  console.log('Error in server/routes/api/board.js');
+router.use((err, req, res, next) => {
+  console.log('Error in server/routes/api/board.js', err);
   next(err);
 });
 
