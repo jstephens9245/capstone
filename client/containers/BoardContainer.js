@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
 import store from '../store';
 import {connect} from 'react-redux';
-import NoteBoardContainer from './NoteBoardContainer';
-import {getBoardNotes} from '../actions/board';
+import io from 'socket.io-client';
 import CustomDragLayerContainer from './CustomDragLayerContainer';
 
 
 class BoardContainer extends Component {
 
+  componentDidMount() {
+    const { dispatch, board} = this.props;
+
+    const boardId = board.id;
+
+
+  }
 
   render() {
     return (
