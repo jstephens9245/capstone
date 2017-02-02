@@ -3,16 +3,6 @@ import { DragSource } from 'react-dnd';
 import {NOTE} from '../constants';
 import Note from './Note';
 
-const styles = {
-
-
-  cursor  : 'move',
-  height  : 100,
-  width   : 100,
-  position: 'absolute'
-};
-
-
 const noteSource = {
   beginDrag(props) {
     const { id, left, top } = props;
@@ -39,7 +29,14 @@ class NoteWrapper extends Component {
     if (note) {
       color = this.props.note.color;
     }
-
+    const styles = {
+      cursor  : 'move',
+      height  : this.props.height || 100,
+      width   : this.props.width || 100,
+      left    : this.props.left || 0,
+      top     : this.props.top || 0,
+      position: 'absolute'
+    };
 
     return (
       <div style={{ ...styles }}>

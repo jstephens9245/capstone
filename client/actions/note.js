@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ADD_NOTES_TO_BOARD, RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
+import {SET_NOTE_COORDS, ADD_NOTE_TO_BOARD, RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
 import {socketEmit} from './socketio';
 
 export function receiveNote(note) {
@@ -32,12 +32,18 @@ export const moveNote = (id, left, top) => {
   };
 };
 
-export const addNotesToBoard = (id) => {
+export const addNoteToBoard = (note) => {
   return {
-    type    : ADD_NOTES_TO_BOARD,
-    newNotes: {
-      [id]: {left: 1000, top: 1000}
-    }
+    type   : ADD_NOTE_TO_BOARD,
+    newNote: note
+  };
+};
+
+
+export const setNoteCoords = (note) => {
+  return {
+    type: ADD_NOTE_TO_BOARD,
+    note: note
   };
 };
 
@@ -75,6 +81,7 @@ export function createNote(note, boardId) {
       boardId: boardId || note.boardId
     })
       .then(({data}) => {
+        console.log('DISPATCH SOCKET', data);
         dispatch(socketEmit('note', data));
       })
       .catch(err => console.warn(err));
