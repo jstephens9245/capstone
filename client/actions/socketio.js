@@ -17,7 +17,7 @@ export const clearAllListeners = () => ({
   type: REMOVE_LISTENER
 });
 
-
+//ip address needs to be that of the computer hosting the board
 export const socketConnect = (namespace) => dispatch => {
   socket = io(`http://172.28.116.94:3030/${namespace}`);
 };
