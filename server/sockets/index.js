@@ -19,6 +19,8 @@ module.exports = function sockets(server) {
   });
 
 
+
+
   /************************** main board meeting namespace ***************************/
 
   io.of('board').on('connection', (socket) => {
@@ -46,9 +48,9 @@ module.exports = function sockets(server) {
       console.log(red(`[Board Meeting]: ${Object.keys(connections).length} sockets remaining`));
     });
 
+
     /* wild card socket listener other than join room and leave room */
     socket.on('*', (eventName, payload) => {
-      console.log('SOCKET ON WILDCARD', eventName, payload);
       if (eventName !== 'join' && eventName !== 'leave') {
         /* broadcast to all clients in board namespace */
         io.of('board').emit(eventName, payload);
@@ -85,6 +87,7 @@ module.exports = function sockets(server) {
       socket.disconnect();
       io.of('board').in(room).emit('joined', { participants: boardMeeting[room], totalParticipants: getTotalParticipantsInRoom(room)});
     });
+
 
   });
 
