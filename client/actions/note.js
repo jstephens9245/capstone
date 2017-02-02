@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
+import {SET_NOTE_COORDS, ADD_NOTE_TO_BOARD, RECEIVE_NOTES, RECEIVE_NOTE, SELECT_NOTE, MOVE_NOTE} from '../constants';
 import {socketEmit} from './socketio';
 
 export function receiveNote(note) {
@@ -30,8 +30,23 @@ export const moveNote = (id, left, top) => {
       [id]: {left, top}
     }
   };
-
 };
+
+export const addNoteToBoard = (note) => {
+  return {
+    type   : ADD_NOTE_TO_BOARD,
+    newNote: note
+  };
+};
+
+
+export const setNoteCoords = (note) => {
+  return {
+    type: ADD_NOTE_TO_BOARD,
+    note: note
+  };
+};
+
 
 export function getNote(noteId) {
   return (dispatch) =>
